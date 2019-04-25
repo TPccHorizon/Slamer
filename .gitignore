@@ -28,3 +28,4 @@ hs_err_pid*
 **/.idea/modules.xml
 **/.idea/libraries
 **/.idea/usage.statistics.xml
+**/.idea/dataSources.xml
