@@ -27,3 +27,6 @@ HELP.md
 
 ### VS Code ###
 .vscode/
+
+### generated classes
+/src/main/java/src/main/java/generated/generated
