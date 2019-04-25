@@ -49,12 +49,26 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>../frontend/dist/</directory>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>ch.uzh.slamer.SlamerApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
+
 
 </project>
