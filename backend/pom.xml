@@ -26,9 +26,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
+            <version>3.6.3</version>
         </dependency>
 
         <dependency>
@@ -67,6 +69,7 @@
                     <mainClass>ch.uzh.slamer.SlamerApplication</mainClass>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
