@@ -51,11 +51,11 @@
             <artifactId>jooq-meta</artifactId>
             <version>3.11.11</version>
         </dependency>
-        <dependency>
-            <groupId>org.jooq</groupId>
-            <artifactId>jooq-codegen</artifactId>
-            <version>3.11.11</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.jooq</groupId>-->
+            <!--<artifactId>jooq-codegen</artifactId>-->
+            <!--<version>3.11.11</version>-->
+        <!--</dependency>-->
 
         <!-- Use Liquibase -->
         <dependency>
@@ -110,49 +110,49 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <groupId>org.jooq</groupId>
-                <artifactId>jooq-codegen-maven</artifactId>
-                <version>3.11.11</version>
+            <!--<plugin>-->
+                <!--<groupId>org.jooq</groupId>-->
+                <!--<artifactId>jooq-codegen-maven</artifactId>-->
+                <!--<version>3.11.11</version>-->
 
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<goals>-->
+                            <!--<goal>generate</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
 
-                <configuration>
-                    <jdbc>
-                        <driver>org.postgresql.Driver</driver>
-                        <url>jdbc:postgresql://localhost:5432/sla_management</url>
-                        <user>postgres</user>
-                        <password>admin</password>
-                    </jdbc>
+                <!--<configuration>-->
+                    <!--<jdbc>-->
+                        <!--<driver>org.postgresql.Driver</driver>-->
+                        <!--<url>jdbc:postgresql://localhost:5432/sla_management</url>-->
+                        <!--<user>postgres</user>-->
+                        <!--<password>admin</password>-->
+                    <!--</jdbc>-->
 
-                    <generator>
-                        <database>
-                            <name>org.jooq.meta.postgres.PostgresDatabase</name>
-                            <includes>.*</includes>
-                            <excludes>
-                                Databasechangelog | Databasechangeloglock
-                            </excludes>
-                            <inputSchema>public</inputSchema>
-                        </database>
+                    <!--<generator>-->
+                        <!--<database>-->
+                            <!--<name>org.jooq.meta.postgres.PostgresDatabase</name>-->
+                            <!--<includes>.*</includes>-->
+                            <!--<excludes>-->
+                                <!--Databasechangelog | Databasechangeloglock-->
+                            <!--</excludes>-->
+                            <!--<inputSchema>public</inputSchema>-->
+                        <!--</database>-->
 
-                        <generate>
-                            <daos>true</daos>
-                        </generate>
+                        <!--<generate>-->
+                            <!--<daos>true</daos>-->
+                        <!--</generate>-->
 
-                        <target>
-                            <packageName>ch.uzh.slamer.model</packageName>
-                            <directory>src/main/java</directory>
-                        </target>
+                        <!--<target>-->
+                            <!--<packageName>ch.uzh.slamer.model</packageName>-->
+                            <!--<directory>src/main/java</directory>-->
+                        <!--</target>-->
 
-                    </generator>
-                </configuration>
-            </plugin>
+                    <!--</generator>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
