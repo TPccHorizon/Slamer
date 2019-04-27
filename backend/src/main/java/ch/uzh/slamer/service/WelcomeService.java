@@ -1,5 +1,6 @@
 package ch.uzh.slamer.service;
 
+import ch.uzh.slamer.model.SlaUser;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Result;
@@ -30,12 +31,10 @@ public class WelcomeService {
         try (Connection conn = DriverManager.getConnection(url, userName, password)){
             System.out.println("Connected");
             DSLContext create = DSL.using(conn, SQLDialect.POSTGRES);
-            Record result = create.select().from("SLA_USER").fetchOne();
+            SlaUser user = create.select().from("SLA_USER").fetchOne().into(SlaUser.class);
 
-            Integer id = (Integer) result.getValue("id");
-            String firstName = (String) result.getValue("username");
 
-            message = "ID: " + id + " first name: " + firstName;
+            message = "ID: " + user.getId() + " Party Name: " + user.getPartyName();
         } catch (Exception e) {
             message = "Failed";
             e.printStackTrace();
