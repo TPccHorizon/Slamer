@@ -117,6 +117,10 @@
                             <inputSchema>public</inputSchema>
                         </database>
 
+                        <generate>
+                            <daos>true</daos>
+                        </generate>
+
                         <target>
                             <packageName>ch.uzh.slamer.model</packageName>
                             <directory>src/main/java</directory>
