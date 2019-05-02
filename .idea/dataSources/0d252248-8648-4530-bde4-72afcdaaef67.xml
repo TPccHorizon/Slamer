@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="sla_management@localhost">
-  <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.7">
+  <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.9">
     <root id="1"/>
     <database id="2" parent="1" name="sla_management">
       <ObjectId>24709</ObjectId>
