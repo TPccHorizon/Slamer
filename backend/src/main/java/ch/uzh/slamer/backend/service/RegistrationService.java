@@ -1,6 +1,7 @@
 package ch.uzh.slamer.backend.service;
 
-import ch.uzh.slamer.backend.model.pojo.SlaUser;
+import codegen.tables.pojos.SlaUser;
+import codegen.tables.records.SlaUserRecord;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.SQLDialect;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+
+import static codegen.Tables.SLA_USER;
 
 @Component
 public class RegistrationService {
@@ -24,12 +27,20 @@ public class RegistrationService {
     String url;
 
     public SlaUser registerUser(SlaUser user) {
+        SlaUserRecord slaUserRecord = new SlaUserRecord();
         try (Connection conn = DriverManager.getConnection(url, userName, password)){
             DSLContext create = DSL.using(conn, SQLDialect.POSTGRES);
-            user = create.select().from("SLA_USER").fetchOne().into(SlaUser.class);
+            slaUserRecord = create.newRecord(SLA_USER);
+            slaUserRecord.setPartyName(user.getPartyName())
+                .setPartyType(user.getPartyType())
+                .setPassword(user.getPassword())
+                .setUsername(user.getUsername())
+                .setSalt(user.getSalt())
+                .setPhoneNr(user.getPhoneNr());
+            slaUserRecord.store();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return user;
+        return slaUserRecord.into(SlaUser.class);
     }
 }
