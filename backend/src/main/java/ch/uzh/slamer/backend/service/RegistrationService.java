@@ -26,21 +26,4 @@ public class RegistrationService {
     @Value("${spring.datasource.url}")
     String url;
 
-    public SlaUser registerUser(SlaUser user) {
-        SlaUserRecord slaUserRecord = new SlaUserRecord();
-        try (Connection conn = DriverManager.getConnection(url, userName, password)){
-            DSLContext create = DSL.using(conn, SQLDialect.POSTGRES);
-            slaUserRecord = create.newRecord(SLA_USER);
-            slaUserRecord.setPartyName(user.getPartyName())
-                .setPartyType(user.getPartyType())
-                .setPassword(user.getPassword())
-                .setUsername(user.getUsername())
-                .setSalt(user.getSalt())
-                .setPhoneNr(user.getPhoneNr());
-            slaUserRecord.store();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return slaUserRecord.into(SlaUser.class);
-    }
 }
