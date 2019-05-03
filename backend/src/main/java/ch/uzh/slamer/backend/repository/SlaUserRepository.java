@@ -14,6 +14,8 @@ public interface SlaUserRepository {
 
     SlaUser findById(int id) throws SlaUserNotFoundException;
 
+    SlaUser findByUsername(String username) throws SlaUserNotFoundException;
+
     SlaUser update(SlaUser user) throws SlaUserNotFoundException;
 
 }

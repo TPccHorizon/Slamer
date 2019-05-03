@@ -87,7 +87,7 @@ public class JooqSlaUserRepository implements SlaUserRepository{
                 .fetchOne();
 
         if (queryResult == null) {
-            throw new SlaUserNotFoundException("No todo entry found with id: " + id);
+            throw new SlaUserNotFoundException("No User was found with id: " + id);
         }
 
         return convertResultIntoModel(queryResult);
@@ -107,5 +107,14 @@ public class JooqSlaUserRepository implements SlaUserRepository{
                 .execute();
 
         return findById(slaUser.getId());
+    }
+
+    @Override
+    public SlaUser findByUsername(String username) throws SlaUserNotFoundException {
+        SlaUserRecord record = jooq.selectFrom(SLA_USER).where(SLA_USER.USERNAME.equal(username)).fetchOne();
+        if (record == null) {
+            throw new SlaUserNotFoundException("No User found with username: " + username);
+        }
+        return convertResultIntoModel(record);
     }
 }

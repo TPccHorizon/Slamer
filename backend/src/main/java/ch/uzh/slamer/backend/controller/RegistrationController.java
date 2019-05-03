@@ -1,6 +1,7 @@
 package ch.uzh.slamer.backend.controller;
 
 
+import ch.uzh.slamer.backend.exception.SlaUserNotFoundException;
 import ch.uzh.slamer.backend.repository.JooqSlaUserRepository;
 import ch.uzh.slamer.backend.service.RegistrationService;
 import codegen.tables.pojos.SlaUser;
@@ -16,6 +17,12 @@ public class RegistrationController {
 
     @RequestMapping(method = RequestMethod.POST, path = "/register")
     public SlaUser register(@RequestBody SlaUser slaUser) {
-        return repository.add(slaUser);
+        SlaUser existingUser;
+        try {
+            existingUser = repository.findByUsername(slaUser.getUsername());
+        } catch (SlaUserNotFoundException e) {
+            return repository.add(slaUser);
+        }
+        return existingUser;
     }
 }
