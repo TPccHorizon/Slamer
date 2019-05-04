@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {HttpClientModule} from "@angular/common/http";
-import { NavComponent } from './core/nav/nav.component';
-import {RouterModule, Routes} from "@angular/router";
+import {RouterModule} from "@angular/router";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatIconModule,
@@ -13,18 +12,19 @@ import {
   MatSidenavModule,
   MatToolbarModule
 } from "@angular/material";
-import { SidebarComponent } from './core/sidebar/sidebar.component';
-import { HeaderComponent } from './core/header/header.component';
 import {AppRoutes} from "./app.routing";
 import { NavigationComponent } from './core/navigation/navigation.component';
+import { AuthenticationComponent } from './core/authentication/authentication.component';
+import { AlertComponent } from './modules/components/alert/alert.component';
+import {ErrorInterceptor} from "./core/interceptors/error.interceptor";
+import {Config} from "../config";
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,
-    SidebarComponent,
-    HeaderComponent,
     NavigationComponent,
+    AuthenticationComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +38,7 @@ import { NavigationComponent } from './core/navigation/navigation.component';
     MatListModule,
     MatMenuModule
   ],
-  providers: [],
+  providers: [ErrorInterceptor, Config],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
