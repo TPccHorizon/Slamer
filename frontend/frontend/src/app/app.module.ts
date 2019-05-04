@@ -18,6 +18,8 @@ import { AuthenticationComponent } from './core/authentication/authentication.co
 import { AlertComponent } from './modules/components/alert/alert.component';
 import {ErrorInterceptor} from "./core/interceptors/error.interceptor";
 import {Config} from "../config";
+import {LoginComponent} from "./modules/components/login/login.component";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import {Config} from "../config";
     NavigationComponent,
     AuthenticationComponent,
     AlertComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import {Config} from "../config";
     MatIconModule,
     BrowserAnimationsModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+    ReactiveFormsModule
   ],
   providers: [ErrorInterceptor, Config],
   bootstrap: [AppComponent]
