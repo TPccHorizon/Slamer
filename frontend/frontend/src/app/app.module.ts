@@ -20,6 +20,7 @@ import {ErrorInterceptor} from "./core/interceptors/error.interceptor";
 import {Config} from "../config";
 import {LoginComponent} from "./modules/components/login/login.component";
 import {ReactiveFormsModule} from "@angular/forms";
+import { RegisterComponent } from './modules/components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     AuthenticationComponent,
     AlertComponent,
     LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
