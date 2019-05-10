@@ -30,7 +30,6 @@ public class JooqSlaUserRepository implements SlaUserRepository{
     private SlaUserRecord createRecord(SlaUser user) {
         SlaUserRecord record = new SlaUserRecord();
         record.setPartyName(user.getPartyName())
-                .setPartyType(user.getPartyType())
                 .setPassword(user.getPassword())
                 .setUsername(user.getUsername())
                 .setSalt(user.getSalt())

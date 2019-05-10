@@ -3,5 +3,7 @@ export class SlaUser {
   username: string;
   password: string;
   partyName: string;
+  partyType: string;
+  phoneNr: string;
   token: string;
 }

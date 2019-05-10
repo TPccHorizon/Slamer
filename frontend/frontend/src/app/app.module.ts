@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -17,10 +17,12 @@ import { NavigationComponent } from './core/navigation/navigation.component';
 import { AuthenticationComponent } from './core/authentication/authentication.component';
 import { AlertComponent } from './modules/components/alert/alert.component';
 import {ErrorInterceptor} from "./core/interceptors/error.interceptor";
-import {Config} from "../config";
+import {Config} from "./config";
 import {LoginComponent} from "./modules/components/login/login.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import { RegisterComponent } from './modules/components/register/register.component';
+import {JwtInterceptor} from "./core/interceptors/jwt.interceptor";
+import {AuthGuard} from "./core/guards/auth.guard";
 
 @NgModule({
   declarations: [
@@ -44,7 +46,12 @@ import { RegisterComponent } from './modules/components/register/register.compon
     MatMenuModule,
     ReactiveFormsModule
   ],
-  providers: [ErrorInterceptor, Config],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    Config,
+    AuthGuard
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,9 +2,9 @@
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label>Company Name</label>
-    <input type="text" formControlName="partyName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.partyname.errors }">
-    <div *ngIf="submitted && f.partyname.errors" class="invalid-feedback">
-      <div *ngIf="f.partyname.errors.required">Company Name is required</div>
+    <input type="text" formControlName="partyName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.partyName.errors }">
+    <div *ngIf="submitted && f.partyName.errors" class="invalid-feedback">
+      <div *ngIf="f.partyName.errors.required">Company Name is required</div>
     </div>
   </div>
 
@@ -13,6 +13,22 @@
     <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
     <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
       <div *ngIf="f.username.errors.required">Username is required</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label >Phone Nr.</label>
+    <input type="text" formControlName="phoneNr" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phoneNr.errors }" />
+    <div *ngIf="submitted && f.phoneNr.errors" class="invalid-feedback">
+      <div *ngIf="f.phoneNr.errors.required">Phone Nr. is required</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label >Party Type</label>
+    <input type="text" formControlName="partyType" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.partyType.errors }" />
+    <div *ngIf="submitted && f.partyType.errors" class="invalid-feedback">
+      <div *ngIf="f.partyType.errors.required">Party Type is required</div>
     </div>
   </div>
 

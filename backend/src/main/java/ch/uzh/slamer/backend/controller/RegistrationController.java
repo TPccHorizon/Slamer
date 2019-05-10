@@ -8,20 +8,24 @@ import codegen.tables.pojos.SlaUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
+@CrossOrigin(allowCredentials = "true")
 @RestController
 public class RegistrationController {
 
     @Autowired
     private JooqSlaUserRepository repository;
 
-    @RequestMapping(method = RequestMethod.POST, path = "/register")
+    @Autowired
+    private RegistrationService registrationService;
+
+    @RequestMapping(method = RequestMethod.POST, path = "/users/register")
     public SlaUser register(@RequestBody SlaUser slaUser) {
         SlaUser existingUser;
         try {
             existingUser = repository.findByUsername(slaUser.getUsername());
         } catch (SlaUserNotFoundException e) {
-            return repository.add(slaUser);
+            SlaUser safeUser = registrationService.getSafeUser(slaUser);
+            return repository.add(safeUser);
         }
         return existingUser;
     }

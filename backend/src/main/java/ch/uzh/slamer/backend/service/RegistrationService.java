@@ -1,29 +1,28 @@
 package ch.uzh.slamer.backend.service;
 
 import codegen.tables.pojos.SlaUser;
-import codegen.tables.records.SlaUserRecord;
-import org.jooq.DSLContext;
-import org.jooq.Record;
-import org.jooq.SQLDialect;
-import org.jooq.impl.DSL;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-
-import static codegen.Tables.SLA_USER;
 
 @Component
 public class RegistrationService {
 
-    @Value("${spring.datasource.username}")
-    String userName;
+    @Autowired
+    PasswordEncryptionService service;
 
-    @Value("${spring.datasource.password}")
-    String password;
+    public SlaUser getSafeUser(SlaUser user) {
+        String salt = service.generateSalt(512).get();
+        String key = service.hashPassword(user.getPassword(), salt).get();
 
-    @Value("${spring.datasource.url}")
-    String url;
+        boolean isValidKey = service.verifyPassword(user.getPassword(), key, salt);
+        if (isValidKey) {
+            return new SlaUser(user.getId(), key, salt, user.getPhoneNr(),
+                    user.getUsername(), user.getPartyType(), user.getPartyName());
+
+        } else {
+            return null;
+        }
+    }
 
 }

@@ -30,8 +30,10 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       partyName: ['', Validators.required],
+      partyType: ['', Validators.required],
+      phoneNr: ['', Validators.required],
       username: ['', Validators.required],
-      password: ['', Validators.required, Validators.minLength(6)],
+      password: ['', Validators.required],
     })
   }
 
@@ -43,8 +45,10 @@ export class RegisterComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.registerForm.invalid) {
+      console.log("Invalid");
       return;
     }
+    console.log("Valid");
 
     this.loading = true;
     this.userService.register(this.registerForm.value)

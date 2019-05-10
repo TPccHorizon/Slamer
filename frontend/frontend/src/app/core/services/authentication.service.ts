@@ -3,7 +3,7 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {SlaUser} from "../../shared/models/slaUser";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
-import {Config} from "../../../config";
+import {Config} from "../../config";
 
 @Injectable({
   providedIn: 'root'
