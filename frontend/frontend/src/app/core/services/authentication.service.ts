@@ -30,6 +30,8 @@ export class AuthenticationService {
     return this.http.post<any>(`${this.config.apiUrl}/users/login`, loginData, this.httpOptions)
       .pipe(map(user => {
         // login successful if there's a jwt token in the response
+        console.log("Response From Server:");
+        console.log(user);
         if (user && user.token) {
           // store user details and jwt token in local storage
           localStorage.setItem('currentUser', JSON.stringify(user));

@@ -34,6 +34,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-jooq'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.jooq:jooq:3.11.11'
     implementation 'org.jooq:jooq-meta:3.11.11'
     implementation 'org.jooq:jooq-codegen:3.11.11'
