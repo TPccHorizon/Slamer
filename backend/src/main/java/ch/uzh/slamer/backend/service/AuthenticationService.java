@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class RegistrationService {
+public class AuthenticationService {
 
     @Autowired
     PasswordEncryptionService service;
@@ -23,6 +23,10 @@ public class RegistrationService {
         } else {
             return null;
         }
+    }
+
+    public boolean checkUserCredentials(String password, SlaUser user) {
+        return service.verifyPassword(password, user.getPassword(), user.getSalt());
     }
 
 }

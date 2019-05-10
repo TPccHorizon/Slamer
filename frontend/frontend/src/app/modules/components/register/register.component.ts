@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
               private userService: SlaUserService,
               private alertService: AlertService
   ) {
-    if (this.authenticationService) {
+    if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/']);
     }
   }

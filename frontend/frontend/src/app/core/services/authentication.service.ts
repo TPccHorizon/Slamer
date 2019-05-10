@@ -4,11 +4,15 @@ import {SlaUser} from "../../shared/models/slaUser";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
 import {Config} from "../../config";
+import {LoginData} from "../../shared/models/loginData";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
+  httpOptions = {
+    withCredentials: true
+  };
 
   private currentUserSubject: BehaviorSubject<SlaUser>;
   public currentUser: Observable<SlaUser>;
@@ -22,8 +26,8 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  login(username: string, password: string) {
-    return this.http.post<any>(`${this.config.apiUrl}/users/authenticate`, {username, password})
+  login(loginData: LoginData) {
+    return this.http.post<any>(`${this.config.apiUrl}/users/login`, loginData, this.httpOptions)
       .pipe(map(user => {
         // login successful if there's a jwt token in the response
         if (user && user.token) {
