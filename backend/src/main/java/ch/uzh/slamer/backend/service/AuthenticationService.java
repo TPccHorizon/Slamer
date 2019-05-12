@@ -18,6 +18,9 @@ public class AuthenticationService {
     private JooqSlaUserRepository repository;
 
     @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public SlaUser registerNewUser(SlaUser user) {
@@ -27,6 +30,7 @@ public class AuthenticationService {
         System.out.println(user.getUsername());
         try {
             existingUser = repository.findByUsername(user.getUsername());
+//            existingUser = userDetailsService.loadUserByUsername(user.getUsername());
             System.out.println("Existing user found with Username " + user.getUsername());
         } catch (SlaUserNotFoundException e) {
             SlaUser safeUser = getSafeUser(user);
