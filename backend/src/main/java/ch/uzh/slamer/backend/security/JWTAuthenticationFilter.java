@@ -1,8 +1,10 @@
 package ch.uzh.slamer.backend.security;
 
+import ch.uzh.slamer.backend.model.pojo.LoginData;
 import codegen.tables.pojos.SlaUser;
 import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,18 +28,20 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
+        super.setFilterProcessesUrl(LOGIN_URL);
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
         try {
-            SlaUser creds = new ObjectMapper()
-                    .readValue(req.getInputStream(), SlaUser.class);
+            System.out.println("ATTEMPTING AUTHENTICATION");
+            LoginData creds = new ObjectMapper()
+                    .readValue(req.getInputStream(), LoginData.class);
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            creds.getUsername(),
+                            creds.getUserName(),
                             creds.getPassword(),
                             new ArrayList<>())
             );
@@ -56,6 +60,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withSubject(((User) auth.getPrincipal()).getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(HMAC512(SECRET.getBytes()));
+        System.out.println("CREATED JWT TOKEN, NOW ADDING TO HEADER");
         response.addHeader(HEADER_STRING,TOKEN_PREFIX + token);
     }
 
