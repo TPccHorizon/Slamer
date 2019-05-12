@@ -27,18 +27,15 @@ export class AuthenticationService {
   }
 
   login(loginData: LoginData) {
-    return this.http.post<any>(`${this.config.apiUrl}/users/login`, loginData, this.httpOptions)
-      .pipe(map(user => {
-        // login successful if there's a jwt token in the response
-        console.log("Response From Server:");
-        console.log(user);
-        if (user && user.token) {
-          // store user details and jwt token in local storage
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          this.currentUserSubject.next(user);
-        }
-        return user;
-      }));
+    return this.http.post<any>(`${this.config.apiUrl}/users/login`, loginData, this.httpOptions);
+  }
+
+  storeJwtToken(loginData: LoginData, token) {
+    let currentUser = new SlaUser();
+    currentUser.token = token;
+    currentUser.username = loginData.username;
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    this.currentUserSubject.next(currentUser);
   }
 
   logout(){

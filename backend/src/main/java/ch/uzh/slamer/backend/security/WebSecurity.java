@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -34,7 +35,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
                 .antMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
                 .anyRequest().authenticated().and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                .addFilterBefore(new JWTAuthenticationFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+//                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
@@ -49,6 +51,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
         configuration.addAllowedOrigin("http://localhost:4200");
+        configuration.addExposedHeader("Authorization, Access-Control-Allow-Headers, Access-Control-Request-Method, Custom-Filter-Header");
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
