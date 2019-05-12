@@ -11,7 +11,7 @@ import {LoginData} from "../../shared/models/loginData";
 })
 export class AuthenticationService {
   httpOptions = {
-    withCredentials: true
+    withCredentials: false
   };
 
   private currentUserSubject: BehaviorSubject<SlaUser>;

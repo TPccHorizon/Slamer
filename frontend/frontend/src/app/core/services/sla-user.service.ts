@@ -8,7 +8,7 @@ import {Config} from "../../config";
 })
 export class SlaUserService {
   httpOptions = {
-    withCredentials: true
+    withCredentials: false
   };
 
   constructor(private http: HttpClient, private config: Config) { }
