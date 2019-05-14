@@ -15,17 +15,18 @@ import {
 import {AppRoutes} from "./app.routing";
 import { NavigationComponent } from './core/navigation/navigation.component';
 import { AuthenticationComponent } from './core/authentication/authentication.component';
-import { AlertComponent } from './modules/components/alert/alert.component';
+import { AlertComponent } from './shared/alert/alert.component';
 import {ErrorInterceptor} from "./core/interceptors/error.interceptor";
 import {Config} from "./config";
-import {LoginComponent} from "./modules/components/login/login.component";
+import {LoginComponent} from "./modules/authentication/login/login.component";
 import {ReactiveFormsModule} from "@angular/forms";
-import { RegisterComponent } from './modules/components/register/register.component';
+import { RegisterComponent } from './modules/authentication/register/register.component';
 import {JwtInterceptor} from "./core/interceptors/jwt.interceptor";
 import {AuthGuard} from "./core/guards/auth.guard";
 import {ResponseInterceptor} from "./core/interceptors/response.interceptor";
-import { BaseLayoutComponent } from './modules/components/base-layout/base-layout.component';
+import { BaseLayoutComponent } from './shared/base-layout/base-layout.component';
 import {FlexLayoutModule} from "@angular/flex-layout";
+import { SlaCreateComponent } from './modules/sla-creation/sla-create/sla-create.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     LoginComponent,
     RegisterComponent,
     BaseLayoutComponent,
+    SlaCreateComponent,
   ],
   imports: [
     BrowserModule,
