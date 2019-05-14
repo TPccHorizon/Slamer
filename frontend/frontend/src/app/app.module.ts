@@ -24,6 +24,8 @@ import { RegisterComponent } from './modules/components/register/register.compon
 import {JwtInterceptor} from "./core/interceptors/jwt.interceptor";
 import {AuthGuard} from "./core/guards/auth.guard";
 import {ResponseInterceptor} from "./core/interceptors/response.interceptor";
+import { BaseLayoutComponent } from './modules/components/base-layout/base-layout.component';
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import {ResponseInterceptor} from "./core/interceptors/response.interceptor";
     AlertComponent,
     LoginComponent,
     RegisterComponent,
+    BaseLayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,8 @@ import {ResponseInterceptor} from "./core/interceptors/response.interceptor";
     BrowserAnimationsModule,
     MatListModule,
     MatMenuModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FlexLayoutModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
