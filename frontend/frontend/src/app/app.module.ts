@@ -6,6 +6,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  MatCardModule,
   MatDatepickerModule,
   MatIconModule,
   MatInputModule,
@@ -54,7 +55,8 @@ import { SlaCreateComponent } from './modules/sla-creation/sla-create/sla-create
     ReactiveFormsModule,
     FlexLayoutModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCardModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
