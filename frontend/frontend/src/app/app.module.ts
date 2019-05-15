@@ -6,9 +6,10 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  MatDatepickerModule,
   MatIconModule,
   MatInputModule,
-  MatListModule, MatMenuModule,
+  MatListModule, MatMenuModule, MatNativeDateModule,
   MatSidenavModule,
   MatToolbarModule
 } from "@angular/material";
@@ -51,7 +52,9 @@ import { SlaCreateComponent } from './modules/sla-creation/sla-create/sla-create
     MatListModule,
     MatMenuModule,
     ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
