@@ -44,5 +44,9 @@ export class AuthenticationService {
     this.currentUserSubject.next(null);
   }
 
+  isLoggedIn() {
+    return localStorage.getItem('currentUser');
+  }
+
 
 }
