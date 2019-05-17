@@ -5,12 +5,13 @@ import {RegisterComponent} from "./modules/authentication/register/register.comp
 import {AuthGuard} from "./core/guards/auth.guard";
 import {SlaCreateComponent} from "./modules/sla-creation/sla-create/sla-create.component";
 import {SlaOverviewComponent} from "./modules/sla-overview/sla-overview/sla-overview.component";
+import {SlaDetailsComponent} from "./modules/sla-overview/sla-details/sla-details.component";
 
 
 export const AppRoutes: Routes = [
   {
     path: '',
-    component: SlaCreateComponent,
+    component: SlaOverviewComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -22,11 +23,14 @@ export const AppRoutes: Routes = [
     component: RegisterComponent
   },
   {
-    path: 'slas',
-    component: SlaOverviewComponent,
-    children: [
-      {path: 'create', component: SlaCreateComponent}
-    ]
+    path: 'slas/',
+    component: SlaOverviewComponent
+  },
+  {
+    path: 'slas/create', component: SlaCreateComponent
+  },
+  {
+    path: 'slas/:id', component: SlaDetailsComponent
   },
 
   {path: '**', redirectTo: ''}

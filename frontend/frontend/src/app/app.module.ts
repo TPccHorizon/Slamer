@@ -32,6 +32,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import { SlaCreateComponent } from './modules/sla-creation/sla-create/sla-create.component';
 import { SlaOverviewComponent } from './modules/sla-overview/sla-overview/sla-overview.component';
 import { SlaItemComponent } from './modules/sla-overview/sla-item/sla-item.component';
+import { SlaDetailsComponent } from './modules/sla-overview/sla-details/sla-details.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { SlaItemComponent } from './modules/sla-overview/sla-item/sla-item.compo
     SlaCreateComponent,
     SlaOverviewComponent,
     SlaItemComponent,
+    SlaDetailsComponent,
   ],
   imports: [
     BrowserModule,

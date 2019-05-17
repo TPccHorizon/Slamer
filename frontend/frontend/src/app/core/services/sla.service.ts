@@ -26,4 +26,9 @@ export class SlaService {
     params = params.append('user', this.authService.currentUserValue.username);
     return this.http.get<Sla[]>(`${this.config.apiUrl}/sla/all`, {params: params});
   }
+
+  getSla(id) {
+    console.log("Get SLA with id " + id);
+    return new Sla();
+  }
 }

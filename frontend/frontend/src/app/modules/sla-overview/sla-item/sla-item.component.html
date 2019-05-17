@@ -11,6 +11,7 @@
   <p><b>Lifecycle Phase:</b> {{sla.lifecyclePhase}}</p>
 
   <mat-action-row>
-    <button mat-button color="primary" (click)="showDetails(sla.id)">Show Details</button>
+    <a [routerLink]="['/slas/', sla.id]" routerLinkActive="active">Show Details</a>
+<!--    <button mat-button color="primary" (click)="showDetails(sla.id)">Show Details</button>-->
   </mat-action-row>
 </mat-expansion-panel>
