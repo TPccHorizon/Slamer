@@ -21,7 +21,7 @@ export class SlaDetailsComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('id');
     this.slaService.getSlaWithParties(id as unknown as number).pipe(first())
       .subscribe(result => {
-        this.sla = result;
+        console.log(result);
       }, error => {
         console.log(error);
       });

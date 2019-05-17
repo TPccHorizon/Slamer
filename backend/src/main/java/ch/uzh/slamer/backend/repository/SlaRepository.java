@@ -1,13 +1,16 @@
 package ch.uzh.slamer.backend.repository;
 
 import ch.uzh.slamer.backend.exception.RecordNotFoundException;
+import ch.uzh.slamer.backend.model.SlaAndParties;
 import codegen.tables.pojos.Sla;
+import codegen.tables.pojos.SlaUser;
 import codegen.tables.records.SlaRecord;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 import static codegen.Tables.SLA;
 import static codegen.Tables.SLA_USER;
@@ -53,17 +56,17 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
         return record;
     }
 
-//    public Record getSlaWithParties(int slaId) {
-//        context.select(SLA.fields())
-//                .select(SLA_USER.USERNAME).select(SLA_USER.PARTY_NAME)
-//                .from(SLA)
-//                .join(SLA_USER).on(SLA.SERVICE_PROVIDER_ID.eq(SLA_USER.ID))
-//                .join(SLA_USER).on(SLA.SERVICE_CUSTOMER_ID.eq(SLA_USER.ID))
-//                .where(SLA.ID.equal(slaId))
-//                .fetchGroups(
-//                        r -> r.into().into(Sla.class),
-//
-//                )
-//
-//    }
+    public SlaAndParties getSlaWithParties(int slaId) {
+        Sla sla = context.selectFrom(SLA)
+                .where(SLA.ID.equal(slaId))
+                .fetchOne().into(Sla.class);
+
+        List<SlaUser> parties = context.select(SLA_USER.ID, SLA_USER.USERNAME, SLA_USER.PARTY_NAME)
+                .from(SLA_USER)
+                .where(SLA_USER.ID.equal(sla.getServiceProviderId()))
+                .or(SLA_USER.ID.equal(sla.getServiceCustomerId()))
+                .fetchInto(SlaUser.class);
+
+        return new SlaAndParties(sla, parties);
+    }
 }

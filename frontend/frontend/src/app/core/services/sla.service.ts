@@ -30,6 +30,6 @@ export class SlaService {
   }
 
   getSlaWithParties(id) {
-    return this.http.get<Sla>(`${this.config.apiUrl}/slas/${id}`)
+    return this.http.get(`${this.config.apiUrl}/slas/${id}`)
   }
 }
