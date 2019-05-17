@@ -1,12 +1,12 @@
 package ch.uzh.slamer.backend.repository;
 
-import ch.uzh.slamer.backend.exception.SlaUserNotFoundException;
+import ch.uzh.slamer.backend.exception.RecordNotFoundException;
 import org.jooq.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public class AbstractRepository<R extends UpdatableRecord, ID, T> implements JooqRepository<T> {
+public abstract class AbstractRepository<R extends UpdatableRecord, ID, T> implements JooqRepository<T, ID> {
 
     protected final DSLContext context;
     private final Table<R> table;
@@ -25,37 +25,42 @@ public class AbstractRepository<R extends UpdatableRecord, ID, T> implements Joo
         return null;
     }
 
+    @Transactional
     @Override
-    public T delete(int id) {
-        return null;
+    public T delete(ID id) {
+        T deleted = null;
+        try {
+            deleted = findById(id);
+        } catch (RecordNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+        int deletedRecordCount = context.delete(table)
+                .where(table.field(idField).equal(id))
+                .execute();
+        return deleted;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<T> findAll() {
-        return null;
+        return context.selectFrom(table).fetchInto(pojoClass);
     }
 
-    @Transactional
-    public T findById(ID id) throws SlaUserNotFoundException {
+    @Transactional(readOnly = true)
+    public T findById(ID id) throws RecordNotFoundException {
         R queryResult = context.selectFrom(table)
                 .where(table.field(idField).equal(id))
                 .fetchOne();
         if (queryResult == null) {
-            throw new SlaUserNotFoundException("NOT FOUND");
+            throw new RecordNotFoundException("NOT FOUND");
         }
 
         return convertResultIntoModel(queryResult);
     }
 
     @Override
-    public T findByUsername(String username) throws SlaUserNotFoundException {
-        return null;
-    }
-
-    @Override
-    public T update(T user) throws SlaUserNotFoundException {
-        return null;
-    }
+    public abstract T update(T user) throws RecordNotFoundException;
 
     private T convertResultIntoModel(R result) {
         return result.into(pojoClass);

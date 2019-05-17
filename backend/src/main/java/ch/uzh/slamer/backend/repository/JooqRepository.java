@@ -1,19 +1,18 @@
 package ch.uzh.slamer.backend.repository;
 
-import ch.uzh.slamer.backend.exception.SlaUserNotFoundException;
-import codegen.tables.pojos.SlaUser;
+import ch.uzh.slamer.backend.exception.RecordNotFoundException;
 
 import java.util.List;
 
-public interface JooqRepository<T> {
+public interface JooqRepository<T, ID> {
     T add(T user);
 
-    T delete(int id);
+    T delete(ID id);
 
     List<T> findAll();
 
-    T findByUsername(String username) throws SlaUserNotFoundException;
+    T findById(ID id) throws RecordNotFoundException;
 
-    T update(T user) throws SlaUserNotFoundException;
+    T update(T user) throws RecordNotFoundException;
 
 }

@@ -1,7 +1,7 @@
 package ch.uzh.slamer.backend.controller;
 
 
-import ch.uzh.slamer.backend.exception.SlaUserNotFoundException;
+import ch.uzh.slamer.backend.exception.RecordNotFoundException;
 import ch.uzh.slamer.backend.model.pojo.LoginData;
 import ch.uzh.slamer.backend.repository.SlaUserRepository;
 import ch.uzh.slamer.backend.service.AuthenticationService;
@@ -34,7 +34,7 @@ public class AuthenticationController {
         SlaUser existingUser;
         try {
             existingUser = repository.findByUsername(loginData.getUserName());
-        } catch (SlaUserNotFoundException e) {
+        } catch (RecordNotFoundException e) {
             System.out.println("No user found with username: " + loginData.getUserName());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }

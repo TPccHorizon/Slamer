@@ -1,6 +1,6 @@
 package ch.uzh.slamer.backend.repository;
 
-import ch.uzh.slamer.backend.exception.SlaUserNotFoundException;
+import ch.uzh.slamer.backend.exception.RecordNotFoundException;
 import codegen.tables.pojos.SlaUser;
 import codegen.tables.records.SlaUserRecord;
 import org.jooq.DSLContext;
@@ -48,38 +48,7 @@ public class SlaUserRepository extends AbstractRepository<SlaUserRecord, Integer
 
     @Transactional
     @Override
-    public SlaUser delete(int id) {
-        SlaUser deleted = null;
-        try {
-            deleted = findById(id);
-        } catch (SlaUserNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        int deletedRecordCount = context.delete(SLA_USER)
-                .where(SLA_USER.ID.equal(id))
-                .execute();
-
-        return deleted;
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public List<SlaUser> findAll() {
-        List<SlaUser> users = new ArrayList<>();
-
-        List<SlaUserRecord> queryResults = context.selectFrom(SLA_USER).fetchInto(SlaUserRecord.class);
-        for (SlaUserRecord queryResult: queryResults) {
-            SlaUser user = convertResultIntoModel(queryResult);
-            users.add(user);
-        }
-
-        return users;
-    }
-
-    @Transactional
-    @Override
-    public SlaUser update(SlaUser slaUser) throws SlaUserNotFoundException {
+    public SlaUser update(SlaUser slaUser) throws RecordNotFoundException {
         int updatedRecordCount = context.update(SLA_USER)
                 .set(SLA_USER.PARTY_NAME, slaUser.getPartyName())
                 .set(SLA_USER.PARTY_TYPE, slaUser.getPartyType())
@@ -93,11 +62,10 @@ public class SlaUserRepository extends AbstractRepository<SlaUserRecord, Integer
         return findById(slaUser.getId());
     }
 
-    @Override
-    public SlaUser findByUsername(String username) throws SlaUserNotFoundException {
+    public SlaUser findByUsername(String username) throws RecordNotFoundException {
         SlaUserRecord record = context.selectFrom(SLA_USER).where(SLA_USER.USERNAME.equal(username)).fetchOne();
         if (record == null) {
-            throw new SlaUserNotFoundException("No User found with username: " + username);
+            throw new RecordNotFoundException("No User found with username: " + username);
         }
         return convertResultIntoModel(record);
     }

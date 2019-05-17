@@ -1,6 +1,6 @@
 package ch.uzh.slamer.backend.service;
 
-import ch.uzh.slamer.backend.exception.SlaUserNotFoundException;
+import ch.uzh.slamer.backend.exception.RecordNotFoundException;
 import ch.uzh.slamer.backend.repository.SlaUserRepository;
 import codegen.tables.pojos.SlaUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class AuthenticationService {
             existingUser = repository.findByUsername(user.getUsername());
 //            existingUser = userDetailsService.loadUserByUsername(user.getUsername());
             System.out.println("Existing user found with Username " + user.getUsername());
-        } catch (SlaUserNotFoundException e) {
+        } catch (RecordNotFoundException e) {
             SlaUser safeUser = getSafeUser(user);
             System.out.println("User does not yet exist. Creating one now..");
             return repository.add(safeUser);
