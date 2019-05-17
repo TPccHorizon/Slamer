@@ -1,7 +1,7 @@
 package ch.uzh.slamer.backend.service;
 
-import ch.uzh.slamer.backend.exception.SlaUserNotFoundException;
-import ch.uzh.slamer.backend.repository.JooqSlaUserRepository;
+import ch.uzh.slamer.backend.exception.RecordNotFoundException;
+import ch.uzh.slamer.backend.repository.SlaUserRepository;
 import codegen.tables.pojos.SlaUser;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,9 +13,9 @@ import static java.util.Collections.emptyList;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private JooqSlaUserRepository userRepository;
+    private SlaUserRepository userRepository;
 
-    public UserDetailsServiceImpl(JooqSlaUserRepository userRepository) {
+    public UserDetailsServiceImpl(SlaUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         SlaUser user;
         try {
             user = userRepository.findByUsername(username);
-        } catch (SlaUserNotFoundException e) {
+        } catch (RecordNotFoundException e) {
             throw new UsernameNotFoundException(username);
         }
         return new User(user.getUsername(), user.getPassword(), emptyList());
