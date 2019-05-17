@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AlertService} from "../../../core/services/alert.service";
+import {SlaService} from "../../../core/services/sla.service";
+import {SlaWithCustomer} from "../../../shared/models/slaWithCustomer";
+import {Sla} from "../../../shared/models/sla";
+import {AuthenticationService} from "../../../core/services/authentication.service";
+import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-sla-create',
@@ -14,7 +19,9 @@ export class SlaCreateComponent implements OnInit {
   loading = false;
 
   constructor(private formBuilder: FormBuilder,
-              private alertService: AlertService) { }
+              private alertService: AlertService,
+              private slaService: SlaService,
+              private authService: AuthenticationService) { }
 
   ngOnInit() {
     this.slaForm = this.formBuilder.group({
@@ -34,8 +41,33 @@ export class SlaCreateComponent implements OnInit {
     }
     this.loading = true;
     console.log("SLA valid");
-  //  call sla service
+    let slaWithCustomer = this.mapToSlaWithCustomer();
+    this.slaService.createSla(slaWithCustomer)
+      .pipe(first())
+      .subscribe(data => {
+        console.log("Created new Sla.");
+        this.alertService.success('SLA Creation Successful', true);
+        console.log(data);
+      }, error => {
+        this.alertService.error(error);
+        this.loading = false;
+      });
+
     this.loading = false;
+  }
+
+  mapToSlaWithCustomer() {
+    let sla = new Sla();
+    let slaWithCustomer = new SlaWithCustomer();
+    let providerUsername = this.authService.currentUserValue.username;
+    console.log("User id provider: " +this.authService.currentUserValue.username);
+    sla.validFrom = this.f.validFrom.value;
+    sla.validTo = this.f.validTo.value;
+    sla.servicePrice = this.f.servicePrice.value;
+    slaWithCustomer.sla = sla;
+    slaWithCustomer.customerUsername = this.f.serviceCustomerUsername.value;
+    slaWithCustomer.providerUsername = providerUsername;
+    return slaWithCustomer;
   }
 
 }

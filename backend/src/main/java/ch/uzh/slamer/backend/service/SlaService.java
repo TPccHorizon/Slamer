@@ -22,20 +22,22 @@ public class SlaService {
     SlaRepository slaRepository;
 
     public Sla registerNewSla(SlaWithCustomer slaWithCustomer) {
-        int customerId = findCustomer(slaWithCustomer);
-        if (customerId == -1) {
+        int customerId = findParty(slaWithCustomer.getCustomerUsername());
+        int providerId = findParty(slaWithCustomer.getProviderUsername());
+        if (customerId == -1 || providerId == -1) {
             return null;
         }
         SlaRecord slaRecord = slaRepository.createRecord(slaWithCustomer.getSla());
         slaRecord.setServiceCustomerId(customerId);
+        slaRecord.setServiceProviderId(providerId);
         setInitialRecordValues(slaRecord);
 
         return slaRepository.add(slaRecord);
     }
 
-    private int findCustomer(SlaWithCustomer slaWithCustomer) {
+    private int findParty(String username) {
         try {
-            SlaUser customer = slaUserRepository.findByUsername(slaWithCustomer.getCustomerUsername());
+            SlaUser customer = slaUserRepository.findByUsername(username);
             return customer.getId();
         } catch (RecordNotFoundException e) {
             e.printStackTrace();

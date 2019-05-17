@@ -30,7 +30,6 @@ public class AuthenticationService {
         System.out.println(user.getUsername());
         try {
             existingUser = repository.findByUsername(user.getUsername());
-//            existingUser = userDetailsService.loadUserByUsername(user.getUsername());
             System.out.println("Existing user found with Username " + user.getUsername());
         } catch (RecordNotFoundException e) {
             SlaUser safeUser = getSafeUser(user);

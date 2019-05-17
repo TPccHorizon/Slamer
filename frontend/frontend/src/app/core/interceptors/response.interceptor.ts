@@ -3,6 +3,7 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from
 import {Observable} from "rxjs";
 import { map } from 'rxjs/operators';
 import {AuthenticationService} from "../services/authentication.service";
+import {SlaUser} from "../../shared/models/slaUser";
 
 @Injectable()
 export class ResponseInterceptor implements HttpInterceptor{
@@ -16,7 +17,12 @@ export class ResponseInterceptor implements HttpInterceptor{
         if (token) {
           localStorage.setItem('currentUser', JSON.stringify(token));
           this.authenticationService.storeJwtToken(loginData, token);
+          let newCurrentUser = new SlaUser();
+          newCurrentUser.username = loginData.username;
+          newCurrentUser.token = token;
         }
+        console.log("Event from Login:");
+        console.log(event);
         // event = event.clone({ body: (event.body) })
       }
       return event;
