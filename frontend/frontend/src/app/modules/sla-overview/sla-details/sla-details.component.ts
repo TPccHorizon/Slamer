@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {SlaService} from "../../../core/services/sla.service";
 import {Sla} from "../../../shared/models/sla";
-import {switchMap} from "rxjs/operators";
+import {first, switchMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-sla-details',
@@ -19,7 +19,12 @@ export class SlaDetailsComponent implements OnInit {
 
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
-    this.sla = this.slaService.getSla(id);
+    this.slaService.getSlaWithParties(id as unknown as number).pipe(first())
+      .subscribe(result => {
+        this.sla = result;
+      }, error => {
+        console.log(error);
+      });
   }
 
 }

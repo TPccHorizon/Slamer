@@ -16,7 +16,7 @@ import java.util.List;
 
 @CrossOrigin(allowCredentials = "false", origins = "${security.allowed-origin}")
 @RestController
-@RequestMapping("/sla")
+//@RequestMapping("/slas")
 public class SlaController {
 
     @Autowired
@@ -28,7 +28,7 @@ public class SlaController {
     @Autowired
     SlaUserRepository userRepository;
 
-    @RequestMapping(method = RequestMethod.POST, path = "/create")
+    @RequestMapping(method = RequestMethod.POST, path = "/slas")
     public ResponseEntity<Sla> createNewSla(@RequestBody SlaWithCustomer slaWithCustomer) {
         Sla createdSla = slaService.registerNewSla(slaWithCustomer);
 
@@ -38,7 +38,7 @@ public class SlaController {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/all")
+    @RequestMapping(method = RequestMethod.GET, path = "/slas")
     public ResponseEntity<List<Sla>> getMySlas(@RequestParam("user") String username){
         int userId = 0;
         try {
@@ -49,5 +49,16 @@ public class SlaController {
         }
         List<Sla> slas = slaRepository.getUsersSlas(userId);
         return new ResponseEntity<>(slas, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/slas/{id}")
+    public ResponseEntity<Sla> getOne(@PathVariable int id) {
+        try {
+            Sla sla = slaRepository.findById(id);
+            return new ResponseEntity<>(sla, HttpStatus.OK);
+        } catch (RecordNotFoundException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 }

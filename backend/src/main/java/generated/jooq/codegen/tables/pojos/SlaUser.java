@@ -22,15 +22,17 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SlaUser implements Serializable {
 
-    private static final long serialVersionUID = -1049294698;
+    private static final long serialVersionUID = -895232115;
 
-    private final Integer id;
-    private final String  password;
-    private final String  salt;
-    private final String  phoneNr;
-    private final String  username;
-    private final String  partyType;
-    private final String  partyName;
+    private Integer id;
+    private String  password;
+    private String  salt;
+    private String  phoneNr;
+    private String  username;
+    private String  partyName;
+    private String  partyType;
+
+    public SlaUser() {}
 
     public SlaUser(SlaUser value) {
         this.id = value.id;
@@ -38,8 +40,8 @@ public class SlaUser implements Serializable {
         this.salt = value.salt;
         this.phoneNr = value.phoneNr;
         this.username = value.username;
-        this.partyType = value.partyType;
         this.partyName = value.partyName;
+        this.partyType = value.partyType;
     }
 
     public SlaUser(
@@ -48,44 +50,147 @@ public class SlaUser implements Serializable {
         String  salt,
         String  phoneNr,
         String  username,
-        String  partyType,
-        String  partyName
+        String  partyName,
+        String  partyType
     ) {
         this.id = id;
         this.password = password;
         this.salt = salt;
         this.phoneNr = phoneNr;
         this.username = username;
-        this.partyType = partyType;
         this.partyName = partyName;
+        this.partyType = partyType;
     }
 
     public Integer getId() {
         return this.id;
     }
 
+    public SlaUser setId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
     public String getPassword() {
         return this.password;
+    }
+
+    public SlaUser setPassword(String password) {
+        this.password = password;
+        return this;
     }
 
     public String getSalt() {
         return this.salt;
     }
 
+    public SlaUser setSalt(String salt) {
+        this.salt = salt;
+        return this;
+    }
+
     public String getPhoneNr() {
         return this.phoneNr;
+    }
+
+    public SlaUser setPhoneNr(String phoneNr) {
+        this.phoneNr = phoneNr;
+        return this;
     }
 
     public String getUsername() {
         return this.username;
     }
 
-    public String getPartyType() {
-        return this.partyType;
+    public SlaUser setUsername(String username) {
+        this.username = username;
+        return this;
     }
 
     public String getPartyName() {
         return this.partyName;
+    }
+
+    public SlaUser setPartyName(String partyName) {
+        this.partyName = partyName;
+        return this;
+    }
+
+    public String getPartyType() {
+        return this.partyType;
+    }
+
+    public SlaUser setPartyType(String partyType) {
+        this.partyType = partyType;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final SlaUser other = (SlaUser) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        }
+        else if (!id.equals(other.id))
+            return false;
+        if (password == null) {
+            if (other.password != null)
+                return false;
+        }
+        else if (!password.equals(other.password))
+            return false;
+        if (salt == null) {
+            if (other.salt != null)
+                return false;
+        }
+        else if (!salt.equals(other.salt))
+            return false;
+        if (phoneNr == null) {
+            if (other.phoneNr != null)
+                return false;
+        }
+        else if (!phoneNr.equals(other.phoneNr))
+            return false;
+        if (username == null) {
+            if (other.username != null)
+                return false;
+        }
+        else if (!username.equals(other.username))
+            return false;
+        if (partyName == null) {
+            if (other.partyName != null)
+                return false;
+        }
+        else if (!partyName.equals(other.partyName))
+            return false;
+        if (partyType == null) {
+            if (other.partyType != null)
+                return false;
+        }
+        else if (!partyType.equals(other.partyType))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        result = prime * result + ((this.password == null) ? 0 : this.password.hashCode());
+        result = prime * result + ((this.salt == null) ? 0 : this.salt.hashCode());
+        result = prime * result + ((this.phoneNr == null) ? 0 : this.phoneNr.hashCode());
+        result = prime * result + ((this.username == null) ? 0 : this.username.hashCode());
+        result = prime * result + ((this.partyName == null) ? 0 : this.partyName.hashCode());
+        result = prime * result + ((this.partyType == null) ? 0 : this.partyType.hashCode());
+        return result;
     }
 
     @Override
@@ -97,8 +202,8 @@ public class SlaUser implements Serializable {
         sb.append(", ").append(salt);
         sb.append(", ").append(phoneNr);
         sb.append(", ").append(username);
-        sb.append(", ").append(partyType);
         sb.append(", ").append(partyName);
+        sb.append(", ").append(partyType);
 
         sb.append(")");
         return sb.toString();

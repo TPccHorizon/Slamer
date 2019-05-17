@@ -3,11 +3,11 @@
 
     <div *ngIf="!authService.isLoggedIn()">
       <mat-nav-list *ngIf="!authService.isLoggedIn()">
-        <a mat-list-item routerLink='/login'>Login</a>
+        <a mat-list-item [routerLink]="['/login']">Login</a>
       </mat-nav-list>
 
       <mat-nav-list *ngIf="!authService.isLoggedIn()">
-        <a mat-list-item routerLink='/register'>Register</a>
+        <a mat-list-item [routerLink]="['/register']">Register</a>
       </mat-nav-list>
     </div>
     <div *ngIf="authService.isLoggedIn()">

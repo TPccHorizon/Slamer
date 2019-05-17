@@ -22,10 +22,12 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SloType implements Serializable {
 
-    private static final long serialVersionUID = -1163387764;
+    private static final long serialVersionUID = 264479295;
 
-    private final Integer id;
-    private final String  type;
+    private Integer id;
+    private String  type;
+
+    public SloType() {}
 
     public SloType(SloType value) {
         this.id = value.id;
@@ -44,8 +46,51 @@ public class SloType implements Serializable {
         return this.id;
     }
 
+    public SloType setId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
     public String getType() {
         return this.type;
+    }
+
+    public SloType setType(String type) {
+        this.type = type;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final SloType other = (SloType) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        }
+        else if (!id.equals(other.id))
+            return false;
+        if (type == null) {
+            if (other.type != null)
+                return false;
+        }
+        else if (!type.equals(other.type))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        result = prime * result + ((this.type == null) ? 0 : this.type.hashCode());
+        return result;
     }
 
     @Override

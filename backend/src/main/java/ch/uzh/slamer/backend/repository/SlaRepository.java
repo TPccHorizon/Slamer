@@ -4,11 +4,13 @@ import ch.uzh.slamer.backend.exception.RecordNotFoundException;
 import codegen.tables.pojos.Sla;
 import codegen.tables.records.SlaRecord;
 import org.jooq.DSLContext;
+import org.jooq.Record;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 import static codegen.Tables.SLA;
+import static codegen.Tables.SLA_USER;
 
 @Repository
 public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
@@ -50,4 +52,18 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
                 .setStatus(sla.getStatus());
         return record;
     }
+
+//    public Record getSlaWithParties(int slaId) {
+//        context.select(SLA.fields())
+//                .select(SLA_USER.USERNAME).select(SLA_USER.PARTY_NAME)
+//                .from(SLA)
+//                .join(SLA_USER).on(SLA.SERVICE_PROVIDER_ID.eq(SLA_USER.ID))
+//                .join(SLA_USER).on(SLA.SERVICE_CUSTOMER_ID.eq(SLA_USER.ID))
+//                .where(SLA.ID.equal(slaId))
+//                .fetchGroups(
+//                        r -> r.into().into(Sla.class),
+//
+//                )
+//
+//    }
 }

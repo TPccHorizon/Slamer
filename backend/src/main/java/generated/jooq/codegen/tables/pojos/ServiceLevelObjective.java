@@ -24,21 +24,23 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ServiceLevelObjective implements Serializable {
 
-    private static final long serialVersionUID = 1169159903;
+    private static final long serialVersionUID = 1236977016;
 
-    private final Integer    id;
-    private final String     name;
-    private final Date       validFrom;
-    private final Date       validTo;
-    private final Integer    slaId;
-    private final String     timeUnit;
-    private final String     relationalOperator;
-    private final Integer    sloTypeId;
-    private final BigDecimal percentageOfAvailability;
-    private final String     throughputDataUnit;
-    private final BigDecimal throughputDataSize;
-    private final BigDecimal throughputThresholdValue;
-    private final BigDecimal averageResponseTimeValue;
+    private Integer    id;
+    private String     name;
+    private Date       validFrom;
+    private Date       validTo;
+    private Integer    slaId;
+    private String     timeUnit;
+    private String     relationalOperator;
+    private Integer    sloTypeId;
+    private BigDecimal percentageOfAvailability;
+    private String     throughputDataUnit;
+    private BigDecimal throughputDataSize;
+    private BigDecimal throughputThresholdValue;
+    private BigDecimal averageResponseTimeValue;
+
+    public ServiceLevelObjective() {}
 
     public ServiceLevelObjective(ServiceLevelObjective value) {
         this.id = value.id;
@@ -90,52 +92,227 @@ public class ServiceLevelObjective implements Serializable {
         return this.id;
     }
 
+    public ServiceLevelObjective setId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
     public String getName() {
         return this.name;
+    }
+
+    public ServiceLevelObjective setName(String name) {
+        this.name = name;
+        return this;
     }
 
     public Date getValidFrom() {
         return this.validFrom;
     }
 
+    public ServiceLevelObjective setValidFrom(Date validFrom) {
+        this.validFrom = validFrom;
+        return this;
+    }
+
     public Date getValidTo() {
         return this.validTo;
+    }
+
+    public ServiceLevelObjective setValidTo(Date validTo) {
+        this.validTo = validTo;
+        return this;
     }
 
     public Integer getSlaId() {
         return this.slaId;
     }
 
+    public ServiceLevelObjective setSlaId(Integer slaId) {
+        this.slaId = slaId;
+        return this;
+    }
+
     public String getTimeUnit() {
         return this.timeUnit;
+    }
+
+    public ServiceLevelObjective setTimeUnit(String timeUnit) {
+        this.timeUnit = timeUnit;
+        return this;
     }
 
     public String getRelationalOperator() {
         return this.relationalOperator;
     }
 
+    public ServiceLevelObjective setRelationalOperator(String relationalOperator) {
+        this.relationalOperator = relationalOperator;
+        return this;
+    }
+
     public Integer getSloTypeId() {
         return this.sloTypeId;
+    }
+
+    public ServiceLevelObjective setSloTypeId(Integer sloTypeId) {
+        this.sloTypeId = sloTypeId;
+        return this;
     }
 
     public BigDecimal getPercentageOfAvailability() {
         return this.percentageOfAvailability;
     }
 
+    public ServiceLevelObjective setPercentageOfAvailability(BigDecimal percentageOfAvailability) {
+        this.percentageOfAvailability = percentageOfAvailability;
+        return this;
+    }
+
     public String getThroughputDataUnit() {
         return this.throughputDataUnit;
+    }
+
+    public ServiceLevelObjective setThroughputDataUnit(String throughputDataUnit) {
+        this.throughputDataUnit = throughputDataUnit;
+        return this;
     }
 
     public BigDecimal getThroughputDataSize() {
         return this.throughputDataSize;
     }
 
+    public ServiceLevelObjective setThroughputDataSize(BigDecimal throughputDataSize) {
+        this.throughputDataSize = throughputDataSize;
+        return this;
+    }
+
     public BigDecimal getThroughputThresholdValue() {
         return this.throughputThresholdValue;
     }
 
+    public ServiceLevelObjective setThroughputThresholdValue(BigDecimal throughputThresholdValue) {
+        this.throughputThresholdValue = throughputThresholdValue;
+        return this;
+    }
+
     public BigDecimal getAverageResponseTimeValue() {
         return this.averageResponseTimeValue;
+    }
+
+    public ServiceLevelObjective setAverageResponseTimeValue(BigDecimal averageResponseTimeValue) {
+        this.averageResponseTimeValue = averageResponseTimeValue;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final ServiceLevelObjective other = (ServiceLevelObjective) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        }
+        else if (!id.equals(other.id))
+            return false;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        }
+        else if (!name.equals(other.name))
+            return false;
+        if (validFrom == null) {
+            if (other.validFrom != null)
+                return false;
+        }
+        else if (!validFrom.equals(other.validFrom))
+            return false;
+        if (validTo == null) {
+            if (other.validTo != null)
+                return false;
+        }
+        else if (!validTo.equals(other.validTo))
+            return false;
+        if (slaId == null) {
+            if (other.slaId != null)
+                return false;
+        }
+        else if (!slaId.equals(other.slaId))
+            return false;
+        if (timeUnit == null) {
+            if (other.timeUnit != null)
+                return false;
+        }
+        else if (!timeUnit.equals(other.timeUnit))
+            return false;
+        if (relationalOperator == null) {
+            if (other.relationalOperator != null)
+                return false;
+        }
+        else if (!relationalOperator.equals(other.relationalOperator))
+            return false;
+        if (sloTypeId == null) {
+            if (other.sloTypeId != null)
+                return false;
+        }
+        else if (!sloTypeId.equals(other.sloTypeId))
+            return false;
+        if (percentageOfAvailability == null) {
+            if (other.percentageOfAvailability != null)
+                return false;
+        }
+        else if (!percentageOfAvailability.equals(other.percentageOfAvailability))
+            return false;
+        if (throughputDataUnit == null) {
+            if (other.throughputDataUnit != null)
+                return false;
+        }
+        else if (!throughputDataUnit.equals(other.throughputDataUnit))
+            return false;
+        if (throughputDataSize == null) {
+            if (other.throughputDataSize != null)
+                return false;
+        }
+        else if (!throughputDataSize.equals(other.throughputDataSize))
+            return false;
+        if (throughputThresholdValue == null) {
+            if (other.throughputThresholdValue != null)
+                return false;
+        }
+        else if (!throughputThresholdValue.equals(other.throughputThresholdValue))
+            return false;
+        if (averageResponseTimeValue == null) {
+            if (other.averageResponseTimeValue != null)
+                return false;
+        }
+        else if (!averageResponseTimeValue.equals(other.averageResponseTimeValue))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
+        result = prime * result + ((this.validFrom == null) ? 0 : this.validFrom.hashCode());
+        result = prime * result + ((this.validTo == null) ? 0 : this.validTo.hashCode());
+        result = prime * result + ((this.slaId == null) ? 0 : this.slaId.hashCode());
+        result = prime * result + ((this.timeUnit == null) ? 0 : this.timeUnit.hashCode());
+        result = prime * result + ((this.relationalOperator == null) ? 0 : this.relationalOperator.hashCode());
+        result = prime * result + ((this.sloTypeId == null) ? 0 : this.sloTypeId.hashCode());
+        result = prime * result + ((this.percentageOfAvailability == null) ? 0 : this.percentageOfAvailability.hashCode());
+        result = prime * result + ((this.throughputDataUnit == null) ? 0 : this.throughputDataUnit.hashCode());
+        result = prime * result + ((this.throughputDataSize == null) ? 0 : this.throughputDataSize.hashCode());
+        result = prime * result + ((this.throughputThresholdValue == null) ? 0 : this.throughputThresholdValue.hashCode());
+        result = prime * result + ((this.averageResponseTimeValue == null) ? 0 : this.averageResponseTimeValue.hashCode());
+        return result;
     }
 
     @Override

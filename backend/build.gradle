@@ -79,8 +79,10 @@ jooq {
                 relations = true
                 deprecated = false
                 records = true
-                immutablePojos = true
+                pojos = true
+//                immutablePojos = false
                 fluentSetters = true
+                pojosEqualsAndHashCode = true
                 // ...
             }
             target {
@@ -92,5 +94,17 @@ jooq {
         }
     }
 }
+
+generateSampleJooqSchemaSource {
+    outputs.upToDateWhen {
+        if (project.hasProperty('rerun')) {
+            println "rerun!"
+            return false
+        } else {
+            return true
+        }
+    }
+}
 // removes the task dependency from compileJava to generateSampleJooqSchemaSource
-project.tasks.getByName('compileJava').dependsOn -= 'generateSampleJooqSchemaSource'
+//project.tasks.getByName('compileJava').dependsOn -= 'generateSampleJooqSchemaSource'
+//org.jooq.util.GenerationTool.generate(writer.toString())

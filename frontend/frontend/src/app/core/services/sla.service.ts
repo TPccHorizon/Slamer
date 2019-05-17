@@ -4,6 +4,7 @@ import {Config} from "../../config";
 import {SlaWithCustomer} from "../../shared/models/slaWithCustomer";
 import {AuthenticationService} from "./authentication.service";
 import {Sla} from "../../shared/models/sla";
+import {SlaUserService} from "./sla-user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,20 +16,20 @@ export class SlaService {
 
   constructor(private http: HttpClient,
               private config: Config,
-              private authService: AuthenticationService) { }
+              private authService: AuthenticationService,
+              private userSevice: SlaUserService) { }
 
   createSla(slaWithCustomer: SlaWithCustomer) {
-    return this.http.post(`${this.config.apiUrl}/sla/create`, slaWithCustomer, this.httpOptions)
+    return this.http.post(`${this.config.apiUrl}/slas`, slaWithCustomer, this.httpOptions)
   }
 
   getMySlas() {
     let params = new HttpParams();
     params = params.append('user', this.authService.currentUserValue.username);
-    return this.http.get<Sla[]>(`${this.config.apiUrl}/sla/all`, {params: params});
+    return this.http.get<Sla[]>(`${this.config.apiUrl}/slas`, {params: params});
   }
 
-  getSla(id) {
-    console.log("Get SLA with id " + id);
-    return new Sla();
+  getSlaWithParties(id) {
+    return this.http.get<Sla>(`${this.config.apiUrl}/slas/${id}`)
   }
 }
