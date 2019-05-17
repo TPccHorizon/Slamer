@@ -3,7 +3,7 @@ package ch.uzh.slamer.backend.controller;
 
 import ch.uzh.slamer.backend.exception.SlaUserNotFoundException;
 import ch.uzh.slamer.backend.model.pojo.LoginData;
-import ch.uzh.slamer.backend.repository.JooqSlaUserRepository;
+import ch.uzh.slamer.backend.repository.SlaUserRepository;
 import ch.uzh.slamer.backend.service.AuthenticationService;
 import codegen.tables.pojos.SlaUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +11,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200")
+@CrossOrigin(allowCredentials = "true", origins = "${security.allowed-origin}")
 @RestController
 @RequestMapping("/users")
 public class AuthenticationController {
 
     @Autowired
-    private JooqSlaUserRepository repository;
+    private SlaUserRepository repository;
 
     @Autowired
     private AuthenticationService authenticationService;

@@ -1,7 +1,7 @@
 package ch.uzh.slamer.backend.service;
 
 import ch.uzh.slamer.backend.exception.SlaUserNotFoundException;
-import ch.uzh.slamer.backend.repository.JooqSlaUserRepository;
+import ch.uzh.slamer.backend.repository.SlaUserRepository;
 import codegen.tables.pojos.SlaUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,7 +15,7 @@ public class AuthenticationService {
     PasswordEncryptionService service;
 
     @Autowired
-    private JooqSlaUserRepository repository;
+    private SlaUserRepository repository;
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
