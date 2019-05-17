@@ -21,9 +21,6 @@ export class ResponseInterceptor implements HttpInterceptor{
           newCurrentUser.username = loginData.username;
           newCurrentUser.token = token;
         }
-        console.log("Event from Login:");
-        console.log(event);
-        // event = event.clone({ body: (event.body) })
       }
       return event;
     }));

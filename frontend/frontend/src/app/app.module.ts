@@ -6,8 +6,9 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  MatButtonModule,
   MatCardModule,
-  MatDatepickerModule,
+  MatDatepickerModule, MatExpansionModule,
   MatIconModule,
   MatInputModule,
   MatListModule, MatMenuModule, MatNativeDateModule,
@@ -29,6 +30,8 @@ import {ResponseInterceptor} from "./core/interceptors/response.interceptor";
 import { BaseLayoutComponent } from './shared/base-layout/base-layout.component';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import { SlaCreateComponent } from './modules/sla-creation/sla-create/sla-create.component';
+import { SlaOverviewComponent } from './modules/sla-overview/sla-overview/sla-overview.component';
+import { SlaItemComponent } from './modules/sla-overview/sla-item/sla-item.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,8 @@ import { SlaCreateComponent } from './modules/sla-creation/sla-create/sla-create
     RegisterComponent,
     BaseLayoutComponent,
     SlaCreateComponent,
+    SlaOverviewComponent,
+    SlaItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +61,9 @@ import { SlaCreateComponent } from './modules/sla-creation/sla-create/sla-create
     FlexLayoutModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCardModule
+    MatCardModule,
+    MatExpansionModule,
+    MatButtonModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

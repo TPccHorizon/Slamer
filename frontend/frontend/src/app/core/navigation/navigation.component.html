@@ -14,6 +14,11 @@
       <mat-nav-list>
         <a mat-list-item routerLink="/sla/create">New SLA</a>
       </mat-nav-list>
+
+      <mat-nav-list>
+        <a mat-list-item routerLink="/slas">My SLAs</a>
+      </mat-nav-list>
+
       <mat-nav-list>
         <a mat-list-item (click)="authService.logout()">Logout</a>
       </mat-nav-list>
@@ -28,7 +33,11 @@
 
       </mat-toolbar-row>
     </mat-toolbar>
-    <app-alert></app-alert>
+
+    <div class="container" fxLayout="row" fxLayoutAlign="center">
+      <app-alert fxFlex="30%"></app-alert>
+    </div>
+
     <app-base-layout></app-base-layout>
   </mat-sidenav-content>
 

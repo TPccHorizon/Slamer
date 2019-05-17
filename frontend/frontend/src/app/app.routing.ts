@@ -4,6 +4,7 @@ import {LoginComponent} from "./modules/authentication/login/login.component";
 import {RegisterComponent} from "./modules/authentication/register/register.component";
 import {AuthGuard} from "./core/guards/auth.guard";
 import {SlaCreateComponent} from "./modules/sla-creation/sla-create/sla-create.component";
+import {SlaOverviewComponent} from "./modules/sla-overview/sla-overview/sla-overview.component";
 
 
 export const AppRoutes: Routes = [
@@ -21,7 +22,8 @@ export const AppRoutes: Routes = [
     component: RegisterComponent
   },
   {
-    path: 'sla',
+    path: 'slas',
+    component: SlaOverviewComponent,
     children: [
       {path: 'create', component: SlaCreateComponent}
     ]

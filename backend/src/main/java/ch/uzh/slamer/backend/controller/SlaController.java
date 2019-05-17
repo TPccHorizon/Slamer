@@ -1,7 +1,9 @@
 package ch.uzh.slamer.backend.controller;
 
+import ch.uzh.slamer.backend.exception.RecordNotFoundException;
 import ch.uzh.slamer.backend.model.pojo.SlaWithCustomer;
 import ch.uzh.slamer.backend.repository.SlaRepository;
+import ch.uzh.slamer.backend.repository.SlaUserRepository;
 import ch.uzh.slamer.backend.service.SlaService;
 import codegen.tables.pojos.Sla;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(allowCredentials = "false", origins = "${security.allowed-origin}")
@@ -22,6 +25,9 @@ public class SlaController {
     @Autowired
     SlaRepository slaRepository;
 
+    @Autowired
+    SlaUserRepository userRepository;
+
     @RequestMapping(method = RequestMethod.POST, path = "/create")
     public ResponseEntity<Sla> createNewSla(@RequestBody SlaWithCustomer slaWithCustomer) {
         Sla createdSla = slaService.registerNewSla(slaWithCustomer);
@@ -33,7 +39,14 @@ public class SlaController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/all")
-    public ResponseEntity<List<Sla>> getMySlas(@RequestParam("id") int userId){
+    public ResponseEntity<List<Sla>> getMySlas(@RequestParam("user") String username){
+        int userId = 0;
+        try {
+            userId = userRepository.findByUsername(username).getId();
+        } catch (RecordNotFoundException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
+        }
         List<Sla> slas = slaRepository.getUsersSlas(userId);
         return new ResponseEntity<>(slas, HttpStatus.OK);
     }

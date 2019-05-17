@@ -1049,3 +1049,27 @@ list inline
 .icons__success {
   color: green;
 }
+
+/**************
+SLA Status colors
+ */
+
+.Identified {
+  color: #1E88E5;
+}
+
+.Requested {
+  color: orange;
+}
+
+.Inactive {
+  color: dimgrey;
+}
+
+.Active {
+  color: green;
+}
+
+.Terminated {
+  color: red;
+}
