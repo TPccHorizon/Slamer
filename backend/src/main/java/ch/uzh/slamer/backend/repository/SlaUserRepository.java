@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static codegen.Tables.SLA_USER;
 
 @Repository
@@ -22,11 +19,8 @@ public class SlaUserRepository extends AbstractRepository<SlaUserRecord, Integer
         super(context, SLA_USER, SLA_USER.ID, SlaUser.class);
     }
 
-    private SlaUser convertResultIntoModel(SlaUserRecord queryResult) {
-        return queryResult.into(SlaUser.class);
-    }
-
-    private SlaUserRecord createRecord(SlaUser user) {
+    @Override
+    public SlaUserRecord createRecord(SlaUser user) {
         SlaUserRecord record = new SlaUserRecord();
         record.setPartyName(user.getPartyName())
                 .setPassword(user.getPassword())
@@ -34,16 +28,6 @@ public class SlaUserRepository extends AbstractRepository<SlaUserRecord, Integer
                 .setSalt(user.getSalt())
                 .setPhoneNr(user.getPhoneNr());
         return record;
-    }
-
-    @Transactional
-    @Override
-    public SlaUser add(SlaUser user) {
-        SlaUserRecord persisted = context.insertInto(SLA_USER)
-                .set(createRecord(user))
-                .returning()
-                .fetchOne();
-        return convertResultIntoModel(persisted);
     }
 
     @Transactional

@@ -20,9 +20,22 @@ public abstract class AbstractRepository<R extends UpdatableRecord, ID, T> imple
         this.pojoClass = pojoClass;
     }
 
+    @Transactional
     @Override
-    public T add(T user) {
-        return null;
+    public T add(T entity) {
+        R persisted = context.insertInto(table)
+                .set(createRecord(entity))
+                .returning()
+                .fetchOne();
+        return convertResultIntoModel(persisted);
+    }
+
+    @Transactional
+    public T add(R record) {
+        R persisted = context.insertInto(table).set(record)
+                .returning()
+                .fetchOne();
+        return convertResultIntoModel(persisted);
     }
 
     @Transactional
@@ -53,16 +66,18 @@ public abstract class AbstractRepository<R extends UpdatableRecord, ID, T> imple
                 .where(table.field(idField).equal(id))
                 .fetchOne();
         if (queryResult == null) {
-            throw new RecordNotFoundException("NOT FOUND");
+            throw new RecordNotFoundException("No Record Found in Table " + table.getName());
         }
 
         return convertResultIntoModel(queryResult);
     }
 
     @Override
-    public abstract T update(T user) throws RecordNotFoundException;
+    public abstract T update(T entity) throws RecordNotFoundException;
 
-    private T convertResultIntoModel(R result) {
+    public abstract R createRecord(T entity);
+
+    T convertResultIntoModel(R result) {
         return result.into(pojoClass);
     }
 }

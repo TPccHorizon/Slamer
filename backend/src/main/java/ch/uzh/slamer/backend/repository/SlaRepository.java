@@ -1,4 +1,45 @@
 package ch.uzh.slamer.backend.repository;
 
-public class SlaRepository {
+import ch.uzh.slamer.backend.exception.RecordNotFoundException;
+import codegen.tables.pojos.Sla;
+import codegen.tables.records.SlaRecord;
+import org.jooq.DSLContext;
+import org.springframework.stereotype.Repository;
+
+import static codegen.Tables.SLA;
+
+@Repository
+public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
+
+
+    public SlaRepository(DSLContext context) {
+        super(context, SLA, SLA.ID, Sla.class);
+    }
+
+    @Override
+    public Sla update(Sla sla) throws RecordNotFoundException {
+        int updateRecordCount = context.update(SLA)
+                .set(SLA.STATUS, sla.getStatus())
+                .set(SLA.SERVICE_PRICE, sla.getServicePrice())
+                .set(SLA.LIFECYCLE_PHASE, sla.getLifecyclePhase())
+                .set(SLA.VALID_FROM, sla.getValidFrom())
+                .set(SLA.VALID_TO, sla.getValidTo())
+                .set(SLA.SERVICE_PROVIDER_ID, sla.getServiceProviderId())
+                .set(SLA.SERVICE_CUSTOMER_ID, sla.getServiceCustomerId())
+                .execute();
+        return findById(sla.getId());
+    }
+
+    @Override
+    public SlaRecord createRecord(Sla sla) {
+        SlaRecord record = new SlaRecord();
+        record.setValidFrom(sla.getValidFrom())
+                .setValidTo(sla.getValidTo())
+                .setLifecyclePhase(sla.getLifecyclePhase())
+                .setServiceCustomerId(sla.getServiceCustomerId())
+                .setServiceProviderId(sla.getServiceProviderId())
+                .setServicePrice(sla.getServicePrice())
+                .setStatus(sla.getStatus());
+        return record;
+    }
 }
