@@ -6,6 +6,8 @@ import codegen.tables.records.SlaRecord;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 import static codegen.Tables.SLA;
 
 @Repository
@@ -14,6 +16,12 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
 
     public SlaRepository(DSLContext context) {
         super(context, SLA, SLA.ID, Sla.class);
+    }
+
+    public List<Sla> getUsersSlas(int userId) {
+        return context.selectFrom(SLA).where(SLA.SERVICE_CUSTOMER_ID.equal(userId))
+                .or(SLA.SERVICE_PROVIDER_ID.equal(userId))
+                .fetchInto(Sla.class);
     }
 
     @Override
