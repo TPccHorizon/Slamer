@@ -13,6 +13,8 @@ import {SlaAndParties} from "../../../shared/models/slaAndParties";
 export class SlaDetailsComponent implements OnInit {
 
   sla: SlaAndParties;
+  approvalColumns: string[] = ['name', 'role', 'signature', 'date'];
+  dataSource: any[];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -24,6 +26,10 @@ export class SlaDetailsComponent implements OnInit {
       .subscribe(result => {
         console.log(result);
         this.sla = result;
+        this.dataSource= [
+          {name: this.sla.serviceProvider.partyName, role: 'Service Provider', signature: '', date: ''},
+          {name: this.sla.serviceCustomer.partyName, role: 'Customer', signature: '', date: ''}
+        ];
       }, error => {
         console.log(error);
       });

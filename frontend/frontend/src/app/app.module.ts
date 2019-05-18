@@ -8,11 +8,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
   MatCardModule,
-  MatDatepickerModule, MatExpansionModule,
+  MatDatepickerModule, MatExpansionModule, MatGridListModule,
   MatIconModule,
   MatInputModule,
-  MatListModule, MatMenuModule, MatNativeDateModule,
-  MatSidenavModule,
+  MatListModule, MatMenuModule, MatNativeDateModule, MatProgressSpinnerModule,
+  MatSidenavModule, MatTableModule,
   MatToolbarModule
 } from "@angular/material";
 import {AppRoutes} from "./app.routing";
@@ -65,7 +65,10 @@ import { SlaDetailsComponent } from './modules/sla-overview/sla-details/sla-deta
     MatNativeDateModule,
     MatCardModule,
     MatExpansionModule,
-    MatButtonModule
+    MatButtonModule,
+    MatGridListModule,
+    MatProgressSpinnerModule,
+    MatTableModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

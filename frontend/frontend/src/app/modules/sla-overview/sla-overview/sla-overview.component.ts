@@ -10,15 +10,18 @@ import {first} from "rxjs/operators";
 })
 export class SlaOverviewComponent implements OnInit {
 
-  step = 0;
+  loading = false;
   slas: Sla[];
 
   constructor(private slaService: SlaService) {
+    this.loading = true;
     this.slaService.getMySlas().pipe(first())
       .subscribe(data => {
         this.slas = data;
+        this.loading = false;
       }, error => {
         console.log(error);
+        this.loading = false;
       })
   }
 
