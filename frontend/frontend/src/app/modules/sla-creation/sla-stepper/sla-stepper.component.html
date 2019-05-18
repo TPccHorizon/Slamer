@@ -1,5 +1,5 @@
 <div style="width: 600px">
-  <mat-horizontal-stepper linear="true" labelPosition="bottom">
+  <mat-horizontal-stepper linear="false" labelPosition="bottom">
     <mat-step label="Basic Definition" [stepControl]="slaForm">
       <app-sla-create></app-sla-create>
       <div>
@@ -7,7 +7,7 @@
       </div>
     </mat-step>
     <mat-step label="Add SLOs">
-      Slos go here
+      <app-slo-creation></app-slo-creation>
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>

@@ -11,7 +11,7 @@ import {
   MatDatepickerModule, MatExpansionModule, MatGridListModule,
   MatIconModule,
   MatInputModule,
-  MatListModule, MatMenuModule, MatNativeDateModule, MatProgressSpinnerModule,
+  MatListModule, MatMenuModule, MatNativeDateModule, MatProgressSpinnerModule, MatSelectModule,
   MatSidenavModule, MatStepperModule, MatTableModule,
   MatToolbarModule
 } from "@angular/material";
@@ -34,6 +34,8 @@ import { SlaOverviewComponent } from './modules/sla-overview/sla-overview/sla-ov
 import { SlaItemComponent } from './modules/sla-overview/sla-item/sla-item.component';
 import { SlaDetailsComponent } from './modules/sla-overview/sla-details/sla-details.component';
 import { SlaStepperComponent } from './modules/sla-creation/sla-stepper/sla-stepper.component';
+import { SloCreationComponent } from './modules/sla-creation/slo-creation/slo-creation.component';
+import { AvailabilityComponent } from './modules/sla-creation/availability/availability.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { SlaStepperComponent } from './modules/sla-creation/sla-stepper/sla-step
     SlaItemComponent,
     SlaDetailsComponent,
     SlaStepperComponent,
+    SloCreationComponent,
+    AvailabilityComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +75,8 @@ import { SlaStepperComponent } from './modules/sla-creation/sla-stepper/sla-step
     MatGridListModule,
     MatProgressSpinnerModule,
     MatTableModule,
-    MatStepperModule
+    MatStepperModule,
+    MatSelectModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
