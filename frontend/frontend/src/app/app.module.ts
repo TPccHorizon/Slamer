@@ -12,7 +12,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatListModule, MatMenuModule, MatNativeDateModule, MatProgressSpinnerModule,
-  MatSidenavModule, MatTableModule,
+  MatSidenavModule, MatStepperModule, MatTableModule,
   MatToolbarModule
 } from "@angular/material";
 import {AppRoutes} from "./app.routing";
@@ -33,6 +33,7 @@ import { SlaCreateComponent } from './modules/sla-creation/sla-create/sla-create
 import { SlaOverviewComponent } from './modules/sla-overview/sla-overview/sla-overview.component';
 import { SlaItemComponent } from './modules/sla-overview/sla-item/sla-item.component';
 import { SlaDetailsComponent } from './modules/sla-overview/sla-details/sla-details.component';
+import { SlaStepperComponent } from './modules/sla-creation/sla-stepper/sla-stepper.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { SlaDetailsComponent } from './modules/sla-overview/sla-details/sla-deta
     SlaOverviewComponent,
     SlaItemComponent,
     SlaDetailsComponent,
+    SlaStepperComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,7 +70,8 @@ import { SlaDetailsComponent } from './modules/sla-overview/sla-details/sla-deta
     MatButtonModule,
     MatGridListModule,
     MatProgressSpinnerModule,
-    MatTableModule
+    MatTableModule,
+    MatStepperModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

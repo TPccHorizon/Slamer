@@ -6,6 +6,7 @@ import {AuthGuard} from "./core/guards/auth.guard";
 import {SlaCreateComponent} from "./modules/sla-creation/sla-create/sla-create.component";
 import {SlaOverviewComponent} from "./modules/sla-overview/sla-overview/sla-overview.component";
 import {SlaDetailsComponent} from "./modules/sla-overview/sla-details/sla-details.component";
+import {SlaStepperComponent} from "./modules/sla-creation/sla-stepper/sla-stepper.component";
 
 
 export const AppRoutes: Routes = [
@@ -27,7 +28,7 @@ export const AppRoutes: Routes = [
     component: SlaOverviewComponent
   },
   {
-    path: 'slas/create', component: SlaCreateComponent
+    path: 'slas/create', component: SlaStepperComponent
   },
   {
     path: 'slas/:id', component: SlaDetailsComponent

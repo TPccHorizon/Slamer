@@ -1,3 +1,4 @@
+<a class="btn btn-secondary" [routerLink]="['/slas']">Back to Overview</a>
 <div *ngIf="sla">
   <h2>
     Service Level Agreement
@@ -33,7 +34,7 @@
           This Agreement represents a Service Level Agreement ("SLA") between
         </p>
         <p>
-          {{sla.serviceProvider.partyName}} as the Service Provider and {{sla.serviceCustomer.partyName}}
+          <b>{{sla.serviceProvider.partyName}}</b> as the Service Provider and <b>{{sla.serviceCustomer.partyName}}</b>
           for the provisioning of IT services.
         </p>
       </div>

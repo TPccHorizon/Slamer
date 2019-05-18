@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AlertService} from "../../../core/services/alert.service";
 import {SlaService} from "../../../core/services/sla.service";
@@ -6,6 +6,7 @@ import {SlaWithCustomer} from "../../../shared/models/slaWithCustomer";
 import {Sla} from "../../../shared/models/sla";
 import {AuthenticationService} from "../../../core/services/authentication.service";
 import {first} from "rxjs/operators";
+import {StepperFormManagementService} from "../../../core/services/stepper-form-management.service";
 
 @Component({
   selector: 'app-sla-create',
@@ -21,15 +22,19 @@ export class SlaCreateComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private alertService: AlertService,
               private slaService: SlaService,
-              private authService: AuthenticationService) { }
-
-  ngOnInit() {
+              private authService: AuthenticationService,
+              private formService: StepperFormManagementService) {
     this.slaForm = this.formBuilder.group({
       serviceCustomerUsername: ['', Validators.required],
       validFrom: ['', Validators.required],
       validTo: ['', Validators.required],
       servicePrice: ['', Validators.required]
-    })
+    });
+    this.formService.slaFormReady(this.slaForm);
+  }
+
+  ngOnInit() {
+
   }
 
   get f() { return this.slaForm.controls; }
