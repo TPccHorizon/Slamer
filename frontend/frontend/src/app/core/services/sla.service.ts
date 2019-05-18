@@ -5,6 +5,7 @@ import {SlaWithCustomer} from "../../shared/models/slaWithCustomer";
 import {AuthenticationService} from "./authentication.service";
 import {Sla} from "../../shared/models/sla";
 import {SlaUserService} from "./sla-user.service";
+import {SlaAndParties} from "../../shared/models/slaAndParties";
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,6 @@ export class SlaService {
   }
 
   getSlaWithParties(id) {
-    return this.http.get(`${this.config.apiUrl}/slas/${id}`)
+    return this.http.get<SlaAndParties>(`${this.config.apiUrl}/slas/${id}`)
   }
 }

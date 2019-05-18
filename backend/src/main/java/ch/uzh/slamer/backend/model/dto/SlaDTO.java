@@ -1,4 +1,4 @@
-package ch.uzh.slamer.backend.model;
+package ch.uzh.slamer.backend.model.dto;
 
 import codegen.tables.pojos.Sla;
 import codegen.tables.pojos.SlaUser;
@@ -6,20 +6,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class SlaAndParties extends Sla {
+public class SlaDTO extends Sla {
 
     @JsonProperty
-    private SlaUser serviceCustomer;
+    private SlaUserDTO serviceCustomer;
 
     @JsonProperty
-    private SlaUser serviceProvider;
+    private SlaUserDTO serviceProvider;
 
-    public SlaAndParties(){}
+    public SlaDTO(){}
 
-    public SlaAndParties(Sla sla, List<SlaUser> parties) {
+    public SlaDTO(Sla sla, List<SlaUserDTO> parties) {
         super(sla.getId(), sla.getStatus(), sla.getServicePrice(), sla.getLifecyclePhase(), sla.getValidFrom(),
                 sla.getValidTo(), sla.getServiceProviderId(), sla.getServiceCustomerId());
-        for (SlaUser user: parties) {
+        for (SlaUserDTO user: parties) {
             if (user.getId().equals(super.getServiceCustomerId())) {
                 serviceCustomer = user;
             } else if (user.getId().equals(super.getServiceProviderId())) {
@@ -31,11 +31,11 @@ public class SlaAndParties extends Sla {
         }
     }
 
-    public SlaUser getServiceCustomer() {
+    public SlaUserDTO getServiceCustomer() {
         return serviceCustomer;
     }
 
-    public SlaUser getServiceProvider() {
+    public SlaUserDTO getServiceProvider() {
         return serviceProvider;
     }
 }

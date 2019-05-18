@@ -1,14 +1,12 @@
 package ch.uzh.slamer.backend.controller;
 
 import ch.uzh.slamer.backend.exception.RecordNotFoundException;
-import ch.uzh.slamer.backend.model.SlaAndParties;
+import ch.uzh.slamer.backend.model.dto.SlaDTO;
 import ch.uzh.slamer.backend.model.pojo.SlaWithCustomer;
 import ch.uzh.slamer.backend.repository.SlaRepository;
 import ch.uzh.slamer.backend.repository.SlaUserRepository;
 import ch.uzh.slamer.backend.service.SlaService;
 import codegen.tables.pojos.Sla;
-import codegen.tables.pojos.SlaUser;
-import org.jooq.meta.derby.sys.Sys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin(allowCredentials = "false", origins = "${security.allowed-origin}")
 @RestController
@@ -56,8 +53,8 @@ public class SlaController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/slas/{id}")
-    public ResponseEntity<SlaAndParties> getOne(@PathVariable int id) {
-        SlaAndParties sla = slaRepository.getSlaWithParties(id);
+    public ResponseEntity<SlaDTO> getOne(@PathVariable int id) {
+        SlaDTO sla = slaRepository.getSlaWithParties(id);
         if (sla != null){
             System.out.println("Got SLA");
             return new ResponseEntity<>(sla, HttpStatus.OK);

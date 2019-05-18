@@ -1,8 +1,7 @@
 import {Sla} from "./sla";
 import {SlaUser} from "./slaUser";
 
-export class SlaWithParties {
-  sla: Sla;
+export class SlaAndParties extends Sla{
   serviceProvider: SlaUser;
   serviceCustomer: SlaUser;
 }

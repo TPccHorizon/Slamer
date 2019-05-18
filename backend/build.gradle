@@ -35,6 +35,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jooq'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.modelmapper:modelmapper:2.3.0'
     implementation 'com.auth0:java-jwt:3.4.0'
     implementation 'org.jooq:jooq:3.11.11'
     implementation 'org.jooq:jooq-meta:3.11.11'

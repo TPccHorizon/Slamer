@@ -1,16 +1,14 @@
 package ch.uzh.slamer.backend.repository;
 
 import ch.uzh.slamer.backend.exception.RecordNotFoundException;
-import ch.uzh.slamer.backend.model.SlaAndParties;
+import ch.uzh.slamer.backend.model.dto.SlaDTO;
 import codegen.tables.pojos.Sla;
 import codegen.tables.pojos.SlaUser;
 import codegen.tables.records.SlaRecord;
 import org.jooq.DSLContext;
-import org.jooq.Record;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 import static codegen.Tables.SLA;
 import static codegen.Tables.SLA_USER;
@@ -56,7 +54,7 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
         return record;
     }
 
-    public SlaAndParties getSlaWithParties(int slaId) {
+    public SlaDTO getSlaWithParties(int slaId) {
         Sla sla = context.selectFrom(SLA)
                 .where(SLA.ID.equal(slaId))
                 .fetchOne().into(Sla.class);
@@ -67,6 +65,6 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
                 .or(SLA_USER.ID.equal(sla.getServiceCustomerId()))
                 .fetchInto(SlaUser.class);
 
-        return new SlaAndParties(sla, parties);
+        return new SlaDTO(sla, parties);
     }
 }

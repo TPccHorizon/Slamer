@@ -3,6 +3,7 @@ import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {SlaService} from "../../../core/services/sla.service";
 import {Sla} from "../../../shared/models/sla";
 import {first, switchMap} from "rxjs/operators";
+import {SlaAndParties} from "../../../shared/models/slaAndParties";
 
 @Component({
   selector: 'app-sla-details',
@@ -11,7 +12,7 @@ import {first, switchMap} from "rxjs/operators";
 })
 export class SlaDetailsComponent implements OnInit {
 
-  sla: Sla;
+  sla: SlaAndParties;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -22,6 +23,7 @@ export class SlaDetailsComponent implements OnInit {
     this.slaService.getSlaWithParties(id as unknown as number).pipe(first())
       .subscribe(result => {
         console.log(result);
+        this.sla = result;
       }, error => {
         console.log(error);
       });
