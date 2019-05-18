@@ -22,7 +22,6 @@ import java.util.Map;
 
 @CrossOrigin(allowCredentials = "false", origins = "${security.allowed-origin}")
 @RestController
-//@RequestMapping("/slas")
 public class SlaController {
 
     @Autowired
@@ -84,7 +83,6 @@ public class SlaController {
 
         System.out.println("Got SLA");
         return new ResponseEntity<>(slaDTO, HttpStatus.OK);
-
-
     }
+
 }
