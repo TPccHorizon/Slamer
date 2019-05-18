@@ -9,8 +9,14 @@
 </mat-form-field>
 <div *ngIf="selected">
   <div [ngSwitch]="selected">
-    <div *ngSwitchCase="'Availability'">
+    <div *ngSwitchCase="'Uptime'">
       <app-availability></app-availability>
+    </div>
+    <div *ngSwitchCase="'Throughput'">
+      <app-throughput></app-throughput>
+    </div>
+    <div *ngSwitchCase="'Average Response Time'">
+
     </div>
   </div>
 </div>

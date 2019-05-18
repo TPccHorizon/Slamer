@@ -1,0 +1,80 @@
+<form [formGroup]="sloForm" (ngSubmit)="onSubmit()">
+
+  <div fxLayout="column">
+
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" formControlName="name" class="form-control" [ngClass]="{'is-invalid': submitted && f.name.errors}">
+      <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+        <div *ngIf="f.name.errors.required">Name is required</div>
+      </div>
+    </div>
+
+    <div class="form-group" fxLayout="row" fxLayoutGap="5px">
+
+      <div fxFlex="15%" class="form-group" >
+        <label>Data Size</label>
+        <input type="text" formControlName="dataSize" class="form-control" [ngClass]="{'is-invalid': submitted && f.dataSize.errors}">
+        <div *ngIf="submitted && f.dataSize.errors" class="invalid-feedback">
+          <div *ngIf="f.dataSize.errors.required">required</div>
+        </div>
+      </div>
+
+      <div fxFlex="15%" class="form-group">
+        <label>Unit</label>
+        <select class="form-control" id="dataUnit" formControlName="dataUnit">
+          <option *ngFor="let unit of dataUnits" [value]="unit">
+            {{unit}}
+          </option>
+        </select>
+        <div *ngIf="submitted && f.dataUnit.errors" class="invalid-feedback">
+          <div *ngIf="f.dataUnit.errors.required">required</div>
+        </div>
+      </div>
+
+      <div fxFlex="10%">
+        In
+      </div>
+
+      <div fxFlex="15%">
+        <div class="form-group">
+          <label>Operator</label>
+          <select class="form-control" id="operator" formControlName="operator">
+            <option *ngFor="let operator of operators" [value]="operator">
+              {{operator}}
+            </option>
+          </select>
+          <div *ngIf="submitted && f.operator.errors" class="invalid-feedback">
+            <div *ngIf="f.operator.errors.required">required</div>
+          </div>
+        </div>
+      </div>
+
+      <div fxFlex="15%" class="form-group">
+        <label>Value</label>
+        <input type="number" formControlName="thresholdValue" class="form-control" [ngClass]="{'is-invalid': submitted && f.thresholdValue.errors}">
+        <div *ngIf="submitted && f.thresholdValue.errors" class="invalid-feedback">
+          <div *ngIf="f.thresholdValue.errors.required">required</div>
+        </div>
+      </div>
+
+      <div fxFlex="15%" class="form-group">
+        <label>Unit</label>
+        <select class="form-control" id="thresholdUnit" formControlName="dataUnit">
+          <option *ngFor="let unit of thresholdUnits" [value]="unit">
+            {{unit}}
+          </option>
+        </select>
+        <div *ngIf="submitted && f.thresholdUnit.errors" class="invalid-feedback">
+          <div *ngIf="f.thresholdUnit.errors.required">required</div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+
+</form>

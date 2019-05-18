@@ -10,10 +10,14 @@
 
   <div class="form-group">
     <label>Percentage of availability</label>
-    <input type="text" formControlName="percentageOfAvailability" class="form-control" [ngClass]="{'is-invalid': submitted && f.percentageOfAvailability.errors}">
+    <input type="number" formControlName="percentageOfAvailability" class="form-control" [ngClass]="{'is-invalid': submitted && f.percentageOfAvailability.errors}">
     <div *ngIf="submitted && f.percentageOfAvailability.errors" class="invalid-feedback">
       <div *ngIf="f.percentageOfAvailability.errors.required">required</div>
     </div>
+  </div>
+
+  <div>
+    <button mat-button color="primary">Create</button>
   </div>
 
 </form>

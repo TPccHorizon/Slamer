@@ -10,7 +10,7 @@ import {StepperFormManagementService} from "../../../core/services/stepper-form-
 })
 export class SloCreationComponent implements OnInit {
 
-  sloTypes = ['Average Response Time', 'Throughput', 'Availability'];
+  sloTypes = ['Average Response Time', 'Throughput', 'Uptime'];
   selected: string;
 
   constructor(private formService: StepperFormManagementService) {

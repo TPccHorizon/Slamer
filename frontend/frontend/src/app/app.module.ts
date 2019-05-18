@@ -36,6 +36,7 @@ import { SlaDetailsComponent } from './modules/sla-overview/sla-details/sla-deta
 import { SlaStepperComponent } from './modules/sla-creation/sla-stepper/sla-stepper.component';
 import { SloCreationComponent } from './modules/sla-creation/slo-creation/slo-creation.component';
 import { AvailabilityComponent } from './modules/sla-creation/availability/availability.component';
+import { ThroughputComponent } from './modules/sla-creation/throughput/throughput.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { AvailabilityComponent } from './modules/sla-creation/availability/avail
     SlaStepperComponent,
     SloCreationComponent,
     AvailabilityComponent,
+    ThroughputComponent,
   ],
   imports: [
     BrowserModule,
