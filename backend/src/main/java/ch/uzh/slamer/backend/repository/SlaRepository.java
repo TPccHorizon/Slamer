@@ -8,7 +8,10 @@ import codegen.tables.records.SlaRecord;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static codegen.Tables.SLA;
 import static codegen.Tables.SLA_USER;
@@ -54,7 +57,7 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
         return record;
     }
 
-    public SlaDTO getSlaWithParties(int slaId) {
+    public Map<Sla, List<SlaUser>> getSlaWithParties(int slaId) {
         Sla sla = context.selectFrom(SLA)
                 .where(SLA.ID.equal(slaId))
                 .fetchOne().into(Sla.class);
@@ -65,6 +68,8 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
                 .or(SLA_USER.ID.equal(sla.getServiceCustomerId()))
                 .fetchInto(SlaUser.class);
 
-        return new SlaDTO(sla, parties);
+        Map<Sla, List<SlaUser>> result = new LinkedHashMap<>();
+        result.put(sla, parties);
+        return result;
     }
 }

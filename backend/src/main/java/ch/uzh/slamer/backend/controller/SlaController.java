@@ -2,18 +2,23 @@ package ch.uzh.slamer.backend.controller;
 
 import ch.uzh.slamer.backend.exception.RecordNotFoundException;
 import ch.uzh.slamer.backend.model.dto.SlaDTO;
+import ch.uzh.slamer.backend.model.dto.SlaUserDTO;
 import ch.uzh.slamer.backend.model.pojo.SlaWithCustomer;
 import ch.uzh.slamer.backend.repository.SlaRepository;
 import ch.uzh.slamer.backend.repository.SlaUserRepository;
 import ch.uzh.slamer.backend.service.SlaService;
 import codegen.tables.pojos.Sla;
+import codegen.tables.pojos.SlaUser;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(allowCredentials = "false", origins = "${security.allowed-origin}")
 @RestController
@@ -28,6 +33,9 @@ public class SlaController {
 
     @Autowired
     SlaUserRepository userRepository;
+
+    @Autowired
+    ModelMapper mapper;
 
     @RequestMapping(method = RequestMethod.POST, path = "/slas")
     public ResponseEntity<Sla> createNewSla(@RequestBody SlaWithCustomer slaWithCustomer) {
@@ -54,12 +62,29 @@ public class SlaController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/slas/{id}")
     public ResponseEntity<SlaDTO> getOne(@PathVariable int id) {
-        SlaDTO sla = slaRepository.getSlaWithParties(id);
-        if (sla != null){
-            System.out.println("Got SLA");
-            return new ResponseEntity<>(sla, HttpStatus.OK);
+        Map<Sla, List<SlaUser>> slaListMap = slaRepository.getSlaWithParties(id);
+        SlaDTO slaDTO = null;
+        List<SlaUser> parties = new LinkedList<>();
+        for (Map.Entry<Sla, List<SlaUser>> slaListEntry: slaListMap.entrySet()) {
+            slaDTO = mapper.map(slaListEntry.getKey(), SlaDTO.class);
+            parties = slaListEntry.getValue();
+        }
+        if (slaDTO == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        /* Set parties as Customer and Provider respectively */
+        for (SlaUser party: parties) {
+            if (party.getId().equals(slaDTO.getServiceCustomerId())) {
+                slaDTO.setServiceCustomer(mapper.map(party, SlaUserDTO.class));
+            } else {
+                slaDTO.setServiceProvider(mapper.map(party, SlaUserDTO.class));
+            }
+        }
+
+        System.out.println("Got SLA");
+        return new ResponseEntity<>(slaDTO, HttpStatus.OK);
+
+
     }
 }
