@@ -1,14 +1,20 @@
 package ch.uzh.slamer.backend.repository;
 
 import ch.uzh.slamer.backend.exception.RecordNotFoundException;
+import ch.uzh.slamer.backend.model.dto.SlaDTO;
 import codegen.tables.pojos.Sla;
+import codegen.tables.pojos.SlaUser;
 import codegen.tables.records.SlaRecord;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static codegen.Tables.SLA;
+import static codegen.Tables.SLA_USER;
 
 @Repository
 public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
@@ -49,5 +55,21 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
                 .setServicePrice(sla.getServicePrice())
                 .setStatus(sla.getStatus());
         return record;
+    }
+
+    public Map<Sla, List<SlaUser>> getSlaWithParties(int slaId) {
+        Sla sla = context.selectFrom(SLA)
+                .where(SLA.ID.equal(slaId))
+                .fetchOne().into(Sla.class);
+
+        List<SlaUser> parties = context.select(SLA_USER.ID, SLA_USER.USERNAME, SLA_USER.PARTY_NAME)
+                .from(SLA_USER)
+                .where(SLA_USER.ID.equal(sla.getServiceProviderId()))
+                .or(SLA_USER.ID.equal(sla.getServiceCustomerId()))
+                .fetchInto(SlaUser.class);
+
+        Map<Sla, List<SlaUser>> result = new LinkedHashMap<>();
+        result.put(sla, parties);
+        return result;
     }
 }

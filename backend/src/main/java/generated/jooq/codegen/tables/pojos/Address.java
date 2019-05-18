@@ -22,14 +22,16 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Address implements Serializable {
 
-    private static final long serialVersionUID = 1280798870;
+    private static final long serialVersionUID = 611045474;
 
-    private final Integer id;
-    private final Integer postalCode;
-    private final String  city;
-    private final String  street;
-    private final Integer streetNr;
-    private final Integer userId;
+    private Integer id;
+    private Integer postalCode;
+    private String  city;
+    private String  street;
+    private Integer streetNr;
+    private Integer userId;
+
+    public Address() {}
 
     public Address(Address value) {
         this.id = value.id;
@@ -60,24 +62,115 @@ public class Address implements Serializable {
         return this.id;
     }
 
+    public Address setId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
     public Integer getPostalCode() {
         return this.postalCode;
+    }
+
+    public Address setPostalCode(Integer postalCode) {
+        this.postalCode = postalCode;
+        return this;
     }
 
     public String getCity() {
         return this.city;
     }
 
+    public Address setCity(String city) {
+        this.city = city;
+        return this;
+    }
+
     public String getStreet() {
         return this.street;
+    }
+
+    public Address setStreet(String street) {
+        this.street = street;
+        return this;
     }
 
     public Integer getStreetNr() {
         return this.streetNr;
     }
 
+    public Address setStreetNr(Integer streetNr) {
+        this.streetNr = streetNr;
+        return this;
+    }
+
     public Integer getUserId() {
         return this.userId;
+    }
+
+    public Address setUserId(Integer userId) {
+        this.userId = userId;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Address other = (Address) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        }
+        else if (!id.equals(other.id))
+            return false;
+        if (postalCode == null) {
+            if (other.postalCode != null)
+                return false;
+        }
+        else if (!postalCode.equals(other.postalCode))
+            return false;
+        if (city == null) {
+            if (other.city != null)
+                return false;
+        }
+        else if (!city.equals(other.city))
+            return false;
+        if (street == null) {
+            if (other.street != null)
+                return false;
+        }
+        else if (!street.equals(other.street))
+            return false;
+        if (streetNr == null) {
+            if (other.streetNr != null)
+                return false;
+        }
+        else if (!streetNr.equals(other.streetNr))
+            return false;
+        if (userId == null) {
+            if (other.userId != null)
+                return false;
+        }
+        else if (!userId.equals(other.userId))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        result = prime * result + ((this.postalCode == null) ? 0 : this.postalCode.hashCode());
+        result = prime * result + ((this.city == null) ? 0 : this.city.hashCode());
+        result = prime * result + ((this.street == null) ? 0 : this.street.hashCode());
+        result = prime * result + ((this.streetNr == null) ? 0 : this.streetNr.hashCode());
+        result = prime * result + ((this.userId == null) ? 0 : this.userId.hashCode());
+        return result;
     }
 
     @Override

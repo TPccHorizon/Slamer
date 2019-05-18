@@ -23,22 +23,24 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Databasechangelog implements Serializable {
 
-    private static final long serialVersionUID = 995647574;
+    private static final long serialVersionUID = 1452298395;
 
-    private final String    id;
-    private final String    author;
-    private final String    filename;
-    private final Timestamp dateexecuted;
-    private final Integer   orderexecuted;
-    private final String    exectype;
-    private final String    md5sum;
-    private final String    description;
-    private final String    comments;
-    private final String    tag;
-    private final String    liquibase;
-    private final String    contexts;
-    private final String    labels;
-    private final String    deploymentId;
+    private String    id;
+    private String    author;
+    private String    filename;
+    private Timestamp dateexecuted;
+    private Integer   orderexecuted;
+    private String    exectype;
+    private String    md5sum;
+    private String    description;
+    private String    comments;
+    private String    tag;
+    private String    liquibase;
+    private String    contexts;
+    private String    labels;
+    private String    deploymentId;
+
+    public Databasechangelog() {}
 
     public Databasechangelog(Databasechangelog value) {
         this.id = value.id;
@@ -93,56 +95,243 @@ public class Databasechangelog implements Serializable {
         return this.id;
     }
 
+    public Databasechangelog setId(String id) {
+        this.id = id;
+        return this;
+    }
+
     public String getAuthor() {
         return this.author;
+    }
+
+    public Databasechangelog setAuthor(String author) {
+        this.author = author;
+        return this;
     }
 
     public String getFilename() {
         return this.filename;
     }
 
+    public Databasechangelog setFilename(String filename) {
+        this.filename = filename;
+        return this;
+    }
+
     public Timestamp getDateexecuted() {
         return this.dateexecuted;
+    }
+
+    public Databasechangelog setDateexecuted(Timestamp dateexecuted) {
+        this.dateexecuted = dateexecuted;
+        return this;
     }
 
     public Integer getOrderexecuted() {
         return this.orderexecuted;
     }
 
+    public Databasechangelog setOrderexecuted(Integer orderexecuted) {
+        this.orderexecuted = orderexecuted;
+        return this;
+    }
+
     public String getExectype() {
         return this.exectype;
+    }
+
+    public Databasechangelog setExectype(String exectype) {
+        this.exectype = exectype;
+        return this;
     }
 
     public String getMd5sum() {
         return this.md5sum;
     }
 
+    public Databasechangelog setMd5sum(String md5sum) {
+        this.md5sum = md5sum;
+        return this;
+    }
+
     public String getDescription() {
         return this.description;
+    }
+
+    public Databasechangelog setDescription(String description) {
+        this.description = description;
+        return this;
     }
 
     public String getComments() {
         return this.comments;
     }
 
+    public Databasechangelog setComments(String comments) {
+        this.comments = comments;
+        return this;
+    }
+
     public String getTag() {
         return this.tag;
+    }
+
+    public Databasechangelog setTag(String tag) {
+        this.tag = tag;
+        return this;
     }
 
     public String getLiquibase() {
         return this.liquibase;
     }
 
+    public Databasechangelog setLiquibase(String liquibase) {
+        this.liquibase = liquibase;
+        return this;
+    }
+
     public String getContexts() {
         return this.contexts;
+    }
+
+    public Databasechangelog setContexts(String contexts) {
+        this.contexts = contexts;
+        return this;
     }
 
     public String getLabels() {
         return this.labels;
     }
 
+    public Databasechangelog setLabels(String labels) {
+        this.labels = labels;
+        return this;
+    }
+
     public String getDeploymentId() {
         return this.deploymentId;
+    }
+
+    public Databasechangelog setDeploymentId(String deploymentId) {
+        this.deploymentId = deploymentId;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Databasechangelog other = (Databasechangelog) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        }
+        else if (!id.equals(other.id))
+            return false;
+        if (author == null) {
+            if (other.author != null)
+                return false;
+        }
+        else if (!author.equals(other.author))
+            return false;
+        if (filename == null) {
+            if (other.filename != null)
+                return false;
+        }
+        else if (!filename.equals(other.filename))
+            return false;
+        if (dateexecuted == null) {
+            if (other.dateexecuted != null)
+                return false;
+        }
+        else if (!dateexecuted.equals(other.dateexecuted))
+            return false;
+        if (orderexecuted == null) {
+            if (other.orderexecuted != null)
+                return false;
+        }
+        else if (!orderexecuted.equals(other.orderexecuted))
+            return false;
+        if (exectype == null) {
+            if (other.exectype != null)
+                return false;
+        }
+        else if (!exectype.equals(other.exectype))
+            return false;
+        if (md5sum == null) {
+            if (other.md5sum != null)
+                return false;
+        }
+        else if (!md5sum.equals(other.md5sum))
+            return false;
+        if (description == null) {
+            if (other.description != null)
+                return false;
+        }
+        else if (!description.equals(other.description))
+            return false;
+        if (comments == null) {
+            if (other.comments != null)
+                return false;
+        }
+        else if (!comments.equals(other.comments))
+            return false;
+        if (tag == null) {
+            if (other.tag != null)
+                return false;
+        }
+        else if (!tag.equals(other.tag))
+            return false;
+        if (liquibase == null) {
+            if (other.liquibase != null)
+                return false;
+        }
+        else if (!liquibase.equals(other.liquibase))
+            return false;
+        if (contexts == null) {
+            if (other.contexts != null)
+                return false;
+        }
+        else if (!contexts.equals(other.contexts))
+            return false;
+        if (labels == null) {
+            if (other.labels != null)
+                return false;
+        }
+        else if (!labels.equals(other.labels))
+            return false;
+        if (deploymentId == null) {
+            if (other.deploymentId != null)
+                return false;
+        }
+        else if (!deploymentId.equals(other.deploymentId))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        result = prime * result + ((this.author == null) ? 0 : this.author.hashCode());
+        result = prime * result + ((this.filename == null) ? 0 : this.filename.hashCode());
+        result = prime * result + ((this.dateexecuted == null) ? 0 : this.dateexecuted.hashCode());
+        result = prime * result + ((this.orderexecuted == null) ? 0 : this.orderexecuted.hashCode());
+        result = prime * result + ((this.exectype == null) ? 0 : this.exectype.hashCode());
+        result = prime * result + ((this.md5sum == null) ? 0 : this.md5sum.hashCode());
+        result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
+        result = prime * result + ((this.comments == null) ? 0 : this.comments.hashCode());
+        result = prime * result + ((this.tag == null) ? 0 : this.tag.hashCode());
+        result = prime * result + ((this.liquibase == null) ? 0 : this.liquibase.hashCode());
+        result = prime * result + ((this.contexts == null) ? 0 : this.contexts.hashCode());
+        result = prime * result + ((this.labels == null) ? 0 : this.labels.hashCode());
+        result = prime * result + ((this.deploymentId == null) ? 0 : this.deploymentId.hashCode());
+        return result;
     }
 
     @Override

@@ -1,0 +1,16 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header >
+    <mat-panel-title>
+      Title for Sla
+    </mat-panel-title>
+    <mat-panel-description>
+      <b>Status :</b><span class="{{sla.status}}">{{sla.status}}</span>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <p><b>Starts:</b> {{sla.validFrom}}, <b>Ends:</b> {{sla.validTo}}</p>
+  <p><b>Lifecycle Phase:</b> {{sla.lifecyclePhase}}</p>
+
+  <mat-action-row>
+    <a class="btn btn-primary" [routerLink]="['/slas/', sla.id]" routerLinkActive="active">Show Details</a>
+  </mat-action-row>
+</mat-expansion-panel>

@@ -6,12 +6,13 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  MatButtonModule,
   MatCardModule,
-  MatDatepickerModule,
+  MatDatepickerModule, MatExpansionModule, MatGridListModule,
   MatIconModule,
   MatInputModule,
-  MatListModule, MatMenuModule, MatNativeDateModule,
-  MatSidenavModule,
+  MatListModule, MatMenuModule, MatNativeDateModule, MatProgressSpinnerModule,
+  MatSidenavModule, MatStepperModule, MatTableModule,
   MatToolbarModule
 } from "@angular/material";
 import {AppRoutes} from "./app.routing";
@@ -29,6 +30,10 @@ import {ResponseInterceptor} from "./core/interceptors/response.interceptor";
 import { BaseLayoutComponent } from './shared/base-layout/base-layout.component';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import { SlaCreateComponent } from './modules/sla-creation/sla-create/sla-create.component';
+import { SlaOverviewComponent } from './modules/sla-overview/sla-overview/sla-overview.component';
+import { SlaItemComponent } from './modules/sla-overview/sla-item/sla-item.component';
+import { SlaDetailsComponent } from './modules/sla-overview/sla-details/sla-details.component';
+import { SlaStepperComponent } from './modules/sla-creation/sla-stepper/sla-stepper.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +45,10 @@ import { SlaCreateComponent } from './modules/sla-creation/sla-create/sla-create
     RegisterComponent,
     BaseLayoutComponent,
     SlaCreateComponent,
+    SlaOverviewComponent,
+    SlaItemComponent,
+    SlaDetailsComponent,
+    SlaStepperComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +65,13 @@ import { SlaCreateComponent } from './modules/sla-creation/sla-create/sla-create
     FlexLayoutModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCardModule
+    MatCardModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatGridListModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
+    MatStepperModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

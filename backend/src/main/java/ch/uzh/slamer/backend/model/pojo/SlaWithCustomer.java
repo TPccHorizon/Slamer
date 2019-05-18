@@ -11,6 +11,9 @@ public class SlaWithCustomer {
     @JsonProperty
     private String customerUsername;
 
+    @JsonProperty
+    private String providerUsername;
+
     public SlaWithCustomer() { }
 
     public Sla getSla() {
@@ -19,5 +22,9 @@ public class SlaWithCustomer {
 
     public String getCustomerUsername() {
         return customerUsername;
+    }
+
+    public String getProviderUsername() {
+        return providerUsername;
     }
 }

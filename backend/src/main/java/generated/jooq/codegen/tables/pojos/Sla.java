@@ -24,16 +24,18 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Sla implements Serializable {
 
-    private static final long serialVersionUID = -1986236750;
+    private static final long serialVersionUID = 484797313;
 
-    private final Integer    id;
-    private final String     status;
-    private final BigDecimal servicePrice;
-    private final String     lifecyclePhase;
-    private final Date       validFrom;
-    private final Date       validTo;
-    private final Integer    serviceProviderId;
-    private final Integer    serviceCustomerId;
+    private Integer    id;
+    private String     status;
+    private BigDecimal servicePrice;
+    private String     lifecyclePhase;
+    private Date       validFrom;
+    private Date       validTo;
+    private Integer    serviceProviderId;
+    private Integer    serviceCustomerId;
+
+    public Sla() {}
 
     public Sla(Sla value) {
         this.id = value.id;
@@ -70,32 +72,147 @@ public class Sla implements Serializable {
         return this.id;
     }
 
+    public Sla setId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
     public String getStatus() {
         return this.status;
+    }
+
+    public Sla setStatus(String status) {
+        this.status = status;
+        return this;
     }
 
     public BigDecimal getServicePrice() {
         return this.servicePrice;
     }
 
+    public Sla setServicePrice(BigDecimal servicePrice) {
+        this.servicePrice = servicePrice;
+        return this;
+    }
+
     public String getLifecyclePhase() {
         return this.lifecyclePhase;
+    }
+
+    public Sla setLifecyclePhase(String lifecyclePhase) {
+        this.lifecyclePhase = lifecyclePhase;
+        return this;
     }
 
     public Date getValidFrom() {
         return this.validFrom;
     }
 
+    public Sla setValidFrom(Date validFrom) {
+        this.validFrom = validFrom;
+        return this;
+    }
+
     public Date getValidTo() {
         return this.validTo;
+    }
+
+    public Sla setValidTo(Date validTo) {
+        this.validTo = validTo;
+        return this;
     }
 
     public Integer getServiceProviderId() {
         return this.serviceProviderId;
     }
 
+    public Sla setServiceProviderId(Integer serviceProviderId) {
+        this.serviceProviderId = serviceProviderId;
+        return this;
+    }
+
     public Integer getServiceCustomerId() {
         return this.serviceCustomerId;
+    }
+
+    public Sla setServiceCustomerId(Integer serviceCustomerId) {
+        this.serviceCustomerId = serviceCustomerId;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Sla other = (Sla) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        }
+        else if (!id.equals(other.id))
+            return false;
+        if (status == null) {
+            if (other.status != null)
+                return false;
+        }
+        else if (!status.equals(other.status))
+            return false;
+        if (servicePrice == null) {
+            if (other.servicePrice != null)
+                return false;
+        }
+        else if (!servicePrice.equals(other.servicePrice))
+            return false;
+        if (lifecyclePhase == null) {
+            if (other.lifecyclePhase != null)
+                return false;
+        }
+        else if (!lifecyclePhase.equals(other.lifecyclePhase))
+            return false;
+        if (validFrom == null) {
+            if (other.validFrom != null)
+                return false;
+        }
+        else if (!validFrom.equals(other.validFrom))
+            return false;
+        if (validTo == null) {
+            if (other.validTo != null)
+                return false;
+        }
+        else if (!validTo.equals(other.validTo))
+            return false;
+        if (serviceProviderId == null) {
+            if (other.serviceProviderId != null)
+                return false;
+        }
+        else if (!serviceProviderId.equals(other.serviceProviderId))
+            return false;
+        if (serviceCustomerId == null) {
+            if (other.serviceCustomerId != null)
+                return false;
+        }
+        else if (!serviceCustomerId.equals(other.serviceCustomerId))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        result = prime * result + ((this.status == null) ? 0 : this.status.hashCode());
+        result = prime * result + ((this.servicePrice == null) ? 0 : this.servicePrice.hashCode());
+        result = prime * result + ((this.lifecyclePhase == null) ? 0 : this.lifecyclePhase.hashCode());
+        result = prime * result + ((this.validFrom == null) ? 0 : this.validFrom.hashCode());
+        result = prime * result + ((this.validTo == null) ? 0 : this.validTo.hashCode());
+        result = prime * result + ((this.serviceProviderId == null) ? 0 : this.serviceProviderId.hashCode());
+        result = prime * result + ((this.serviceCustomerId == null) ? 0 : this.serviceCustomerId.hashCode());
+        return result;
     }
 
     @Override

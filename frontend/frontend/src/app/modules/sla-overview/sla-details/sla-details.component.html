@@ -1,0 +1,79 @@
+<a class="btn btn-secondary" [routerLink]="['/slas']">Back to Overview</a>
+<div *ngIf="sla">
+  <h2>
+    Service Level Agreement
+    between
+    {{sla.serviceProvider.partyName}}
+    and
+    {{sla.serviceCustomer.partyName}}
+  </h2>
+  <div class="container" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start">
+
+    <div class="container" fxLayout="row">
+      <div fxFlex="50%">
+        <p>
+          <b>Agreement Number</b>: {{sla.id}}
+        </p>
+        <p>
+          <b>Effective Date</b>:   {{sla.validFrom}}
+        </p>
+        <p>
+          <b>Current Status</b>:   {{sla.status}}
+        </p>
+      </div>
+      <div fxFlex="50%">
+        <p>  </p>
+        <p><b>Expiry Date</b>: {{sla.validTo}}</p>
+        <p><b>Lifecycle Phase</b>: {{sla.lifecyclePhase}}</p>
+      </div>
+
+    </div>
+    <div>
+      <div class="container">
+        <p>
+          This Agreement represents a Service Level Agreement ("SLA") between
+        </p>
+        <p>
+          <b>{{sla.serviceProvider.partyName}}</b> as the Service Provider and <b>{{sla.serviceCustomer.partyName}}</b>
+          for the provisioning of IT services.
+        </p>
+      </div>
+
+    </div>
+
+    <div>
+      <h3>Approval</h3>
+      <table mat-table [dataSource]="dataSource" style="width: 100%">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Approvers</th>
+          <td mat-cell *matCellDef="let party" >{{party.name}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="role">
+          <th mat-header-cell *matHeaderCellDef>Role</th>
+          <td mat-cell *matCellDef="let party" >{{party.role}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="signature">
+          <th mat-header-cell *matHeaderCellDef>Digital Signature</th>
+          <td mat-cell *matCellDef="let party" >{{party.signature}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef>Date</th>
+          <td mat-cell *matCellDef="let party" >{{party.date}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="approvalColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: approvalColumns"></tr>
+
+      </table>
+    </div>
+
+    <div>
+      <h3>Service Level Objectives</h3>
+    </div>
+
+  </div>
+</div>
+

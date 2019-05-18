@@ -23,12 +23,14 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Penalty implements Serializable {
 
-    private static final long serialVersionUID = -1446830996;
+    private static final long serialVersionUID = -89313571;
 
-    private final Integer    id;
-    private final BigDecimal percentage;
-    private final BigDecimal referenceValue;
-    private final Integer    sloId;
+    private Integer    id;
+    private BigDecimal percentage;
+    private BigDecimal referenceValue;
+    private Integer    sloId;
+
+    public Penalty() {}
 
     public Penalty(Penalty value) {
         this.id = value.id;
@@ -53,16 +55,83 @@ public class Penalty implements Serializable {
         return this.id;
     }
 
+    public Penalty setId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
     public BigDecimal getPercentage() {
         return this.percentage;
+    }
+
+    public Penalty setPercentage(BigDecimal percentage) {
+        this.percentage = percentage;
+        return this;
     }
 
     public BigDecimal getReferenceValue() {
         return this.referenceValue;
     }
 
+    public Penalty setReferenceValue(BigDecimal referenceValue) {
+        this.referenceValue = referenceValue;
+        return this;
+    }
+
     public Integer getSloId() {
         return this.sloId;
+    }
+
+    public Penalty setSloId(Integer sloId) {
+        this.sloId = sloId;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Penalty other = (Penalty) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        }
+        else if (!id.equals(other.id))
+            return false;
+        if (percentage == null) {
+            if (other.percentage != null)
+                return false;
+        }
+        else if (!percentage.equals(other.percentage))
+            return false;
+        if (referenceValue == null) {
+            if (other.referenceValue != null)
+                return false;
+        }
+        else if (!referenceValue.equals(other.referenceValue))
+            return false;
+        if (sloId == null) {
+            if (other.sloId != null)
+                return false;
+        }
+        else if (!sloId.equals(other.sloId))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        result = prime * result + ((this.percentage == null) ? 0 : this.percentage.hashCode());
+        result = prime * result + ((this.referenceValue == null) ? 0 : this.referenceValue.hashCode());
+        result = prime * result + ((this.sloId == null) ? 0 : this.sloId.hashCode());
+        return result;
     }
 
     @Override

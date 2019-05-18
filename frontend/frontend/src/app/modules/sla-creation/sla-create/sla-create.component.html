@@ -1,43 +1,44 @@
-<h2>Create a new SLA</h2>
-<form [formGroup]="slaForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label>Customer E-Mail</label>
-    <input type="text" formControlName="serviceCustomerUsername" class="form-control" [ngClass]="{'is-invalid': submitted && f.serviceCustomerUsername.errors}">
-    <div *ngIf="submitted && f.serviceCustomerUsername.errors" class="invalid-feedback">
-      <div *ngIf="f.serviceCustomerUsername.errors.required">E-Mail of your Customer is required</div>
-    </div>
-  </div>
-
-  <div fxLayout="row" fxLayoutGap="10%">
-    <div class="form-group" fxFlex="45%">
-      <label>Start Date</label>
-      <input type="date" formControlName="validFrom" class="form-control" [ngClass]="{'is-invalid': submitted && f.validFrom.errors}">
-      <div *ngIf="submitted && f.validFrom.errors" class="invalid-feedback">
-        <div *ngIf="f.validFrom.errors.required">Start Date is required</div>
+  <h2>Create a new SLA</h2>
+  <form [formGroup]="slaForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Customer E-Mail</label>
+      <input type="text" formControlName="serviceCustomerUsername" class="form-control" [ngClass]="{'is-invalid': submitted && f.serviceCustomerUsername.errors}">
+      <div *ngIf="submitted && f.serviceCustomerUsername.errors" class="invalid-feedback">
+        <div *ngIf="f.serviceCustomerUsername.errors.required">E-Mail of your Customer is required</div>
       </div>
     </div>
 
-    <div class="form-group" fxFlex="45%">
-      <label>End Date</label>
-      <input type="date" formControlName="validTo" class="form-control" [ngClass]="{'is-invalid': submitted && f.validTo.errors}">
-      <div *ngIf="submitted && f.validTo.errors" class="invalid-feedback">
-        <div *ngIf="f.validTo.errors.required">End Date is required</div>
+    <div fxLayout="row" fxLayoutGap="10%">
+      <div class="form-group" fxFlex="45%">
+        <label>Start Date</label>
+        <input type="date" formControlName="validFrom" class="form-control" [ngClass]="{'is-invalid': submitted && f.validFrom.errors}">
+        <div *ngIf="submitted && f.validFrom.errors" class="invalid-feedback">
+          <div *ngIf="f.validFrom.errors.required">Start Date is required</div>
+        </div>
+      </div>
+
+      <div class="form-group" fxFlex="45%">
+        <label>End Date</label>
+        <input type="date" formControlName="validTo" class="form-control" [ngClass]="{'is-invalid': submitted && f.validTo.errors}">
+        <div *ngIf="submitted && f.validTo.errors" class="invalid-feedback">
+          <div *ngIf="f.validTo.errors.required">End Date is required</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label>SLA Price</label>
+      <input type="number" formControlName="servicePrice" class="form-control" [ngClass]="{'is-invalid': submitted && f.servicePrice.errors}">
+      <div *ngIf="submitted && f.servicePrice.errors" class="invalid-feedback">
+        <div *ngIf="f.servicePrice.errors.required">Service Price is required</div>
       </div>
     </div>
 
-  </div>
-
-  <div class="form-group">
-    <label>SLA Price</label>
-    <input type="number" formControlName="servicePrice" class="form-control" [ngClass]="{'is-invalid': submitted && f.servicePrice.errors}">
-    <div *ngIf="submitted && f.servicePrice.errors" class="invalid-feedback">
-      <div *ngIf="f.servicePrice.errors.required">Service Price is required</div>
+    <div class="form-group">
+      <button [disabled]="loading" class="btn btn-primary">Create</button>
     </div>
-  </div>
-
-  <div class="form-group">
-    <button [disabled]="loading" class="btn btn-primary">Create</button>
-  </div>
 
 
-</form>
+  </form>
+

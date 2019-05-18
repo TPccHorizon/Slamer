@@ -28,7 +28,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements Record7<Integer, String, String, String, String, String, String> {
 
-    private static final long serialVersionUID = 222802620;
+    private static final long serialVersionUID = 2136689146;
 
     /**
      * Setter for <code>public.sla_user.id</code>.
@@ -106,25 +106,10 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
     }
 
     /**
-     * Setter for <code>public.sla_user.party_type</code>.
-     */
-    public SlaUserRecord setPartyType(String value) {
-        set(5, value);
-        return this;
-    }
-
-    /**
-     * Getter for <code>public.sla_user.party_type</code>.
-     */
-    public String getPartyType() {
-        return (String) get(5);
-    }
-
-    /**
      * Setter for <code>public.sla_user.party_name</code>.
      */
     public SlaUserRecord setPartyName(String value) {
-        set(6, value);
+        set(5, value);
         return this;
     }
 
@@ -132,6 +117,21 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      * Getter for <code>public.sla_user.party_name</code>.
      */
     public String getPartyName() {
+        return (String) get(5);
+    }
+
+    /**
+     * Setter for <code>public.sla_user.party_type</code>.
+     */
+    public SlaUserRecord setPartyType(String value) {
+        set(6, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.sla_user.party_type</code>.
+     */
+    public String getPartyType() {
         return (String) get(6);
     }
 
@@ -212,7 +212,7 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      */
     @Override
     public Field<String> field6() {
-        return SlaUser.SLA_USER.PARTY_TYPE;
+        return SlaUser.SLA_USER.PARTY_NAME;
     }
 
     /**
@@ -220,7 +220,7 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      */
     @Override
     public Field<String> field7() {
-        return SlaUser.SLA_USER.PARTY_NAME;
+        return SlaUser.SLA_USER.PARTY_TYPE;
     }
 
     /**
@@ -268,7 +268,7 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      */
     @Override
     public String component6() {
-        return getPartyType();
+        return getPartyName();
     }
 
     /**
@@ -276,7 +276,7 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      */
     @Override
     public String component7() {
-        return getPartyName();
+        return getPartyType();
     }
 
     /**
@@ -324,7 +324,7 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      */
     @Override
     public String value6() {
-        return getPartyType();
+        return getPartyName();
     }
 
     /**
@@ -332,7 +332,7 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      */
     @Override
     public String value7() {
-        return getPartyName();
+        return getPartyType();
     }
 
     /**
@@ -385,7 +385,7 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      */
     @Override
     public SlaUserRecord value6(String value) {
-        setPartyType(value);
+        setPartyName(value);
         return this;
     }
 
@@ -394,7 +394,7 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      */
     @Override
     public SlaUserRecord value7(String value) {
-        setPartyName(value);
+        setPartyType(value);
         return this;
     }
 
@@ -427,7 +427,7 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
     /**
      * Create a detached, initialised SlaUserRecord
      */
-    public SlaUserRecord(Integer id, String password, String salt, String phoneNr, String username, String partyType, String partyName) {
+    public SlaUserRecord(Integer id, String password, String salt, String phoneNr, String username, String partyName, String partyType) {
         super(SlaUser.SLA_USER);
 
         set(0, id);
@@ -435,7 +435,7 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
         set(2, salt);
         set(3, phoneNr);
         set(4, username);
-        set(5, partyType);
-        set(6, partyName);
+        set(5, partyName);
+        set(6, partyType);
     }
 }
