@@ -1,0 +1,55 @@
+@mixin alert-theme($frontend-info, $frontend-success, $frontend-warning, $frontend-error) {
+  .success-notification-overlay,
+  .info-notification-overlay,
+  .warning-notification-overlay,
+  .error-notification-overlay,
+  .default-notification-overlay {
+    border-left: 4px solid;
+    &::before {
+      font-family: "Material Icons";
+      float: left;
+      font-size: 24px;
+      // because we want spaces to be considered in content
+      // https://stackoverflow.com/questions/5467605/add-a-space-after-an-element-using-after
+      white-space: pre;
+    }
+  }
+  .success-notification-overlay {
+    border-left-color: mat-color($frontend-success, 400);
+    &::before {
+      content: "\e86c  ";
+      color: mat-color($frontend-success, 400);
+    }
+  }
+  .info-notification-overlay{
+    border-left-color: mat-color($frontend-info, 400);
+    &::before {
+      content: "\e88e  ";
+      color: mat-color($frontend-info, 400);
+    }
+  }
+  .default-notification-overlay {
+    border-left-color: #fff;
+    &::before {
+      color: #fff;
+    }
+  }
+  .warning-notification-overlay{
+    border-left-color: mat-color($frontend-warning, 400);
+    &::before {
+      color: mat-color($frontend-warning, 400);
+    }
+  }
+  .error-notification-overlay {
+    border-left-color: mat-color($frontend-error, 400);
+    &::before {
+      color: mat-color($frontend-error, 400);
+    }
+  }
+  .warning-notification-overlay::before {
+    content: "\e002  ";
+  }
+  .error-notification-overlay::before {
+    content: "\e000  ";
+  }
+}

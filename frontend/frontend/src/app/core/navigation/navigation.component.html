@@ -1,4 +1,4 @@
-<mat-toolbar role="heading" color="primary" >
+<mat-toolbar role="heading" color="accent" >
   <span class="toggle-button" [routerLink]="['/']">SLAmer</span>
   <span class="fill-toolbar"></span>
   <span *ngIf="authService.isLoggedIn()">
@@ -22,7 +22,7 @@
 
 
 </mat-toolbar>
-<mat-sidenav-container  class="example-sidenav-container">
+<mat-sidenav-container fullscreen class="example-sidenav-container">
   <mat-sidenav #drawer mode="side" opened [attr.color]="themeColor"
   class="navigation-sidebar" fixedInViewport="true" [fixedTopGap]="64">
 
@@ -49,10 +49,6 @@
   </mat-sidenav>
 
   <mat-sidenav-content role="main">
-
-    <div class="container" fxLayout="row" fxLayoutAlign="center">
-      <app-alert fxFlex="30%"></app-alert>
-    </div>
 
     <app-base-layout></app-base-layout>
   </mat-sidenav-content>

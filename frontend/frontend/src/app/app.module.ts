@@ -18,7 +18,6 @@ import {
 import {AppRoutes} from "./app.routing";
 import { NavigationComponent } from './core/navigation/navigation.component';
 import { AuthenticationComponent } from './core/authentication/authentication.component';
-import { AlertComponent } from './shared/alert/alert.component';
 import {ErrorInterceptor} from "./core/interceptors/error.interceptor";
 import {Config} from "./config";
 import {LoginComponent} from "./modules/authentication/login/login.component";
@@ -44,7 +43,6 @@ import { SloOverviewComponent } from './modules/sla-creation/slo-overview/slo-ov
     AppComponent,
     NavigationComponent,
     AuthenticationComponent,
-    AlertComponent,
     LoginComponent,
     RegisterComponent,
     BaseLayoutComponent,
