@@ -54,7 +54,7 @@ export class SlaCreateComponent implements OnInit {
         this.alertService.success('SLA Creation Successful', true);
         console.log(data);
       }, error => {
-        this.alertService.error(error);
+        // this.alertService.error(error);
         this.loading = false;
       });
 

@@ -1,0 +1,17 @@
+
+<div *ngIf="createdSlos">
+
+  <div fxLayout="column" fxLayoutGap="5px">
+
+    <mat-list>
+      <mat-list-item *ngFor="let slo of createdSlos">
+        <h2 matLine> {{slo.name}} </h2>
+        <p matLine>
+          <span>{{slo.sloType}}</span>
+        </p>
+      </mat-list-item>
+    </mat-list>
+
+  </div>
+
+</div>

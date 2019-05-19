@@ -10,6 +10,7 @@ import {first} from "rxjs/operators";
 })
 export class SlaOverviewComponent implements OnInit {
 
+  pageTitle = 'Manage SLAs';
   loading = false;
   slas: Sla[];
 

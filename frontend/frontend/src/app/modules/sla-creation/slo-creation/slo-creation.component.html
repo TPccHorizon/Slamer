@@ -1,0 +1,23 @@
+<h3>Add SLOs</h3>
+<mat-form-field>
+  <mat-label>Select Type of SLO</mat-label>
+  <mat-select [(value)]="selected">
+    <mat-option *ngFor="let type of sloTypes" [value]="type">
+      {{type}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<div *ngIf="selected">
+  <div [ngSwitch]="selected">
+    <div *ngSwitchCase="'Uptime'">
+      <app-availability></app-availability>
+    </div>
+    <div *ngSwitchCase="'Throughput'">
+      <app-throughput></app-throughput>
+    </div>
+    <div *ngSwitchCase="'Average Response Time'">
+
+    </div>
+  </div>
+</div>
+

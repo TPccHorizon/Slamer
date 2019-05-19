@@ -1,12 +1,15 @@
 package ch.uzh.slamer.backend.controller;
 
 import ch.uzh.slamer.backend.exception.RecordNotFoundException;
+import ch.uzh.slamer.backend.model.dto.ServiceLevelObjectiveDTO;
 import ch.uzh.slamer.backend.model.dto.SlaDTO;
 import ch.uzh.slamer.backend.model.dto.SlaUserDTO;
 import ch.uzh.slamer.backend.model.pojo.SlaWithCustomer;
 import ch.uzh.slamer.backend.repository.SlaRepository;
 import ch.uzh.slamer.backend.repository.SlaUserRepository;
 import ch.uzh.slamer.backend.service.SlaService;
+import ch.uzh.slamer.backend.service.SloService;
+import codegen.tables.pojos.ServiceLevelObjective;
 import codegen.tables.pojos.Sla;
 import codegen.tables.pojos.SlaUser;
 import org.modelmapper.ModelMapper;
@@ -22,7 +25,6 @@ import java.util.Map;
 
 @CrossOrigin(allowCredentials = "false", origins = "${security.allowed-origin}")
 @RestController
-//@RequestMapping("/slas")
 public class SlaController {
 
     @Autowired
@@ -30,6 +32,9 @@ public class SlaController {
 
     @Autowired
     SlaRepository slaRepository;
+
+    @Autowired
+    SloService sloService;
 
     @Autowired
     SlaUserRepository userRepository;
@@ -84,7 +89,18 @@ public class SlaController {
 
         System.out.println("Got SLA");
         return new ResponseEntity<>(slaDTO, HttpStatus.OK);
-
-
     }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/slas/{id}/slos")
+    public ResponseEntity<ServiceLevelObjectiveDTO> addSLO(@RequestBody ServiceLevelObjectiveDTO slo, @PathVariable int id) {
+        ServiceLevelObjective created = sloService.addToSla(slo);
+        if (created == null) {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
+        ServiceLevelObjectiveDTO response = mapper.map(created, ServiceLevelObjectiveDTO.class);
+        response.setSloType(slo.getSloType());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+
 }
