@@ -12,7 +12,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatListModule, MatMenuModule, MatNativeDateModule, MatProgressSpinnerModule, MatSelectModule,
-  MatSidenavModule, MatStepperModule, MatTableModule,
+  MatSidenavModule, MatSnackBar, MatSnackBarModule, MatStepperModule, MatTableModule,
   MatToolbarModule
 } from "@angular/material";
 import {AppRoutes} from "./app.routing";
@@ -80,7 +80,8 @@ import { SloOverviewComponent } from './modules/sla-creation/slo-overview/slo-ov
     MatProgressSpinnerModule,
     MatTableModule,
     MatStepperModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
