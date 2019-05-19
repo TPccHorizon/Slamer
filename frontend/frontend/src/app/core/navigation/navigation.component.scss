@@ -1,0 +1,31 @@
+.toggle-button {
+  cursor: pointer;
+  background-color: initial;
+  color: #232a37;
+}
+
+.fixed-toolbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+::ng-deep .mat-toolbar{
+  z-index: 998;
+  position: fixed
+}
+::ng-deep .mat-tab-group{
+  margin-top:55px !important;
+}
+
+::ng-deep .mat-tab-header{
+  z-index: 999;
+  width:100vw;
+  position: fixed  !important;
+  background-color: red !important;
+}
+::ng-deep .mat-tab-body-wrapper{
+  position: relative !important;
+  margin-top:55px;
+}
