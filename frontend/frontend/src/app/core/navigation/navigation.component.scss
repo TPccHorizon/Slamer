@@ -1,7 +1,5 @@
 .toggle-button {
   cursor: pointer;
-  background-color: initial;
-  color: #232a37;
 }
 
 .fixed-toolbar {
@@ -23,9 +21,16 @@
   z-index: 999;
   width:100vw;
   position: fixed  !important;
-  background-color: red !important;
 }
 ::ng-deep .mat-tab-body-wrapper{
   position: relative !important;
   margin-top:55px;
+}
+
+::ng-deep .mat-sidenav {
+  background: #1a1a27;
+  .mat-list-item {
+    color: #8c8d9a;
+
+  }
 }
