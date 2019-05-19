@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {SloService} from "../../../core/services/slo.service";
+import {Throughput} from "../../../shared/models/throughput";
 
 @Component({
   selector: 'app-throughput',
@@ -15,7 +17,8 @@ export class ThroughputComponent implements OnInit {
   operators = ['<', '>', '=', '<=', '>='];
   thresholdUnits = ['ms', 's', 'min', 'h', 'd'];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private sloService: SloService) {
     this.sloForm = this.formBuilder.group({
       name: ['', Validators.required],
       dataSize: ['', Validators.required],
@@ -32,7 +35,15 @@ export class ThroughputComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("submit slo");
+    let slo = new Throughput();
+    slo.name = this.f.name.value;
+    slo.sloType= 'Throughput';
+    slo.dataSize= this.f.dataSize.value;
+    slo.dataUnit= this.f.dataUnit.value;
+    slo.operator= this.f.operator.value;
+    slo.thresholdValue= this.f.thresholdValue.value;
+    slo.thresholdUnit= this.f.thresholdUnit.value;
+    this.sloService.addSlo(slo);
   }
 
 }
