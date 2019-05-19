@@ -2,10 +2,12 @@ package ch.uzh.slamer.backend.controller;
 
 
 import ch.uzh.slamer.backend.exception.RecordNotFoundException;
+import ch.uzh.slamer.backend.model.dto.SlaUserDTO;
 import ch.uzh.slamer.backend.model.pojo.LoginData;
 import ch.uzh.slamer.backend.repository.SlaUserRepository;
 import ch.uzh.slamer.backend.service.AuthenticationService;
 import codegen.tables.pojos.SlaUser;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,9 @@ public class AuthenticationController {
 
     @Autowired
     private AuthenticationService authenticationService;
+
+    @Autowired
+    ModelMapper mapper;
 
     @RequestMapping(method = RequestMethod.POST, path = "/register")
     public ResponseEntity<SlaUser> register(@RequestBody SlaUser slaUser) {
@@ -47,5 +52,18 @@ public class AuthenticationController {
             System.out.println("Access Denied. Wrong username or password");
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/me")
+    public ResponseEntity<SlaUserDTO> getMe(@RequestParam("me") String username) {
+        SlaUser me = null;
+        System.out.println("Get Me: " + username);
+        try {
+            me = repository.findByUsername(username);
+            System.out.println("found me with name: " + me.getPartyName());
+        } catch (RecordNotFoundException e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(mapper.map(me, SlaUserDTO.class), HttpStatus.OK);
     }
 }
