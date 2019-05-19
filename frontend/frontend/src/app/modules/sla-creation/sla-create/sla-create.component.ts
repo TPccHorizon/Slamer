@@ -51,10 +51,10 @@ export class SlaCreateComponent implements OnInit {
       .pipe(first())
       .subscribe(data => {
         console.log("Created new Sla.");
-        this.alertService.success('SLA Creation Successful', true);
+        this.alertService.success('Created new SLA', true);
         console.log(data);
       }, error => {
-        // this.alertService.error(error);
+        this.alertService.error('Customer E-Mail not found');
         this.loading = false;
       });
 
