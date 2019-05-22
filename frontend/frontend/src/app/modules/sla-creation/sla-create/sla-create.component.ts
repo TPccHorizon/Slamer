@@ -7,6 +7,8 @@ import {Sla} from "../../../shared/models/sla";
 import {AuthenticationService} from "../../../core/services/authentication.service";
 import {first} from "rxjs/operators";
 import {StepperFormManagementService} from "../../../core/services/stepper-form-management.service";
+import {Router} from "@angular/router";
+import {SloService} from "../../../core/services/slo.service";
 
 @Component({
   selector: 'app-sla-create',
@@ -23,14 +25,15 @@ export class SlaCreateComponent implements OnInit {
               private alertService: AlertService,
               private slaService: SlaService,
               private authService: AuthenticationService,
-              private formService: StepperFormManagementService) {
+              private sloService: SloService,
+              private router: Router) {
     this.slaForm = this.formBuilder.group({
       serviceCustomerUsername: ['', Validators.required],
       validFrom: ['', Validators.required],
       validTo: ['', Validators.required],
       servicePrice: ['', Validators.required]
     });
-    this.formService.slaFormReady(this.slaForm);
+    // this.formService.slaFormReady(this.slaForm);
   }
 
   ngOnInit() {
@@ -49,10 +52,12 @@ export class SlaCreateComponent implements OnInit {
     let slaWithCustomer = this.mapToSlaWithCustomer();
     this.slaService.createSla(slaWithCustomer)
       .pipe(first())
-      .subscribe(data => {
+      .subscribe(sla => {
         console.log("Created new Sla.");
         this.alertService.success('Created new SLA', true);
-        console.log(data);
+        console.log(sla);
+        this.sloService.setCurrentSlaId(sla.id);
+        this.router.navigate(['/slas/create/slo']);
       }, error => {
         this.alertService.error('Customer E-Mail not found');
         this.loading = false;

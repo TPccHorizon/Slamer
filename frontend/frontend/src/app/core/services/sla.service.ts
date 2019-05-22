@@ -21,7 +21,7 @@ export class SlaService {
               private userSevice: SlaUserService) { }
 
   createSla(slaWithCustomer: SlaWithCustomer) {
-    return this.http.post(`${this.config.apiUrl}/slas`, slaWithCustomer, this.httpOptions)
+    return this.http.post<Sla>(`${this.config.apiUrl}/slas`, slaWithCustomer, this.httpOptions)
   }
 
   getMySlas() {

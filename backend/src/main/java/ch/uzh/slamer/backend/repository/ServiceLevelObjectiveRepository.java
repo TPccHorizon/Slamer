@@ -31,7 +31,7 @@ public class ServiceLevelObjectiveRepository extends AbstractRepository<ServiceL
     @Transactional
     @Override
     public ServiceLevelObjective add(ServiceLevelObjective slo) {
-        Integer sloTypeId = context.select(SLO_TYPE.ID).from(SLO_TYPE).fetchOne().into(Integer.class);
+        Integer sloTypeId = context.select(SLO_TYPE.ID).from(SLO_TYPE).limit(1).fetchOne().into(Integer.class);
         slo.setSloTypeId(sloTypeId);
         ServiceLevelObjectiveRecord persisted = context.insertInto(SERVICE_LEVEL_OBJECTIVE)
                 .set(createRecord(slo))
@@ -41,6 +41,7 @@ public class ServiceLevelObjectiveRepository extends AbstractRepository<ServiceL
 
     @Transactional(readOnly = true)
     public int getSloTypeId(String sloType) {
+        System.out.println("SLO type: " + sloType);
         return context.select(SLO_TYPE.ID)
                 .from(SLO_TYPE).where(SLO_TYPE.TYPE.eq(sloType))
                 .fetchOne().into(Integer.class);

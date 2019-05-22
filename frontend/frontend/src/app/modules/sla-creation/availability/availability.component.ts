@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Uptime} from "../../../shared/models/uptime";
 import {SloService} from "../../../core/services/slo.service";
+import {first} from "rxjs/operators";
+import {AlertService} from "../../../core/services/alert.service";
 
 @Component({
   selector: 'app-availability',
@@ -14,7 +16,8 @@ export class AvailabilityComponent implements OnInit {
   submitted = false;
 
   constructor(private formBuilder: FormBuilder,
-              private sloService: SloService) {
+              private sloService: SloService,
+              private alertService: AlertService) {
     this.sloForm = this.formBuilder.group({
       name: ['', Validators.required],
       percentageOfAvailability: ['', Validators.required],
@@ -31,7 +34,12 @@ export class AvailabilityComponent implements OnInit {
     slo.name = this.f.name.value;
     slo.sloType= 'Uptime';
     slo.percentageOfAvailability = this.f.percentageOfAvailability.value;
-    this.sloService.addSlo(slo);
+    this.sloService.createSlo(slo).pipe(first()).subscribe(response => {
+      this.sloService.addSlo(response);
+      this.alertService.success('Added new SLO')
+    }, error => {
+      this.alertService.error('Failed to add SLO');
+    });
   }
 
 }

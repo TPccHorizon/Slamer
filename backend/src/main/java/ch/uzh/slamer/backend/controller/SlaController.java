@@ -93,6 +93,7 @@ public class SlaController {
 
     @RequestMapping(method = RequestMethod.POST, path = "/slas/{id}/slos")
     public ResponseEntity<ServiceLevelObjectiveDTO> addSLO(@RequestBody ServiceLevelObjectiveDTO slo, @PathVariable int id) {
+        System.out.println("new SLO creation");
         ServiceLevelObjective created = sloService.addToSla(slo);
         if (created == null) {
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
