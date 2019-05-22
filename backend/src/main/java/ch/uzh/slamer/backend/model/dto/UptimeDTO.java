@@ -5,15 +5,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import java.sql.Date;
 
-public class AvailabilityDTO extends ServiceLevelObjectiveDTO {
+public class UptimeDTO extends ServiceLevelObjectiveDTO {
 
     @JsonProperty
     private BigDecimal percentageOfAvailability;
 
-    public AvailabilityDTO() { }
+    public UptimeDTO() { }
 
-    public AvailabilityDTO(Integer id, String name, Date validFrom, Date validTo, Integer slaId, String sloType, BigDecimal percentageOfAvailability) {
-        super(id, name, validFrom, validTo, slaId, sloType);
+    public UptimeDTO(Integer id, String name, Integer slaId, String sloType, BigDecimal percentageOfAvailability) {
+        super(id, name, slaId, sloType);
         this.percentageOfAvailability = percentageOfAvailability;
     }
 
