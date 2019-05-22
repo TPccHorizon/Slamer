@@ -13,12 +13,6 @@ public class ServiceLevelObjectiveDTO {
     private String name;
 
     @JsonProperty
-    private Date validFrom;
-
-    @JsonProperty
-    private Date validTo;
-
-    @JsonProperty
     private Integer slaId;
 
     @JsonProperty
@@ -26,11 +20,9 @@ public class ServiceLevelObjectiveDTO {
 
     public ServiceLevelObjectiveDTO() { }
 
-    public ServiceLevelObjectiveDTO(Integer id, String name, Date validFrom, Date validTo, Integer slaId, String sloType) {
+    public ServiceLevelObjectiveDTO(Integer id, String name, Integer slaId, String sloType) {
         this.id = id;
         this.name = name;
-        this.validFrom = validFrom;
-        this.validTo = validTo;
         this.slaId = slaId;
         this.sloType = sloType;
     }
@@ -49,22 +41,6 @@ public class ServiceLevelObjectiveDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Date getValidFrom() {
-        return validFrom;
-    }
-
-    public void setValidFrom(Date validFrom) {
-        this.validFrom = validFrom;
-    }
-
-    public Date getValidTo() {
-        return validTo;
-    }
-
-    public void setValidTo(Date validTo) {
-        this.validTo = validTo;
     }
 
     public Integer getSlaId() {

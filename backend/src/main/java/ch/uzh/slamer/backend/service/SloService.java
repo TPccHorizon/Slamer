@@ -18,10 +18,7 @@ public class SloService {
     ModelMapper mapper;
 
     public ServiceLevelObjective addToSla(ServiceLevelObjectiveDTO slo) {
-        int sloTypeId = sloRepository.getSloTypeId(slo.getSloType());
-        System.out.println("Got slo Type Id: " + sloTypeId);
         ServiceLevelObjective serviceLevelObjective = mapper.map(slo, ServiceLevelObjective.class);
-        serviceLevelObjective.setSloTypeId(sloTypeId);
         try {
             return sloRepository.add(serviceLevelObjective);
         } catch (Exception e) {
