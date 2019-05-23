@@ -75,10 +75,13 @@
       <div *ngFor="let slo of sla.slos" [ngSwitch]="slo.sloType">
         <h4>{{slo.name}}</h4>
         <div *ngSwitchCase="'Uptime'" class="container">
-          <p>Uptime: </p>
+          <app-uptime [uptime]="slo"></app-uptime>
         </div>
         <div *ngSwitchCase="'Throughput'" class="container">
-          <p>Throughput:</p>
+          <app-throughput [throughput]="slo"></app-throughput>
+        </div>
+        <div *ngSwitchCase="'Average Response Time'" class="container">
+          <app-average-response-time></app-average-response-time>
         </div>
       </div>
     </div>
