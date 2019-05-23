@@ -34,8 +34,8 @@ import { SlaItemComponent } from './modules/sla-overview/sla-item/sla-item.compo
 import { SlaDetailsComponent } from './modules/sla-overview/sla-details/sla-details.component';
 import { SlaStepperComponent } from './modules/sla-creation/sla-stepper/sla-stepper.component';
 import { SloCreationComponent } from './modules/sla-creation/slo-creation/slo-creation.component';
-import { AvailabilityComponent } from './modules/sla-creation/availability/availability.component';
-import { ThroughputComponent } from './modules/sla-creation/throughput/throughput.component';
+import { UptimeFormComponent } from './modules/sla-creation/uptime-form/uptime-form.component';
+import { ThroughputFormComponent } from './modules/sla-creation/throughput-form/throughput-form.component';
 import { SloOverviewComponent } from './modules/sla-creation/slo-overview/slo-overview.component';
 
 @NgModule({
@@ -52,8 +52,8 @@ import { SloOverviewComponent } from './modules/sla-creation/slo-overview/slo-ov
     SlaDetailsComponent,
     SlaStepperComponent,
     SloCreationComponent,
-    AvailabilityComponent,
-    ThroughputComponent,
+    UptimeFormComponent,
+    ThroughputFormComponent,
     SloOverviewComponent,
   ],
   imports: [

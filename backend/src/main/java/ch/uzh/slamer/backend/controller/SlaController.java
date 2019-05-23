@@ -1,9 +1,7 @@
 package ch.uzh.slamer.backend.controller;
 
 import ch.uzh.slamer.backend.exception.RecordNotFoundException;
-import ch.uzh.slamer.backend.model.dto.ServiceLevelObjectiveDTO;
-import ch.uzh.slamer.backend.model.dto.SlaDTO;
-import ch.uzh.slamer.backend.model.dto.SlaUserDTO;
+import ch.uzh.slamer.backend.model.dto.*;
 import ch.uzh.slamer.backend.model.pojo.SlaWithCustomer;
 import ch.uzh.slamer.backend.repository.SlaRepository;
 import ch.uzh.slamer.backend.repository.SlaUserRepository;
@@ -90,7 +88,15 @@ public class SlaController {
         /* Get all Service Level Objectives */
         List<ServiceLevelObjective> slos = sloService.getSlosFromSla(slaDTO.getId());
         for (ServiceLevelObjective slo: slos) {
-            slaDTO.addSlo(mapper.map(slo, ServiceLevelObjectiveDTO.class));
+            ServiceLevelObjectiveDTO sloDto;
+            if (slo.getSloType().equals("Uptime")) {
+                sloDto = mapper.map(slo, UptimeDTO.class);
+            } else if (slo.getSloType().equals("Throughput")) {
+                sloDto = mapper.map(slo, ThroughputDTO.class);
+            } else {
+                sloDto = mapper.map(slo, AverageResponseTimeDTO.class);
+            }
+            slaDTO.addSlo(sloDto);
         }
 
         System.out.println("Got SLA");

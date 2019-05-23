@@ -7,10 +7,10 @@ import {AlertService} from "../../../core/services/alert.service";
 
 @Component({
   selector: 'app-availability',
-  templateUrl: './availability.component.html',
-  styleUrls: ['./availability.component.css']
+  templateUrl: './uptime-form.component.html',
+  styleUrls: ['./uptime-form.component.css']
 })
-export class AvailabilityComponent implements OnInit {
+export class UptimeFormComponent implements OnInit {
 
   sloForm: FormGroup;
   submitted = false;

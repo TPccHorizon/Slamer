@@ -72,10 +72,13 @@
 
     <div>
       <h3>Service Level Objectives</h3>
-      <div *ngFor="let slo of sla.slos">
+      <div *ngFor="let slo of sla.slos" [ngSwitch]="slo.sloType">
         <h4>{{slo.name}}</h4>
-        <div class="container">
-          <p>{{slo.sloType}}</p>
+        <div *ngSwitchCase="'Uptime'" class="container">
+          <p>Uptime: </p>
+        </div>
+        <div *ngSwitchCase="'Throughput'" class="container">
+          <p>Throughput:</p>
         </div>
       </div>
     </div>

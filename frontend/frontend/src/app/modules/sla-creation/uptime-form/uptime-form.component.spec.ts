@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AvailabilityComponent } from './availability.component';
+import { UptimeFormComponent } from './uptime-form.component';
 
-describe('AvailabilityComponent', () => {
-  let component: AvailabilityComponent;
-  let fixture: ComponentFixture<AvailabilityComponent>;
+describe('UptimeFormComponent', () => {
+  let component: UptimeFormComponent;
+  let fixture: ComponentFixture<UptimeFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AvailabilityComponent ]
+      declarations: [ UptimeFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AvailabilityComponent);
+    fixture = TestBed.createComponent(UptimeFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
