@@ -75,6 +75,7 @@ export class SlaCreateComponent implements OnInit {
     sla.validFrom = this.f.validFrom.value;
     sla.validTo = this.f.validTo.value;
     sla.servicePrice = this.f.servicePrice.value;
+    sla.title = this.f.title.value;
     slaWithCustomer.sla = sla;
     slaWithCustomer.customerUsername = this.f.serviceCustomerUsername.value;
     slaWithCustomer.providerUsername = providerUsername;
