@@ -87,6 +87,12 @@ public class SlaController {
             }
         }
 
+        /* Get all Service Level Objectives */
+        List<ServiceLevelObjective> slos = sloService.getSlosFromSla(slaDTO.getId());
+        for (ServiceLevelObjective slo: slos) {
+            slaDTO.addSlo(mapper.map(slo, ServiceLevelObjectiveDTO.class));
+        }
+
         System.out.println("Got SLA");
         return new ResponseEntity<>(slaDTO, HttpStatus.OK);
     }
@@ -94,6 +100,8 @@ public class SlaController {
     @RequestMapping(method = RequestMethod.POST, path = "/slas/{id}/slos")
     public ResponseEntity<ServiceLevelObjectiveDTO> addSLO(@RequestBody ServiceLevelObjectiveDTO slo, @PathVariable int id) {
         System.out.println("new SLO creation");
+        System.out.println(slo.getName());
+        System.out.println(slo.getSloType());
         ServiceLevelObjective created = sloService.addToSla(slo);
         if (created == null) {
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);

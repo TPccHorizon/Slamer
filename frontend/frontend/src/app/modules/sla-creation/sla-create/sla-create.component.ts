@@ -29,6 +29,7 @@ export class SlaCreateComponent implements OnInit {
               private router: Router) {
     this.slaForm = this.formBuilder.group({
       serviceCustomerUsername: ['', Validators.required],
+      title: ['', Validators.required],
       validFrom: ['', Validators.required],
       validTo: ['', Validators.required],
       servicePrice: ['', Validators.required]

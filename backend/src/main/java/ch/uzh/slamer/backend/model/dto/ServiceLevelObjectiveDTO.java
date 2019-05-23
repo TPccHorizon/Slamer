@@ -1,9 +1,15 @@
 package ch.uzh.slamer.backend.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.sql.Date;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "sloType", visible = true)
+@JsonSubTypes({@JsonSubTypes.Type(value = UptimeDTO.class, name = "Uptime"),
+                @JsonSubTypes.Type(value = ThroughputDTO.class, name = "Throughput"),
+                @JsonSubTypes.Type(value = AverageResponseTimeDTO.class, name = "Average Response Time")})
 public class ServiceLevelObjectiveDTO {
 
     @JsonProperty

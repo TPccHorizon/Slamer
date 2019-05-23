@@ -33,13 +33,18 @@ export class AvailabilityComponent implements OnInit {
     let slo = new Uptime();
     slo.name = this.f.name.value;
     slo.sloType= 'Uptime';
-    slo.percentageOfAvailability = this.f.percentageOfAvailability.value;
+    slo.percentageOfAvailability = this.toPercentValue(this.f.percentageOfAvailability.value);
+    console.log(slo.percentageOfAvailability);
     this.sloService.createSlo(slo).pipe(first()).subscribe(response => {
       this.sloService.addSlo(response);
       this.alertService.success('Added new SLO')
     }, error => {
-      this.alertService.error('Failed to add SLO');
+      this.alertService.error('SLO could not be added');
     });
+  }
+
+  toPercentValue(value: number) {
+    return value / 100;
   }
 
 }

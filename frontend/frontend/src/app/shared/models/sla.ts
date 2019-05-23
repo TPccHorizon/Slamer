@@ -1,5 +1,6 @@
 export class Sla {
   id: number;
+  title: string;
   status: string;
   servicePrice: number;
   lifecyclePhase: string;

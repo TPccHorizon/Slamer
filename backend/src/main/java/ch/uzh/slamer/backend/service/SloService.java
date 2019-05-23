@@ -8,6 +8,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class SloService {
 
@@ -26,5 +28,9 @@ public class SloService {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    public List<ServiceLevelObjective> getSlosFromSla(int slaId) {
+        return sloRepository.getAllBySlaId(slaId);
     }
 }

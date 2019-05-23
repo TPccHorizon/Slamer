@@ -72,7 +72,15 @@
 
     <div>
       <h3>Service Level Objectives</h3>
+      <div *ngFor="let slo of sla.slos">
+        <h4>{{slo.name}}</h4>
+        <div class="container">
+          <p>{{slo.sloType}}</p>
+        </div>
+      </div>
     </div>
+
+
 
   </div>
 </div>
