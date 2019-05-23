@@ -10,13 +10,13 @@
 <div *ngIf="selected">
   <div [ngSwitch]="selected">
     <div *ngSwitchCase="'Uptime'">
-      <app-availability></app-availability>
+      <app-uptime-form></app-uptime-form>
     </div>
     <div *ngSwitchCase="'Throughput'">
-      <app-throughput></app-throughput>
+      <app-throughput-form></app-throughput-form>
     </div>
     <div *ngSwitchCase="'Average Response Time'">
-
+      <app-average-response-form></app-average-response-form>
     </div>
   </div>
 </div>

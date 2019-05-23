@@ -37,6 +37,7 @@ import { SloCreationComponent } from './modules/sla-creation/slo-creation/slo-cr
 import { UptimeFormComponent } from './modules/sla-creation/uptime-form/uptime-form.component';
 import { ThroughputFormComponent } from './modules/sla-creation/throughput-form/throughput-form.component';
 import { SloOverviewComponent } from './modules/sla-creation/slo-overview/slo-overview.component';
+import { AverageResponseFormComponent } from './modules/sla-creation/average-response-form/average-response-form.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { SloOverviewComponent } from './modules/sla-creation/slo-overview/slo-ov
     UptimeFormComponent,
     ThroughputFormComponent,
     SloOverviewComponent,
+    AverageResponseFormComponent,
   ],
   imports: [
     BrowserModule,

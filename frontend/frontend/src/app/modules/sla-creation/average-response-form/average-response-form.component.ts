@@ -1,27 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Uptime} from "../../../shared/models/uptime";
 import {SloService} from "../../../core/services/slo.service";
-import {first} from "rxjs/operators";
 import {AlertService} from "../../../core/services/alert.service";
+import {Uptime} from "../../../shared/models/uptime";
+import {first} from "rxjs/operators";
+import {AverageResponseTime} from "../../../shared/models/averageResponseTime";
 
 @Component({
-  selector: 'app-uptime-form',
-  templateUrl: './uptime-form.component.html',
-  styleUrls: ['./uptime-form.component.css']
+  selector: 'app-average-response-form',
+  templateUrl: './average-response-form.component.html',
+  styleUrls: ['./average-response-form.component.css']
 })
-export class UptimeFormComponent implements OnInit {
+export class AverageResponseFormComponent implements OnInit {
 
   sloForm: FormGroup;
   submitted = false;
+  timeUnits = ['ms', 's', 'min', 'h', 'd'];
 
   constructor(private formBuilder: FormBuilder,
               private sloService: SloService,
               private alertService: AlertService) {
     this.sloForm = this.formBuilder.group({
       name: ['', Validators.required],
-      percentageOfAvailability: ['', Validators.required],
-    });
+      averageResponseTimeValue: ['', Validators.required],
+      timeUnit: ['', Validators.required]
+    })
   }
 
   get f() {return this.sloForm.controls;}
@@ -30,21 +33,18 @@ export class UptimeFormComponent implements OnInit {
   }
 
   onSubmit() {
-    let slo = new Uptime();
+    let slo = new AverageResponseTime();
+    // slo = this.sloForm.value;
     slo.name = this.f.name.value;
-    slo.sloType= 'Uptime';
-    slo.percentageOfAvailability = this.toPercentValue(this.f.percentageOfAvailability.value);
-    console.log(slo.percentageOfAvailability);
+    slo.sloType = 'Average Response Time';
+    slo.averageResponseTime = this.f.averageResponseTimeValue.value;
+    slo.timeUnit = this.f.timeUnit.value;
     this.sloService.createSlo(slo).pipe(first()).subscribe(response => {
       this.sloService.addSlo(response);
       this.alertService.success('Added new SLO')
     }, error => {
       this.alertService.error('SLO could not be added');
     });
-  }
-
-  toPercentValue(value: number) {
-    return value / 100;
   }
 
 }

@@ -6,7 +6,7 @@ import {first} from "rxjs/operators";
 import {AlertService} from "../../../core/services/alert.service";
 
 @Component({
-  selector: 'app-throughput',
+  selector: 'app-throughput-form',
   templateUrl: './throughput-form.component.html',
   styleUrls: ['./throughput-form.component.css']
 })
