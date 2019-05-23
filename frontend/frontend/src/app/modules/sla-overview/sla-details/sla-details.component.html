@@ -81,7 +81,7 @@
           <app-throughput [throughput]="slo"></app-throughput>
         </div>
         <div *ngSwitchCase="'Average Response Time'" class="container">
-          <app-average-response-time></app-average-response-time>
+          <app-average-response-time [responseTime]="slo"></app-average-response-time>
         </div>
       </div>
     </div>

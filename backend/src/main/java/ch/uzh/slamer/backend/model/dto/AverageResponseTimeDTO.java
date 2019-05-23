@@ -10,7 +10,7 @@ public class AverageResponseTimeDTO extends ServiceLevelObjectiveDTO {
     @JsonProperty
     private String relationalOperator;
 
-    @JsonProperty
+    @JsonProperty(value = "averageResponseTime")
     private BigDecimal averageResponseTimeValue;
 
     @JsonProperty
