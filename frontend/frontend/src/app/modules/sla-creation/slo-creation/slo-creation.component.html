@@ -10,7 +10,7 @@
 <div *ngIf="selected">
   <div [ngSwitch]="selected">
     <div *ngSwitchCase="'Uptime'">
-      <app-uptime-form></app-uptime-form>
+      <app-uptime-form [currentSlaId]="currentSlaId"></app-uptime-form>
     </div>
     <div *ngSwitchCase="'Throughput'">
       <app-throughput-form></app-throughput-form>

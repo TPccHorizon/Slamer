@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Uptime} from "../../../shared/models/uptime";
 import {SloService} from "../../../core/services/slo.service";
@@ -14,6 +14,8 @@ export class UptimeFormComponent implements OnInit {
 
   sloForm: FormGroup;
   submitted = false;
+  @Input()
+  currentSlaId: number;
 
   constructor(private formBuilder: FormBuilder,
               private sloService: SloService,
@@ -32,6 +34,7 @@ export class UptimeFormComponent implements OnInit {
   onSubmit() {
     let slo = new Uptime();
     slo.name = this.f.name.value;
+    slo.slaId = this.currentSlaId;
     slo.sloType= 'Uptime';
     slo.percentageOfAvailability = this.toPercentValue(this.f.percentageOfAvailability.value);
     console.log(slo.percentageOfAvailability);

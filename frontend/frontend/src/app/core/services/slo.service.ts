@@ -19,8 +19,8 @@ export class SloService {
   }
 
   createSlo(slo: ServiceLevelObjective) {
-    slo.slaId = this.getCurrentSlaId();
-    return this.http.post<ServiceLevelObjective>(`${this.config.apiUrl}/slas/${this.currentSlaId}/slos`, slo)
+    // slo.slaId = this.getCurrentSlaId();
+    return this.http.post<ServiceLevelObjective>(`${this.config.apiUrl}/slas/${slo.slaId}/slos`, slo)
   }
 
   addSlo(slo: ServiceLevelObjective) {

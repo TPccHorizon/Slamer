@@ -34,7 +34,7 @@ export const AppRoutes: Routes = [
     path: 'slas/:id', component: SlaDetailsComponent
   },
   {
-    path: 'slas/create/slo', component: SloCreationComponent
+    path: 'slas/:id/slo', component: SloCreationComponent
   },
 
   {path: '**', redirectTo: ''}
