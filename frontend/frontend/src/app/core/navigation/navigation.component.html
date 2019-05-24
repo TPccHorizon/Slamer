@@ -37,7 +37,11 @@
     </div>
     <div *ngIf="authService.isLoggedIn()">
       <mat-nav-list>
-        <a mat-list-item [routerLink]="['/slas/create']">Create SLA</a>
+        <a mat-list-item [routerLink]="['/']">Home</a>
+      </mat-nav-list>
+
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="['/new']">Create SLA</a>
       </mat-nav-list>
 
       <mat-nav-list>

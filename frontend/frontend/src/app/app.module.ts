@@ -41,6 +41,7 @@ import { AverageResponseFormComponent } from './modules/sla-creation/average-res
 import { UptimeComponent } from './modules/sla-overview/slo-details/uptime/uptime.component';
 import { ThroughputComponent } from './modules/sla-overview/slo-details/throughput/throughput.component';
 import { AverageResponseTimeComponent } from './modules/sla-overview/slo-details/average-response-time/average-response-time.component';
+import { HomeComponent } from './modules/home/home/home.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { AverageResponseTimeComponent } from './modules/sla-overview/slo-details
     UptimeComponent,
     ThroughputComponent,
     AverageResponseTimeComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

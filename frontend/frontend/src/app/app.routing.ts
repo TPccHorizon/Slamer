@@ -1,19 +1,18 @@
 import {Routes} from "@angular/router";
-import {AuthenticationComponent} from "./core/authentication/authentication.component";
 import {LoginComponent} from "./modules/authentication/login/login.component";
 import {RegisterComponent} from "./modules/authentication/register/register.component";
 import {AuthGuard} from "./core/guards/auth.guard";
 import {SlaCreateComponent} from "./modules/sla-creation/sla-create/sla-create.component";
 import {SlaOverviewComponent} from "./modules/sla-overview/sla-overview/sla-overview.component";
 import {SlaDetailsComponent} from "./modules/sla-overview/sla-details/sla-details.component";
-import {SlaStepperComponent} from "./modules/sla-creation/sla-stepper/sla-stepper.component";
 import {SloCreationComponent} from "./modules/sla-creation/slo-creation/slo-creation.component";
+import {HomeComponent} from "./modules/home/home/home.component";
 
 
 export const AppRoutes: Routes = [
   {
     path: '',
-    component: SlaOverviewComponent,
+    component: HomeComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -25,11 +24,11 @@ export const AppRoutes: Routes = [
     component: RegisterComponent
   },
   {
-    path: 'slas/',
-    component: SlaOverviewComponent
+    path: 'new', component: SlaCreateComponent
   },
   {
-    path: 'slas/create', component: SlaCreateComponent
+    path: 'slas',
+    component: SlaOverviewComponent
   },
   {
     path: 'slas/:id', component: SlaDetailsComponent
