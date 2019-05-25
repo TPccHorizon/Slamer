@@ -3,10 +3,10 @@ package ch.uzh.slamer.backend.model.enums;
 public enum LifecyclePhase {
     DEFINITION("Definition"),
     NEGOTIATION("Negotiation"),
-    DEPLOYMENT("Deployment"),
     MONITORING("Monitoring"),
     MANAGEMENT("Management"),
-    TERMINATION("Termination");
+    TERMINATION("Termination"),
+    PENALTY_ENFORCEMENT("Penalty Enforcement");
 
     private String phase;
 

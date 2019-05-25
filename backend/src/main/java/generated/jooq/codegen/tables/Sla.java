@@ -43,7 +43,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Sla extends TableImpl<SlaRecord> {
 
-    private static final long serialVersionUID = -1842558307;
+    private static final long serialVersionUID = 1481767309;
 
     /**
      * The reference instance of <code>public.sla</code>
@@ -97,6 +97,11 @@ public class Sla extends TableImpl<SlaRecord> {
      * The column <code>public.sla.service_customer_id</code>.
      */
     public final TableField<SlaRecord, Integer> SERVICE_CUSTOMER_ID = createField("service_customer_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+
+    /**
+     * The column <code>public.sla.title</code>.
+     */
+    public final TableField<SlaRecord, String> TITLE = createField("title", org.jooq.impl.SQLDataType.VARCHAR.nullable(false), this, "");
 
     /**
      * Create a <code>public.sla</code> table reference

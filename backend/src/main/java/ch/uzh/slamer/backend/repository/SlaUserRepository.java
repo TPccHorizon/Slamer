@@ -47,6 +47,7 @@ public class SlaUserRepository extends AbstractRepository<SlaUserRecord, Integer
     }
 
     public SlaUser findByUsername(String username) throws RecordNotFoundException {
+        System.out.println("Find user with username: " + username);
         SlaUserRecord record = context.selectFrom(SLA_USER).where(SLA_USER.USERNAME.equal(username)).fetchOne();
         if (record == null) {
             throw new RecordNotFoundException("No User found with username: " + username);

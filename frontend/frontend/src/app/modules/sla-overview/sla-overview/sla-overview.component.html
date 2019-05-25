@@ -1,6 +1,6 @@
 
 <div *ngIf="!loading">
-  <div *ngIf="slas" style="width: 600px">
+  <div *ngIf="slas && slas.length>0" style="width: 600px">
 
     <div class="container" fxLayout="column" fxLayoutGap="15px">
       <h2>{{pageTitle}}</h2>
@@ -11,7 +11,7 @@
     </div>
 
   </div>
-  <div *ngIf="!slas">
+  <div *ngIf="!slas || slas.length === 0">
     <h2>{{pageTitle}}</h2>
     <p>You don't have any SLAs at the moment.</p>
   </div>

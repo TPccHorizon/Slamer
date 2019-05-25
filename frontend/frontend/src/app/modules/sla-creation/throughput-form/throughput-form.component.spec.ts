@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AvailabilityComponent } from './availability.component';
+import { ThroughputFormComponent } from './throughput-form.component';
 
-describe('AvailabilityComponent', () => {
-  let component: AvailabilityComponent;
-  let fixture: ComponentFixture<AvailabilityComponent>;
+describe('ThroughputFormComponent', () => {
+  let component: ThroughputFormComponent;
+  let fixture: ComponentFixture<ThroughputFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AvailabilityComponent ]
+      declarations: [ ThroughputFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AvailabilityComponent);
+    fixture = TestBed.createComponent(ThroughputFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

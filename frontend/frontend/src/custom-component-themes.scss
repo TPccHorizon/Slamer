@@ -1,0 +1,5 @@
+@import "app/core/services/alert.theme";
+@mixin custom-components-theme($theme, $theme-info, $theme-success,
+$theme-warnig, $theme-error) {
+  @include alert-theme($theme-info, $theme-success, $theme-warnig, $theme-error);
+}

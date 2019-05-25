@@ -1,7 +1,9 @@
 import {Sla} from "./sla";
 import {SlaUser} from "./slaUser";
+import {ServiceLevelObjective} from "./serviceLevelObjective";
 
-export class SlaAndParties extends Sla{
+export interface SlaAndParties extends Sla{
   serviceProvider: SlaUser;
   serviceCustomer: SlaUser;
+  slos: ServiceLevelObjective[];
 }

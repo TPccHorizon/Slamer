@@ -1,4 +1,9 @@
-<a class="btn btn-secondary" [routerLink]="['/slas']">Back to Overview</a>
+<div class="space">
+  <a class="btn btn-secondary" [routerLink]="['/slas']">Back to Overview</a>
+  <a *ngIf="sla && sla.status == 'Identified'" class="btn btn-success"
+     [routerLink]="['/slas/', sla.id, 'slo']">Add more SLOs</a>
+</div>
+
 <div *ngIf="sla">
   <h2>
     Service Level Agreement
@@ -72,7 +77,21 @@
 
     <div>
       <h3>Service Level Objectives</h3>
+      <div *ngFor="let slo of sla.slos" [ngSwitch]="slo.sloType">
+        <h4>{{slo.name}}</h4>
+        <div *ngSwitchCase="'Uptime'" class="container">
+          <app-uptime [uptime]="slo"></app-uptime>
+        </div>
+        <div *ngSwitchCase="'Throughput'" class="container">
+          <app-throughput [throughput]="slo"></app-throughput>
+        </div>
+        <div *ngSwitchCase="'Average Response Time'" class="container">
+          <app-average-response-time [responseTime]="slo"></app-average-response-time>
+        </div>
+      </div>
     </div>
+
+
 
   </div>
 </div>

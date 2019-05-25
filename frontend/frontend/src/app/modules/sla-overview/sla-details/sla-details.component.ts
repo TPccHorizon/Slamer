@@ -8,7 +8,7 @@ import {SlaAndParties} from "../../../shared/models/slaAndParties";
 @Component({
   selector: 'app-sla-details',
   templateUrl: './sla-details.component.html',
-  styleUrls: ['./sla-details.component.css']
+  styleUrls: ['./sla-details.component.scss']
 })
 export class SlaDetailsComponent implements OnInit {
 

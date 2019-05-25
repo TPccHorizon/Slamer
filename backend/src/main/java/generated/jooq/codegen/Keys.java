@@ -71,7 +71,6 @@ public class Keys {
     public static final ForeignKey<AddressRecord, SlaUserRecord> ADDRESS__ADDRESS_USER_ID_FKEY = ForeignKeys0.ADDRESS__ADDRESS_USER_ID_FKEY;
     public static final ForeignKey<PenaltyRecord, ServiceLevelObjectiveRecord> PENALTY__PENALTY_SLO_ID_FKEY = ForeignKeys0.PENALTY__PENALTY_SLO_ID_FKEY;
     public static final ForeignKey<ServiceLevelObjectiveRecord, SlaRecord> SERVICE_LEVEL_OBJECTIVE__SERVICE_LEVEL_OBJECTIVE_SLA_ID_FKEY = ForeignKeys0.SERVICE_LEVEL_OBJECTIVE__SERVICE_LEVEL_OBJECTIVE_SLA_ID_FKEY;
-    public static final ForeignKey<ServiceLevelObjectiveRecord, SloTypeRecord> SERVICE_LEVEL_OBJECTIVE__SERVICE_LEVEL_OBJECTIVE_SLO_TYPE_ID_FKEY = ForeignKeys0.SERVICE_LEVEL_OBJECTIVE__SERVICE_LEVEL_OBJECTIVE_SLO_TYPE_ID_FKEY;
     public static final ForeignKey<SlaRecord, SlaUserRecord> SLA__SLA_SERVICE_PROVIDER_ID_FKEY = ForeignKeys0.SLA__SLA_SERVICE_PROVIDER_ID_FKEY;
     public static final ForeignKey<SlaRecord, SlaUserRecord> SLA__SLA_SERVICE_CUSTOMER_ID_FKEY = ForeignKeys0.SLA__SLA_SERVICE_CUSTOMER_ID_FKEY;
 
@@ -102,7 +101,6 @@ public class Keys {
         public static final ForeignKey<AddressRecord, SlaUserRecord> ADDRESS__ADDRESS_USER_ID_FKEY = Internal.createForeignKey(codegen.Keys.SLA_USER_PKEY, Address.ADDRESS, "address__address_user_id_fkey", Address.ADDRESS.USER_ID);
         public static final ForeignKey<PenaltyRecord, ServiceLevelObjectiveRecord> PENALTY__PENALTY_SLO_ID_FKEY = Internal.createForeignKey(codegen.Keys.SERVICE_LEVEL_OBJECTIVE_PKEY, Penalty.PENALTY, "penalty__penalty_slo_id_fkey", Penalty.PENALTY.SLO_ID);
         public static final ForeignKey<ServiceLevelObjectiveRecord, SlaRecord> SERVICE_LEVEL_OBJECTIVE__SERVICE_LEVEL_OBJECTIVE_SLA_ID_FKEY = Internal.createForeignKey(codegen.Keys.SLA_PKEY, ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE, "service_level_objective__service_level_objective_sla_id_fkey", ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE.SLA_ID);
-        public static final ForeignKey<ServiceLevelObjectiveRecord, SloTypeRecord> SERVICE_LEVEL_OBJECTIVE__SERVICE_LEVEL_OBJECTIVE_SLO_TYPE_ID_FKEY = Internal.createForeignKey(codegen.Keys.SLO_TYPE_PKEY, ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE, "service_level_objective__service_level_objective_slo_type_id_fkey", ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE.SLO_TYPE_ID);
         public static final ForeignKey<SlaRecord, SlaUserRecord> SLA__SLA_SERVICE_PROVIDER_ID_FKEY = Internal.createForeignKey(codegen.Keys.SLA_USER_PKEY, Sla.SLA, "sla__sla_service_provider_id_fkey", Sla.SLA.SERVICE_PROVIDER_ID);
         public static final ForeignKey<SlaRecord, SlaUserRecord> SLA__SLA_SERVICE_CUSTOMER_ID_FKEY = Internal.createForeignKey(codegen.Keys.SLA_USER_PKEY, Sla.SLA, "sla__sla_service_customer_id_fkey", Sla.SLA.SERVICE_CUSTOMER_ID);
     }

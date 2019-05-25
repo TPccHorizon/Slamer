@@ -46,15 +46,7 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
 
     @Override
     public SlaRecord createRecord(Sla sla) {
-        SlaRecord record = new SlaRecord();
-        record.setValidFrom(sla.getValidFrom())
-                .setValidTo(sla.getValidTo())
-                .setLifecyclePhase(sla.getLifecyclePhase())
-                .setServiceCustomerId(sla.getServiceCustomerId())
-                .setServiceProviderId(sla.getServiceProviderId())
-                .setServicePrice(sla.getServicePrice())
-                .setStatus(sla.getStatus());
-        return record;
+        return context.newRecord(SLA, sla);
     }
 
     public Map<Sla, List<SlaUser>> getSlaWithParties(int slaId) {

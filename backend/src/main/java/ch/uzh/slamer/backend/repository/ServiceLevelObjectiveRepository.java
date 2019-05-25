@@ -7,6 +7,8 @@ import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static codegen.tables.ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE;
 import static codegen.tables.SloType.SLO_TYPE;
 
@@ -31,18 +33,15 @@ public class ServiceLevelObjectiveRepository extends AbstractRepository<ServiceL
     @Transactional
     @Override
     public ServiceLevelObjective add(ServiceLevelObjective slo) {
-        Integer sloTypeId = context.select(SLO_TYPE.ID).from(SLO_TYPE).fetchOne().into(Integer.class);
-        slo.setSloTypeId(sloTypeId);
         ServiceLevelObjectiveRecord persisted = context.insertInto(SERVICE_LEVEL_OBJECTIVE)
                 .set(createRecord(slo))
                 .returning().fetchOne();
         return convertResultIntoModel(persisted);
     }
 
-    @Transactional(readOnly = true)
-    public int getSloTypeId(String sloType) {
-        return context.select(SLO_TYPE.ID)
-                .from(SLO_TYPE).where(SLO_TYPE.TYPE.eq(sloType))
-                .fetchOne().into(Integer.class);
+    @Transactional
+    public List<ServiceLevelObjective> getAllBySlaId(int slaId) {
+        return context.selectFrom(SERVICE_LEVEL_OBJECTIVE).where(SERVICE_LEVEL_OBJECTIVE.SLA_ID.equal(slaId))
+                .fetchInto(ServiceLevelObjective.class);
     }
 }

@@ -12,7 +12,7 @@ export class SlaOverviewComponent implements OnInit {
 
   pageTitle = 'Manage SLAs';
   loading = false;
-  slas: Sla[];
+  slas: Sla[] = null;
 
   constructor(private slaService: SlaService) {
     this.loading = true;

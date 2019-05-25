@@ -1,4 +1,4 @@
-<h3>Add SLOs</h3>
+<h3>Add Service Level Objectives</h3>
 <mat-form-field>
   <mat-label>Select Type of SLO</mat-label>
   <mat-select [(value)]="selected">
@@ -10,13 +10,13 @@
 <div *ngIf="selected">
   <div [ngSwitch]="selected">
     <div *ngSwitchCase="'Uptime'">
-      <app-availability></app-availability>
+      <app-uptime-form [currentSlaId]="currentSlaId"></app-uptime-form>
     </div>
     <div *ngSwitchCase="'Throughput'">
-      <app-throughput></app-throughput>
+      <app-throughput-form></app-throughput-form>
     </div>
     <div *ngSwitchCase="'Average Response Time'">
-
+      <app-average-response-form></app-average-response-form>
     </div>
   </div>
 </div>

@@ -24,7 +24,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Sla implements Serializable {
 
-    private static final long serialVersionUID = 484797313;
+    private static final long serialVersionUID = 1244733090;
 
     private Integer    id;
     private String     status;
@@ -34,6 +34,7 @@ public class Sla implements Serializable {
     private Date       validTo;
     private Integer    serviceProviderId;
     private Integer    serviceCustomerId;
+    private String     title;
 
     public Sla() {}
 
@@ -46,6 +47,7 @@ public class Sla implements Serializable {
         this.validTo = value.validTo;
         this.serviceProviderId = value.serviceProviderId;
         this.serviceCustomerId = value.serviceCustomerId;
+        this.title = value.title;
     }
 
     public Sla(
@@ -56,7 +58,8 @@ public class Sla implements Serializable {
         Date       validFrom,
         Date       validTo,
         Integer    serviceProviderId,
-        Integer    serviceCustomerId
+        Integer    serviceCustomerId,
+        String     title
     ) {
         this.id = id;
         this.status = status;
@@ -66,6 +69,7 @@ public class Sla implements Serializable {
         this.validTo = validTo;
         this.serviceProviderId = serviceProviderId;
         this.serviceCustomerId = serviceCustomerId;
+        this.title = title;
     }
 
     public Integer getId() {
@@ -140,6 +144,15 @@ public class Sla implements Serializable {
         return this;
     }
 
+    public String getTitle() {
+        return this.title;
+    }
+
+    public Sla setTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -197,6 +210,12 @@ public class Sla implements Serializable {
         }
         else if (!serviceCustomerId.equals(other.serviceCustomerId))
             return false;
+        if (title == null) {
+            if (other.title != null)
+                return false;
+        }
+        else if (!title.equals(other.title))
+            return false;
         return true;
     }
 
@@ -212,6 +231,7 @@ public class Sla implements Serializable {
         result = prime * result + ((this.validTo == null) ? 0 : this.validTo.hashCode());
         result = prime * result + ((this.serviceProviderId == null) ? 0 : this.serviceProviderId.hashCode());
         result = prime * result + ((this.serviceCustomerId == null) ? 0 : this.serviceCustomerId.hashCode());
+        result = prime * result + ((this.title == null) ? 0 : this.title.hashCode());
         return result;
     }
 
@@ -227,6 +247,7 @@ public class Sla implements Serializable {
         sb.append(", ").append(validTo);
         sb.append(", ").append(serviceProviderId);
         sb.append(", ").append(serviceCustomerId);
+        sb.append(", ").append(title);
 
         sb.append(")");
         return sb.toString();

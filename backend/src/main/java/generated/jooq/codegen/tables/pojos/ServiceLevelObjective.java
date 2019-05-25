@@ -6,7 +6,6 @@ package codegen.tables.pojos;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
 
 import javax.annotation.Generated;
 
@@ -24,16 +23,14 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ServiceLevelObjective implements Serializable {
 
-    private static final long serialVersionUID = 1236977016;
+    private static final long serialVersionUID = -1252474512;
 
     private Integer    id;
     private String     name;
-    private Date       validFrom;
-    private Date       validTo;
     private Integer    slaId;
     private String     timeUnit;
     private String     relationalOperator;
-    private Integer    sloTypeId;
+    private String     sloType;
     private BigDecimal percentageOfAvailability;
     private String     throughputDataUnit;
     private BigDecimal throughputDataSize;
@@ -45,12 +42,10 @@ public class ServiceLevelObjective implements Serializable {
     public ServiceLevelObjective(ServiceLevelObjective value) {
         this.id = value.id;
         this.name = value.name;
-        this.validFrom = value.validFrom;
-        this.validTo = value.validTo;
         this.slaId = value.slaId;
         this.timeUnit = value.timeUnit;
         this.relationalOperator = value.relationalOperator;
-        this.sloTypeId = value.sloTypeId;
+        this.sloType = value.sloType;
         this.percentageOfAvailability = value.percentageOfAvailability;
         this.throughputDataUnit = value.throughputDataUnit;
         this.throughputDataSize = value.throughputDataSize;
@@ -61,12 +56,10 @@ public class ServiceLevelObjective implements Serializable {
     public ServiceLevelObjective(
         Integer    id,
         String     name,
-        Date       validFrom,
-        Date       validTo,
         Integer    slaId,
         String     timeUnit,
         String     relationalOperator,
-        Integer    sloTypeId,
+        String     sloType,
         BigDecimal percentageOfAvailability,
         String     throughputDataUnit,
         BigDecimal throughputDataSize,
@@ -75,12 +68,10 @@ public class ServiceLevelObjective implements Serializable {
     ) {
         this.id = id;
         this.name = name;
-        this.validFrom = validFrom;
-        this.validTo = validTo;
         this.slaId = slaId;
         this.timeUnit = timeUnit;
         this.relationalOperator = relationalOperator;
-        this.sloTypeId = sloTypeId;
+        this.sloType = sloType;
         this.percentageOfAvailability = percentageOfAvailability;
         this.throughputDataUnit = throughputDataUnit;
         this.throughputDataSize = throughputDataSize;
@@ -103,24 +94,6 @@ public class ServiceLevelObjective implements Serializable {
 
     public ServiceLevelObjective setName(String name) {
         this.name = name;
-        return this;
-    }
-
-    public Date getValidFrom() {
-        return this.validFrom;
-    }
-
-    public ServiceLevelObjective setValidFrom(Date validFrom) {
-        this.validFrom = validFrom;
-        return this;
-    }
-
-    public Date getValidTo() {
-        return this.validTo;
-    }
-
-    public ServiceLevelObjective setValidTo(Date validTo) {
-        this.validTo = validTo;
         return this;
     }
 
@@ -151,12 +124,12 @@ public class ServiceLevelObjective implements Serializable {
         return this;
     }
 
-    public Integer getSloTypeId() {
-        return this.sloTypeId;
+    public String getSloType() {
+        return this.sloType;
     }
 
-    public ServiceLevelObjective setSloTypeId(Integer sloTypeId) {
-        this.sloTypeId = sloTypeId;
+    public ServiceLevelObjective setSloType(String sloType) {
+        this.sloType = sloType;
         return this;
     }
 
@@ -226,18 +199,6 @@ public class ServiceLevelObjective implements Serializable {
         }
         else if (!name.equals(other.name))
             return false;
-        if (validFrom == null) {
-            if (other.validFrom != null)
-                return false;
-        }
-        else if (!validFrom.equals(other.validFrom))
-            return false;
-        if (validTo == null) {
-            if (other.validTo != null)
-                return false;
-        }
-        else if (!validTo.equals(other.validTo))
-            return false;
         if (slaId == null) {
             if (other.slaId != null)
                 return false;
@@ -256,11 +217,11 @@ public class ServiceLevelObjective implements Serializable {
         }
         else if (!relationalOperator.equals(other.relationalOperator))
             return false;
-        if (sloTypeId == null) {
-            if (other.sloTypeId != null)
+        if (sloType == null) {
+            if (other.sloType != null)
                 return false;
         }
-        else if (!sloTypeId.equals(other.sloTypeId))
+        else if (!sloType.equals(other.sloType))
             return false;
         if (percentageOfAvailability == null) {
             if (other.percentageOfAvailability != null)
@@ -301,12 +262,10 @@ public class ServiceLevelObjective implements Serializable {
         int result = 1;
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
         result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
-        result = prime * result + ((this.validFrom == null) ? 0 : this.validFrom.hashCode());
-        result = prime * result + ((this.validTo == null) ? 0 : this.validTo.hashCode());
         result = prime * result + ((this.slaId == null) ? 0 : this.slaId.hashCode());
         result = prime * result + ((this.timeUnit == null) ? 0 : this.timeUnit.hashCode());
         result = prime * result + ((this.relationalOperator == null) ? 0 : this.relationalOperator.hashCode());
-        result = prime * result + ((this.sloTypeId == null) ? 0 : this.sloTypeId.hashCode());
+        result = prime * result + ((this.sloType == null) ? 0 : this.sloType.hashCode());
         result = prime * result + ((this.percentageOfAvailability == null) ? 0 : this.percentageOfAvailability.hashCode());
         result = prime * result + ((this.throughputDataUnit == null) ? 0 : this.throughputDataUnit.hashCode());
         result = prime * result + ((this.throughputDataSize == null) ? 0 : this.throughputDataSize.hashCode());
@@ -321,12 +280,10 @@ public class ServiceLevelObjective implements Serializable {
 
         sb.append(id);
         sb.append(", ").append(name);
-        sb.append(", ").append(validFrom);
-        sb.append(", ").append(validTo);
         sb.append(", ").append(slaId);
         sb.append(", ").append(timeUnit);
         sb.append(", ").append(relationalOperator);
-        sb.append(", ").append(sloTypeId);
+        sb.append(", ").append(sloType);
         sb.append(", ").append(percentageOfAvailability);
         sb.append(", ").append(throughputDataUnit);
         sb.append(", ").append(throughputDataSize);

@@ -1,7 +1,7 @@
 <mat-expansion-panel>
   <mat-expansion-panel-header >
     <mat-panel-title>
-      Title for Sla
+      {{sla.title}}
     </mat-panel-title>
     <mat-panel-description>
       <b>Status :</b><span class="{{sla.status}}">{{sla.status}}</span>
@@ -11,6 +11,6 @@
   <p><b>Lifecycle Phase:</b> {{sla.lifecyclePhase}}</p>
 
   <mat-action-row>
-    <a class="btn btn-primary" [routerLink]="['/slas/', sla.id]" routerLinkActive="active">Show Details</a>
+    <a mat-flat-button color="primary" [routerLink]="['/slas/', sla.id]" routerLinkActive="active">Show Details</a>
   </mat-action-row>
 </mat-expansion-panel>

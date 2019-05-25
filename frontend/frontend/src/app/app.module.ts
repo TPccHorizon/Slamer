@@ -18,11 +18,10 @@ import {
 import {AppRoutes} from "./app.routing";
 import { NavigationComponent } from './core/navigation/navigation.component';
 import { AuthenticationComponent } from './core/authentication/authentication.component';
-import { AlertComponent } from './shared/alert/alert.component';
 import {ErrorInterceptor} from "./core/interceptors/error.interceptor";
 import {Config} from "./config";
 import {LoginComponent} from "./modules/authentication/login/login.component";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { RegisterComponent } from './modules/authentication/register/register.component';
 import {JwtInterceptor} from "./core/interceptors/jwt.interceptor";
 import {AuthGuard} from "./core/guards/auth.guard";
@@ -35,16 +34,21 @@ import { SlaItemComponent } from './modules/sla-overview/sla-item/sla-item.compo
 import { SlaDetailsComponent } from './modules/sla-overview/sla-details/sla-details.component';
 import { SlaStepperComponent } from './modules/sla-creation/sla-stepper/sla-stepper.component';
 import { SloCreationComponent } from './modules/sla-creation/slo-creation/slo-creation.component';
-import { AvailabilityComponent } from './modules/sla-creation/availability/availability.component';
-import { ThroughputComponent } from './modules/sla-creation/throughput/throughput.component';
+import { UptimeFormComponent } from './modules/sla-creation/uptime-form/uptime-form.component';
+import { ThroughputFormComponent } from './modules/sla-creation/throughput-form/throughput-form.component';
 import { SloOverviewComponent } from './modules/sla-creation/slo-overview/slo-overview.component';
+import { AverageResponseFormComponent } from './modules/sla-creation/average-response-form/average-response-form.component';
+import { UptimeComponent } from './modules/sla-overview/slo-details/uptime/uptime.component';
+import { ThroughputComponent } from './modules/sla-overview/slo-details/throughput/throughput.component';
+import { AverageResponseTimeComponent } from './modules/sla-overview/slo-details/average-response-time/average-response-time.component';
+import { HomeComponent } from './modules/home/home/home.component';
+import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     AuthenticationComponent,
-    AlertComponent,
     LoginComponent,
     RegisterComponent,
     BaseLayoutComponent,
@@ -54,9 +58,14 @@ import { SloOverviewComponent } from './modules/sla-creation/slo-overview/slo-ov
     SlaDetailsComponent,
     SlaStepperComponent,
     SloCreationComponent,
-    AvailabilityComponent,
-    ThroughputComponent,
+    UptimeFormComponent,
+    ThroughputFormComponent,
     SloOverviewComponent,
+    AverageResponseFormComponent,
+    UptimeComponent,
+    ThroughputComponent,
+    AverageResponseTimeComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,7 +90,9 @@ import { SloOverviewComponent } from './modules/sla-creation/slo-overview/slo-ov
     MatTableModule,
     MatStepperModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    FormsModule,
+    NgbDatepickerModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

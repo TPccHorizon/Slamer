@@ -7,25 +7,25 @@ import java.sql.Date;
 
 public class ThroughputDTO extends ServiceLevelObjectiveDTO {
 
-    @JsonProperty
+    @JsonProperty(value = "dataUnit")
     private String     throughputDataUnit;
 
-    @JsonProperty
+    @JsonProperty(value = "dataSize")
     private BigDecimal throughputDataSize;
 
-    @JsonProperty
+    @JsonProperty(value = "operator")
     private String     relationalOperator;
 
-    @JsonProperty
+    @JsonProperty(value = "thresholdValue")
     private BigDecimal throughputThresholdValue;
 
-    @JsonProperty
+    @JsonProperty(value = "thresholdUnit")
     private String     timeUnit;
 
     public ThroughputDTO() { }
 
-    public ThroughputDTO(Integer id, String name, Date validFrom, Date validTo, Integer slaId, String sloType, String throughputDataUnit, BigDecimal throughputDataSize, String relationalOperator, BigDecimal throughputThresholdValue, String timeUnit) {
-        super(id, name, validFrom, validTo, slaId, sloType);
+    public ThroughputDTO(Integer id, String name, Integer slaId, String sloType, String throughputDataUnit, BigDecimal throughputDataSize, String relationalOperator, BigDecimal throughputThresholdValue, String timeUnit) {
+        super(id, name, slaId, sloType);
         this.throughputDataUnit = throughputDataUnit;
         this.throughputDataSize = throughputDataSize;
         this.relationalOperator = relationalOperator;
