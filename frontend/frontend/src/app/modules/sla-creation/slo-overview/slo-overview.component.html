@@ -1,4 +1,5 @@
 
+<h3>SLOs in your SLA</h3>
 <div *ngIf="createdSlos">
 
   <div fxLayout="column" fxLayoutGap="5px">
@@ -9,9 +10,14 @@
         <p matLine>
           <span>{{slo.sloType}}</span>
         </p>
+        <mat-divider></mat-divider>
+        <mat-divider [vertical]="true"></mat-divider>
       </mat-list-item>
     </mat-list>
 
   </div>
 
+</div>
+<div *ngIf="!createdSlos || createdSlos.length == 0">
+  No SLOs yet
 </div>

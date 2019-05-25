@@ -29,8 +29,8 @@ export class SloService {
     this.sloSource.next(updatedValue);
   }
 
-  getSlos(){
-    return this.slos;
+  getSlos(id: number){
+    return this.http.get<ServiceLevelObjective[]>(`${this.config.apiUrl}/slas/${id}/slos`);
   }
 
   setCurrentSlaId(id: number) {

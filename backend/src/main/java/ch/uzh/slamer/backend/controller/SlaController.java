@@ -10,6 +10,7 @@ import ch.uzh.slamer.backend.service.SloService;
 import codegen.tables.pojos.ServiceLevelObjective;
 import codegen.tables.pojos.Sla;
 import codegen.tables.pojos.SlaUser;
+import org.jooq.meta.derby.sys.Sys;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -115,6 +116,26 @@ public class SlaController {
         ServiceLevelObjectiveDTO response = mapper.map(created, ServiceLevelObjectiveDTO.class);
         response.setSloType(slo.getSloType());
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/slas/{id}/slos")
+    public ResponseEntity<List<ServiceLevelObjectiveDTO>> getSLOs(@PathVariable int id) {
+        System.out.println("Get all SLOs for SLA id " + id);
+        List<ServiceLevelObjective> serviceLevelObjectives = new ArrayList<>();
+        try {
+            serviceLevelObjectives = sloService.getSlosFromSla(id);
+        } catch (Exception e) {
+            System.out.println("Failed to get SLOs");
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        // map slos to dto
+        List<ServiceLevelObjectiveDTO> serviceLevelObjectiveDTOS = new ArrayList<>();
+        for (ServiceLevelObjective slo: serviceLevelObjectives) {
+            serviceLevelObjectiveDTOS.add(mapper.map(slo, ServiceLevelObjectiveDTO.class));
+        }
+        return new ResponseEntity<>(serviceLevelObjectiveDTOS, HttpStatus.OK);
+
     }
 
 
