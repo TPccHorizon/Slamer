@@ -21,7 +21,7 @@ import { AuthenticationComponent } from './core/authentication/authentication.co
 import {ErrorInterceptor} from "./core/interceptors/error.interceptor";
 import {Config} from "./config";
 import {LoginComponent} from "./modules/authentication/login/login.component";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { RegisterComponent } from './modules/authentication/register/register.component';
 import {JwtInterceptor} from "./core/interceptors/jwt.interceptor";
 import {AuthGuard} from "./core/guards/auth.guard";
@@ -42,6 +42,7 @@ import { UptimeComponent } from './modules/sla-overview/slo-details/uptime/uptim
 import { ThroughputComponent } from './modules/sla-overview/slo-details/throughput/throughput.component';
 import { AverageResponseTimeComponent } from './modules/sla-overview/slo-details/average-response-time/average-response-time.component';
 import { HomeComponent } from './modules/home/home/home.component';
+import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
@@ -89,7 +90,9 @@ import { HomeComponent } from './modules/home/home/home.component';
     MatTableModule,
     MatStepperModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    FormsModule,
+    NgbDatepickerModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
