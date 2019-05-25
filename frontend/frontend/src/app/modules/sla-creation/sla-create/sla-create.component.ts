@@ -43,14 +43,9 @@ export class SlaCreateComponent implements OnInit {
               private authService: AuthenticationService,
               private sloService: SloService,
               private router: Router) {
-    // this.from = calendar.getToday();
-    // this.to = calendar.getNext(calendar.getToday(), 'd', 10);
     this.slaForm = this.formBuilder.group({
       serviceCustomerUsername: ['', Validators.required],
       title: ['', Validators.required],
-      validFrom: ['', Validators.required],
-      validTo: ['', Validators.required],
-      selectedDateRange: [''],
       servicePrice: ['', Validators.required]
     });
 
@@ -91,8 +86,8 @@ export class SlaCreateComponent implements OnInit {
     let slaWithCustomer = new SlaWithCustomer();
     let providerUsername = this.authService.currentUserValue.username;
     console.log("User id provider: " +this.authService.currentUserValue.username);
-    sla.validFrom = this.f.validFrom.value;
-    sla.validTo = this.f.validTo.value;
+    sla.validFrom = this.from;
+    sla.validTo = this.to;
     sla.servicePrice = this.f.servicePrice.value;
     sla.title = this.f.title.value;
     slaWithCustomer.sla = sla;
@@ -100,6 +95,13 @@ export class SlaCreateComponent implements OnInit {
     slaWithCustomer.providerUsername = providerUsername;
     return slaWithCustomer;
   }
+
+
+  /***************************
+   * Functions for Daterange selection
+   *
+   *
+   * */
 
   private emit(close?: boolean) {
 
