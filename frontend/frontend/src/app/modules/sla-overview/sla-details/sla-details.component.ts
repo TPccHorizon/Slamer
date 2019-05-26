@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, ParamMap, Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {SlaService} from "../../../core/services/sla.service";
-import {Sla} from "../../../shared/models/sla";
-import {first, switchMap} from "rxjs/operators";
+import {first} from "rxjs/operators";
 import {SlaAndParties} from "../../../shared/models/slaAndParties";
 
 @Component({
@@ -33,6 +32,11 @@ export class SlaDetailsComponent implements OnInit {
       }, error => {
         console.log(error);
       });
+  }
+
+  isServiceProvider() {
+    let me = JSON.parse(localStorage.getItem('currentUser'));
+    return this.sla.serviceProvider.id === me.id;
   }
 
 }

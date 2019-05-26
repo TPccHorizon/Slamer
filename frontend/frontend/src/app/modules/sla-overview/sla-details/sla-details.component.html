@@ -1,6 +1,6 @@
 <div class="space">
   <a class="btn btn-secondary" [routerLink]="['/slas']">Back to Overview</a>
-  <a *ngIf="sla && sla.status == 'Identified'" class="btn btn-success"
+  <a *ngIf="sla && sla.status == 'Identified' && isServiceProvider()" class="btn btn-success"
      [routerLink]="['/slas/', sla.id, 'slo']">Add more SLOs</a>
 </div>
 
