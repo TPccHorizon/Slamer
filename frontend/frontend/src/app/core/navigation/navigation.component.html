@@ -1,5 +1,5 @@
 <mat-toolbar role="heading" color="accent" >
-  <span class="toggle-button" [routerLink]="['/']">SLAmer</span>
+  <span class="toggle-button" [routerLink]="['/']">SLAMer</span>
   <span class="fill-toolbar"></span>
   <span *ngIf="authService.isLoggedIn()">
     {{authService.currentUserValue.partyName}}
@@ -37,15 +37,15 @@
     </div>
     <div *ngIf="authService.isLoggedIn()">
       <mat-nav-list>
-        <a mat-list-item [routerLink]="['/']">Home</a>
+        <a mat-list-item [routerLink]="['/']"><mat-icon>home</mat-icon> Home</a>
       </mat-nav-list>
 
       <mat-nav-list>
-        <a mat-list-item [routerLink]="['/new']">Create SLA</a>
+        <a mat-list-item [routerLink]="['/new']"><mat-icon>add</mat-icon> Create SLA</a>
       </mat-nav-list>
 
       <mat-nav-list>
-        <a mat-list-item [routerLink]="['/slas']">Manage SLAs</a>
+        <a mat-list-item [routerLink]="['/slas']"><mat-icon>folder</mat-icon> Manage SLAs</a>
       </mat-nav-list>
 
     </div>
