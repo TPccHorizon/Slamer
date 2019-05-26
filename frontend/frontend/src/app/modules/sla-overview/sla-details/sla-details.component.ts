@@ -3,6 +3,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {SlaService} from "../../../core/services/sla.service";
 import {first} from "rxjs/operators";
 import {SlaAndParties} from "../../../shared/models/slaAndParties";
+import {SLA_STATES} from "../../../shared/constants/sla-states";
+import {AlertService} from "../../../core/services/alert.service";
 
 @Component({
   selector: 'app-sla-details',
@@ -17,18 +19,15 @@ export class SlaDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private slaService: SlaService) { }
+              private slaService: SlaService,
+              private alertService: AlertService) { }
 
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
     this.slaService.getSlaWithParties(id as unknown as number).pipe(first())
       .subscribe(result => {
         console.log(result);
-        this.sla = result;
-        this.dataSource= [
-          {name: this.sla.serviceProvider.partyName, role: 'Service Provider', signature: '', date: ''},
-          {name: this.sla.serviceCustomer.partyName, role: 'Customer', signature: '', date: ''}
-        ];
+        this.assignResponse(result);
       }, error => {
         console.log(error);
       });
@@ -37,6 +36,26 @@ export class SlaDetailsComponent implements OnInit {
   isServiceProvider() {
     let me = JSON.parse(localStorage.getItem('currentUser'));
     return this.sla.serviceProvider.id === me.id;
+  }
+
+  sendToCustomerForReview() {
+    this.slaService.updateSLAStatus(this.sla.status, this.sla.id).pipe(first())
+      .subscribe(result => {
+        this.assignResponse(result);
+        this.alertService.success("Sent SLA to " + this.sla.serviceCustomer.partyName);
+      });
+  }
+
+  isIdentified() {
+    return this.sla.status === SLA_STATES.IDENTIFIED;
+  }
+
+  private assignResponse(response) {
+    this.sla = response;
+    this.dataSource= [
+      {name: this.sla.serviceProvider.partyName, role: 'Service Provider', signature: '', date: ''},
+      {name: this.sla.serviceCustomer.partyName, role: 'Customer', signature: '', date: ''}
+    ];
   }
 
 }

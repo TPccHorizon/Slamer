@@ -5,6 +5,7 @@ import ch.uzh.slamer.backend.model.dto.*;
 import ch.uzh.slamer.backend.model.pojo.SlaWithCustomer;
 import ch.uzh.slamer.backend.repository.SlaRepository;
 import ch.uzh.slamer.backend.repository.SlaUserRepository;
+import ch.uzh.slamer.backend.rule.SlaRule;
 import ch.uzh.slamer.backend.service.SlaService;
 import ch.uzh.slamer.backend.service.SloService;
 import codegen.tables.pojos.ServiceLevelObjective;
@@ -17,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.InvalidKeyException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,6 +42,9 @@ public class SlaController {
 
     @Autowired
     ModelMapper mapper;
+
+    @Autowired
+    SlaRule rule;
 
     @RequestMapping(method = RequestMethod.POST, path = "/slas")
     public ResponseEntity<Sla> createNewSla(@RequestBody SlaWithCustomer slaWithCustomer) {
@@ -102,6 +107,19 @@ public class SlaController {
 
         System.out.println("Got SLA");
         return new ResponseEntity<>(slaDTO, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/slas/{id}")
+    public ResponseEntity<SlaDTO> updateSLAStatus(@RequestBody String currentState, @PathVariable int id) {
+        String nextState;
+        try {
+            nextState = rule.getNextState(currentState);
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        }
+        slaRepository.updateState(id, nextState);
+        return getOne(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/slas/{id}/slos")

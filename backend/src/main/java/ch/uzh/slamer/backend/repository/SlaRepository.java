@@ -46,6 +46,13 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
         return findById(sla.getId());
     }
 
+    public void updateState(int id, String state) {
+        int updateRecordCount = context.update(SLA)
+                .set(SLA.STATUS, state)
+                .where(SLA.ID.eq(id))
+                .execute();
+    }
+
     @Override
     public SlaRecord createRecord(Sla sla) {
         return context.newRecord(SLA, sla);

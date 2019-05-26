@@ -15,6 +15,10 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import static ch.uzh.slamer.backend.security.SecurityConstants.LOGIN_URL;
 import static ch.uzh.slamer.backend.security.SecurityConstants.SIGN_UP_URL;
 
@@ -49,7 +53,22 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     CorsConfigurationSource corsConfigurationSource() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
-        configuration.addAllowedOrigin("http://localhost:4200");
+        List<String> origins = new ArrayList<>();
+        origins.add("*");
+        configuration.setAllowedOrigins(origins);
+        List<String> methods = new ArrayList<>();
+        methods.add("GET");
+        methods.add("POST");
+        methods.add("HEAD");
+        methods.add("PUT");
+        methods.add("DELETE");
+        configuration.setAllowCredentials(true);
+        List<String> allowedHeaders = new ArrayList<>();
+        allowedHeaders.add("Authorization");
+        allowedHeaders.add("Cache-Control");
+        allowedHeaders.add("Content-Type");
+        configuration.setAllowedHeaders(allowedHeaders);
+        configuration.setAllowedMethods(methods);
         configuration.addExposedHeader("Authorization, Access-Control-Allow-Headers, Access-Control-Request-Method, Custom-Filter-Header");
         source.registerCorsConfiguration("/**", configuration);
         return source;
