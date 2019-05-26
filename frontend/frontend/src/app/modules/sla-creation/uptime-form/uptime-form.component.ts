@@ -20,9 +20,7 @@ export class UptimeFormComponent implements OnInit {
   sloCreated = new EventEmitter();
 
 
-  constructor(private formBuilder: FormBuilder,
-              private sloService: SloService,
-              private alertService: AlertService) {
+  constructor(private formBuilder: FormBuilder) {
     this.sloForm = this.formBuilder.group({
       name: ['', Validators.required],
       percentageOfAvailability: ['', Validators.required],
@@ -41,13 +39,7 @@ export class UptimeFormComponent implements OnInit {
     slo.sloType= 'Uptime';
     slo.percentageOfAvailability = this.toPercentValue(this.f.percentageOfAvailability.value);
     console.log(slo.percentageOfAvailability);
-    this.sloService.createSlo(slo).pipe(first()).subscribe(response => {
-      this.sloService.addSlo(response);
-      this.sloCreated.emit(slo);
-      this.alertService.success('Added new SLO')
-    }, error => {
-      this.alertService.error('SLO could not be added');
-    });
+    this.sloCreated.emit(slo);
   }
 
   toPercentValue(value: number) {

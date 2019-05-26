@@ -27,18 +27,21 @@
         <div *ngIf="selected">
           <div [ngSwitch]="selected">
             <div *ngSwitchCase="'Uptime'">
-              <app-uptime-form (sloCreated)="notify($event)" [currentSlaId]="currentSlaId"></app-uptime-form>
+              <app-uptime-form (sloCreated)="createSlo($event)" [currentSlaId]="currentSlaId"></app-uptime-form>
             </div>
             <div *ngSwitchCase="'Throughput'">
-              <app-throughput-form [currentSlaId]="currentSlaId"></app-throughput-form>
+              <app-throughput-form (sloCreated)="createSlo($event)" [currentSlaId]="currentSlaId"></app-throughput-form>
             </div>
             <div *ngSwitchCase="'Average Response Time'">
-              <app-average-response-form [currentSlaId]="currentSlaId"></app-average-response-form>
+              <app-average-response-form (sloCreated)="createSlo($event)" [currentSlaId]="currentSlaId"></app-average-response-form>
             </div>
           </div>
         </div>
 
       </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="finish()" color="warn">Finish</button>
+      </mat-card-actions>
     </mat-card>
 
 
