@@ -34,7 +34,7 @@ export class SlaService {
     return this.http.get<SlaAndParties>(`${this.config.apiUrl}/slas/${id}`)
   }
 
-  updateSLAStatus(currentState: string, id: number) {
-    return this.http.put<SlaAndParties>(`${this.config.apiUrl}/slas/${id}`, currentState);
+  updateSLAStatus(currentStatus: string, id: number) {
+    return this.http.put<SlaAndParties>(`${this.config.apiUrl}/slas/${id}`, currentStatus);
   }
 }

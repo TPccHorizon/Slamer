@@ -2,6 +2,7 @@ package ch.uzh.slamer.backend.controller;
 
 import ch.uzh.slamer.backend.exception.RecordNotFoundException;
 import ch.uzh.slamer.backend.model.dto.*;
+import ch.uzh.slamer.backend.model.pojo.SlaState;
 import ch.uzh.slamer.backend.model.pojo.SlaWithCustomer;
 import ch.uzh.slamer.backend.repository.SlaRepository;
 import ch.uzh.slamer.backend.repository.SlaUserRepository;
@@ -110,10 +111,10 @@ public class SlaController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/slas/{id}")
-    public ResponseEntity<SlaDTO> updateSLAStatus(@RequestBody String currentState, @PathVariable int id) {
-        String nextState;
+    public ResponseEntity<SlaDTO> updateSLAStatus(@RequestBody String currentStatus, @PathVariable int id) {
+        SlaState nextState;
         try {
-            nextState = rule.getNextState(currentState);
+            nextState = rule.getNextState(currentStatus);
         } catch (InvalidKeyException e) {
             e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.CONFLICT);

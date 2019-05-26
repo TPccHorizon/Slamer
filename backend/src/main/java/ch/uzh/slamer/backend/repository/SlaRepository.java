@@ -2,6 +2,7 @@ package ch.uzh.slamer.backend.repository;
 
 import ch.uzh.slamer.backend.exception.RecordNotFoundException;
 import ch.uzh.slamer.backend.model.dto.SlaDTO;
+import ch.uzh.slamer.backend.model.pojo.SlaState;
 import codegen.tables.pojos.Sla;
 import codegen.tables.pojos.SlaUser;
 import codegen.tables.records.SlaRecord;
@@ -46,9 +47,10 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
         return findById(sla.getId());
     }
 
-    public void updateState(int id, String state) {
+    public void updateState(int id, SlaState state) {
         int updateRecordCount = context.update(SLA)
-                .set(SLA.STATUS, state)
+                .set(SLA.STATUS, state.getStatus())
+                .set(SLA.LIFECYCLE_PHASE, state.getPhase())
                 .where(SLA.ID.eq(id))
                 .execute();
     }
