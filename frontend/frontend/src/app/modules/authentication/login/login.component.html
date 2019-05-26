@@ -1,27 +1,33 @@
-<mat-card fxFlex="100%">
-  <h2>Login</h2>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label>Username/E-Mail</label>
-      <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/>
-      <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-        <div *ngIf="f.username.errors.required">Username is required</div>
-      </div>
-    </div>
+<div fxLayout="row" fxLayoutAlign="center stretch">
 
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-        <div *ngIf="f.password.errors.required">Password is required</div>
+  <mat-card>
+    <h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Username/E-Mail</label>
+        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/>
+        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+          <div *ngIf="f.username.errors.required">Username is required</div>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <button [disabled]="loading" class="btn btn-primary">Login</button>
-      <!--    TODO: loading spinner -->
-      <a routerLink="/register" class="btn btn-link">Register</a>
-    </div>
-  </form>
-</mat-card>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">Password is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">Login</button>
+        <!--    TODO: loading spinner -->
+        <a routerLink="/register" class="btn btn-link">Register</a>
+      </div>
+    </form>
+  </mat-card>
+
+</div>
+
+
 
