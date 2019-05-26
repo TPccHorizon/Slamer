@@ -1,5 +1,7 @@
-  <h2>Create a new SLA</h2>
+<div fxLayout="row" fxLayoutAlign="center stretch">
+
   <form [formGroup]="slaForm" (ngSubmit)="onSubmit()">
+    <h2>Create a new SLA</h2>
     <div class="form-group">
       <label>Customer E-Mail</label>
       <input type="text" formControlName="serviceCustomerUsername" class="form-control" [ngClass]="{'is-invalid': submitted && f.serviceCustomerUsername.errors}">
@@ -20,7 +22,7 @@
     <div class="form-group">
       <label>Validity</label>
       <div class="input-group" id="dateRangePicker">
-<!--        <mat-icon>expand_more</mat-icon>-->
+        <!--        <mat-icon>expand_more</mat-icon>-->
         <input class="form-control" id="dateRange" placeholder="placeholder"
                name="dp" [value]="formattedDateRange" ngbDatepicker
                #dp="ngbDatepicker" (dateSelect)="onDateSelection($event)"
@@ -51,4 +53,7 @@
 
 
   </form>
+
+</div>
+
 

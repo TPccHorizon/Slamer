@@ -1,23 +1,27 @@
+<div fxLayout="row" fxLayoutAlign="center stretch">
 
-<div *ngIf="!loading">
-  <div *ngIf="slas && slas.length>0" style="width: 600px">
+  <div *ngIf="!loading">
+    <div *ngIf="slas && slas.length>0" style="width: 600px">
 
-    <div class="container" fxLayout="column" fxLayoutGap="15px">
-      <h2>{{pageTitle}}</h2>
-      <div fxFlex="100%" *ngFor="let sla of slas; let i = index">
-        <app-sla-item fxFlex="100%" [sla]="sla" ></app-sla-item>
+      <div class="container" fxLayout="column" fxLayoutGap="15px">
+        <h2>{{pageTitle}}</h2>
+        <div fxFlex="100%" *ngFor="let sla of slas; let i = index">
+          <app-sla-item fxFlex="100%" [sla]="sla" ></app-sla-item>
+        </div>
+
       </div>
 
     </div>
+    <div *ngIf="!slas || slas.length === 0">
+      <h2>{{pageTitle}}</h2>
+      <p>You don't have any SLAs at the moment.</p>
+    </div>
+  </div>
+  <div *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
 
-  </div>
-  <div *ngIf="!slas || slas.length === 0">
-    <h2>{{pageTitle}}</h2>
-    <p>You don't have any SLAs at the moment.</p>
-  </div>
 </div>
-<div *ngIf="loading">
-  <mat-spinner></mat-spinner>
-</div>
+
 
 
