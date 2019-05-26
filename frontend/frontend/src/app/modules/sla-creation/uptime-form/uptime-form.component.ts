@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Uptime} from "../../../shared/models/uptime";
 import {SloService} from "../../../core/services/slo.service";
@@ -16,6 +16,9 @@ export class UptimeFormComponent implements OnInit {
   submitted = false;
   @Input()
   currentSlaId: number;
+  @Output()
+  sloCreated = new EventEmitter();
+
 
   constructor(private formBuilder: FormBuilder,
               private sloService: SloService,
@@ -40,6 +43,7 @@ export class UptimeFormComponent implements OnInit {
     console.log(slo.percentageOfAvailability);
     this.sloService.createSlo(slo).pipe(first()).subscribe(response => {
       this.sloService.addSlo(response);
+      this.sloCreated.emit(slo);
       this.alertService.success('Added new SLO')
     }, error => {
       this.alertService.error('SLO could not be added');

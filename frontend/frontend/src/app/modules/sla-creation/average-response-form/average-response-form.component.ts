@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SloService} from "../../../core/services/slo.service";
 import {AlertService} from "../../../core/services/alert.service";
@@ -16,6 +16,9 @@ export class AverageResponseFormComponent implements OnInit {
   sloForm: FormGroup;
   submitted = false;
   timeUnits = ['ms', 's', 'min', 'h', 'd'];
+
+  @Input()
+  currentSlaId: number;
 
   constructor(private formBuilder: FormBuilder,
               private sloService: SloService,
@@ -37,6 +40,7 @@ export class AverageResponseFormComponent implements OnInit {
     // slo = this.sloForm.value;
     slo.name = this.f.name.value;
     slo.sloType = 'Average Response Time';
+    slo.slaId = this.currentSlaId;
     slo.averageResponseTime = this.f.averageResponseTimeValue.value;
     slo.timeUnit = this.f.timeUnit.value;
     this.sloService.createSlo(slo).pipe(first()).subscribe(response => {

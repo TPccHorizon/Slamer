@@ -12,14 +12,13 @@ export class SloService {
   private sloSource = new BehaviorSubject<ServiceLevelObjective[]>([]);
   private currentSlaId : number;
 
-  private slos = this.sloSource.asObservable();
+  public slos = this.sloSource.asObservable();
 
 
   constructor(private http: HttpClient, private config: Config) {
   }
 
   createSlo(slo: ServiceLevelObjective) {
-    // slo.slaId = this.getCurrentSlaId();
     return this.http.post<ServiceLevelObjective>(`${this.config.apiUrl}/slas/${slo.slaId}/slos`, slo)
   }
 

@@ -1,8 +1,7 @@
 
-<h3>SLOs in your SLA</h3>
-<div *ngIf="createdSlos">
-
-  <div fxLayout="column" fxLayoutGap="5px">
+<div style="border-right: 1px solid rgba(0, 0, 0, 0.87)">
+  <h3>SLOs in your SLA</h3>
+  <div *ngIf="createdSlos" >
 
     <mat-list>
       <mat-list-item *ngFor="let slo of createdSlos">
@@ -15,9 +14,10 @@
       </mat-list-item>
     </mat-list>
 
-  </div>
 
+  </div>
+  <div *ngIf="!createdSlos || createdSlos.length == 0">
+    No SLOs yet
+  </div>
 </div>
-<div *ngIf="!createdSlos || createdSlos.length == 0">
-  No SLOs yet
-</div>
+

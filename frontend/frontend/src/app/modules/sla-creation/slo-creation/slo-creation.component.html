@@ -8,11 +8,13 @@
 <!--  Space -->
   <div fxFlex="20"></div>
   <!--  SLO Selection -->
-  <div fxFlex>
+  <div fxFlex="40">
 
     <mat-card>
       <mat-card-title>Add Service Level Objectives</mat-card-title>
+
       <mat-card-content>
+        <mat-divider></mat-divider>
 
         <mat-form-field>
           <mat-label>Select Type of SLO</mat-label>
@@ -25,13 +27,13 @@
         <div *ngIf="selected">
           <div [ngSwitch]="selected">
             <div *ngSwitchCase="'Uptime'">
-              <app-uptime-form [currentSlaId]="currentSlaId"></app-uptime-form>
+              <app-uptime-form (sloCreated)="notify($event)" [currentSlaId]="currentSlaId"></app-uptime-form>
             </div>
             <div *ngSwitchCase="'Throughput'">
-              <app-throughput-form></app-throughput-form>
+              <app-throughput-form [currentSlaId]="currentSlaId"></app-throughput-form>
             </div>
             <div *ngSwitchCase="'Average Response Time'">
-              <app-average-response-form></app-average-response-form>
+              <app-average-response-form [currentSlaId]="currentSlaId"></app-average-response-form>
             </div>
           </div>
         </div>
@@ -41,6 +43,8 @@
 
 
   </div>
+
+  <div fxFlex></div>
 
 </div>
 
