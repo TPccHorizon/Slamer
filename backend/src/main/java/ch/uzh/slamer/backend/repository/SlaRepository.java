@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static ch.uzh.slamer.backend.model.enums.SlaStatus.IDENTIFIED;
 import static codegen.Tables.SLA;
 import static codegen.Tables.SLA_USER;
 
@@ -25,7 +26,8 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
     }
 
     public List<Sla> getUsersSlas(int userId) {
-        return context.selectFrom(SLA).where(SLA.SERVICE_CUSTOMER_ID.equal(userId))
+        /* Do not return SLAs with status 'Identified' for customers */
+        return context.selectFrom(SLA).where(SLA.SERVICE_CUSTOMER_ID.equal(userId)).and(SLA.STATUS.notEqual(IDENTIFIED.getStatus()))
                 .or(SLA.SERVICE_PROVIDER_ID.equal(userId))
                 .fetchInto(Sla.class);
     }
