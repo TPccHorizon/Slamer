@@ -12,7 +12,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatListModule, MatMenuModule, MatNativeDateModule, MatProgressSpinnerModule, MatSelectModule,
-  MatSidenavModule, MatSnackBar, MatSnackBarModule, MatStepperModule, MatTableModule,
+  MatSidenavModule, MatSnackBar, MatSnackBarModule, MatSortModule, MatStepperModule, MatTableModule,
   MatToolbarModule
 } from "@angular/material";
 import {AppRoutes} from "./app.routing";
@@ -93,6 +93,7 @@ import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
     MatSnackBarModule,
     FormsModule,
     NgbDatepickerModule,
+    MatSortModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
