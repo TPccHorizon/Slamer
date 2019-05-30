@@ -8,6 +8,7 @@ import codegen.tables.pojos.SlaUser;
 import codegen.tables.records.SlaRecord;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -74,5 +75,13 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
         Map<Sla, List<SlaUser>> result = new LinkedHashMap<>();
         result.put(sla, parties);
         return result;
+    }
+
+    @Transactional(readOnly = true)
+    public Integer countNewSLAs(int id) {
+        return context.selectCount().from(SLA)
+                .where(SLA.STATUS.eq(IDENTIFIED.getStatus()))
+                .and(SLA.SERVICE_CUSTOMER_ID.equal(id))
+                .fetchOne(0, int.class);
     }
 }

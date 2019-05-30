@@ -6,6 +6,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  MatBadgeModule,
   MatButtonModule,
   MatCardModule,
   MatDatepickerModule, MatExpansionModule, MatGridListModule,
@@ -92,6 +93,7 @@ import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
     FormsModule,
     NgbDatepickerModule,
     MatSortModule,
+    MatBadgeModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

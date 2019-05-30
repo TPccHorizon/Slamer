@@ -157,5 +157,11 @@ public class SlaController {
 
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/slas/new")
+    public ResponseEntity<Integer> countNewSlas(@RequestParam("id") int userId) {
+        int newSLAs = slaRepository.countNewSLAs(userId);
+        return new ResponseEntity<>(newSLAs, HttpStatus.OK);
+    }
+
 
 }
