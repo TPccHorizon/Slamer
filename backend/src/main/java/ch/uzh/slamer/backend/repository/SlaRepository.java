@@ -84,4 +84,12 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
                 .and(SLA.SERVICE_CUSTOMER_ID.equal(id))
                 .fetchOne(0, int.class);
     }
+
+    @Transactional(readOnly = true)
+    public List<Sla> getSlasForReview(int id) {
+        return context.selectFrom(SLA)
+                .where(SLA.STATUS.eq(IDENTIFIED.getStatus()))
+                .and(SLA.SERVICE_CUSTOMER_ID.equal(id))
+                .fetchInto(Sla.class);
+    }
 }

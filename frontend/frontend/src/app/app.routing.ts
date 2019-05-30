@@ -7,6 +7,7 @@ import {SlaOverviewComponent} from "./modules/sla-overview/sla-overview/sla-over
 import {SlaDetailsComponent} from "./modules/sla-overview/sla-details/sla-details.component";
 import {SloCreationComponent} from "./modules/sla-creation/slo-creation/slo-creation.component";
 import {HomeComponent} from "./modules/home/home/home.component";
+import {SlaReviewComponent} from "./modules/sla-creation/sla-review/sla-review.component";
 
 
 export const AppRoutes: Routes = [
@@ -31,11 +32,15 @@ export const AppRoutes: Routes = [
     component: SlaOverviewComponent
   },
   {
+    path: 'slas/review', component: SlaReviewComponent
+  },
+  {
     path: 'slas/:id', component: SlaDetailsComponent
   },
   {
     path: 'slas/:id/slo', component: SloCreationComponent
   },
+
 
   {path: '**', redirectTo: ''}
 ];

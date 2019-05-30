@@ -163,5 +163,11 @@ public class SlaController {
         return new ResponseEntity<>(newSLAs, HttpStatus.OK);
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/slas/review")
+    public ResponseEntity<List<Sla>> getForReview(@RequestParam("id") int userId) {
+        List<Sla> slas = slaRepository.getSlasForReview(userId);
+        return new ResponseEntity<>(slas, HttpStatus.OK);
+    }
+
 
 }

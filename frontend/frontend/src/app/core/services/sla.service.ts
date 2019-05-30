@@ -36,6 +36,12 @@ export class SlaService {
     return this.http.get<Sla[]>(`${this.config.apiUrl}/slas`, {params: params});
   }
 
+  getSlasForReview() {
+    let params = new HttpParams();
+    params = params.append('id', this.authService.currentUserValue.id as unknown as string);
+    return this.http.get(`${this.config.apiUrl}/slas/review`, {params: params});
+  }
+
   getSlaWithParties(id) {
     return this.http.get<SlaAndParties>(`${this.config.apiUrl}/slas/${id}`)
   }
