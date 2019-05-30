@@ -8,6 +8,7 @@ import {SlaUserService} from "./sla-user.service";
 import {SlaAndParties} from "../../shared/models/slaAndParties";
 import {first} from "rxjs/operators";
 import {BehaviorSubject} from "rxjs";
+import {Report} from "../../shared/models/Report";
 
 @Injectable({
   providedIn: 'root'
@@ -63,5 +64,17 @@ export class SlaService {
         });
     });
 
+  }
+
+  getReport() {
+    let params = this.getUserParams();
+    return this.http.get<Report>(`${this.config.apiUrl}/slas/report`, {params: params})
+  }
+
+  private getUserParams() {
+    let userId = this.authService.currentUserValue.id as unknown as string;
+    let params = new HttpParams();
+    params = params.append('id', userId);
+    return params
   }
 }

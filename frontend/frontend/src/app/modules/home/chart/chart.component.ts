@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ChartType} from "chart.js";
+import {SlaService} from "../../../core/services/sla.service";
+import {first} from "rxjs/operators";
+import {Report} from "../../../shared/models/Report";
 
 @Component({
   selector: 'app-chart',
@@ -9,12 +12,22 @@ import {ChartType} from "chart.js";
 export class ChartComponent implements OnInit {
 
   labels = ['Definition', 'Negotiation', 'Monitoring', 'Management', 'Termination', 'Penalty Enforcement'];
-  chartData = [2, 3, 10, 3, 3, 2];
+  chartData : number[];
   chartType: ChartType = 'doughnut';
+  isReady = false;
 
-  constructor() { }
+  constructor(private slaService: SlaService) {
+    this.slaService.getReport().pipe(first()).subscribe(report => {
+      this.chartData = this.mapToArray(report);
+      this.isReady = true;
+    })
+  }
 
   ngOnInit() {
+  }
+
+  mapToArray(report: Report) {
+    return [report.definition, report.negotiation, report.monitoring, report.termination, report.penaltyEnforcement]
   }
 
 }

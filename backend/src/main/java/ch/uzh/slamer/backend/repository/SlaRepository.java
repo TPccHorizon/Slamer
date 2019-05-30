@@ -2,17 +2,21 @@ package ch.uzh.slamer.backend.repository;
 
 import ch.uzh.slamer.backend.exception.RecordNotFoundException;
 import ch.uzh.slamer.backend.model.dto.SlaDTO;
+import ch.uzh.slamer.backend.model.pojo.Report;
 import ch.uzh.slamer.backend.model.pojo.SlaState;
 import ch.uzh.slamer.backend.model.pojo.SlaWithCustomer;
 import codegen.tables.pojos.Sla;
 import codegen.tables.pojos.SlaUser;
 import codegen.tables.records.SlaRecord;
 import org.jooq.DSLContext;
+import org.jooq.Field;
+import org.jooq.impl.DSL;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
+import static ch.uzh.slamer.backend.model.enums.LifecyclePhase.*;
 import static ch.uzh.slamer.backend.model.enums.SlaStatus.IDENTIFIED;
 import static codegen.Tables.SLA;
 import static codegen.Tables.SLA_USER;
@@ -89,5 +93,27 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
                 .where(SLA.STATUS.eq(IDENTIFIED.getStatus()))
                 .and(SLA.SERVICE_CUSTOMER_ID.equal(id))
                 .fetchInto(Sla.class);
+    }
+
+    @Transactional(readOnly = true)
+    public Report getSlaReport(int userId) {
+//        Field<String> definition = SLA.LIFECYCLE_PHASE.as("definition");
+        int definition = context.fetchCount(context.selectFrom(SLA)
+                .where(SLA.LIFECYCLE_PHASE.eq(DEFINITION.getPhase()))
+                .and(SLA.SERVICE_CUSTOMER_ID.equal(userId).or(SLA.SERVICE_PROVIDER_ID.equal(userId))));
+        int negotiation = context.fetchCount(context.selectFrom(SLA)
+                .where(SLA.LIFECYCLE_PHASE.eq(NEGOTIATION.getPhase()))
+                .and(SLA.SERVICE_CUSTOMER_ID.equal(userId).or(SLA.SERVICE_PROVIDER_ID.equal(userId))));
+        int monitoring = context.fetchCount(context.selectFrom(SLA)
+                .where(SLA.LIFECYCLE_PHASE.eq(MONITORING.getPhase()))
+                .and(SLA.SERVICE_CUSTOMER_ID.equal(userId).or(SLA.SERVICE_PROVIDER_ID.equal(userId))));
+        int termination = context.fetchCount(context.selectFrom(SLA)
+                .where(SLA.LIFECYCLE_PHASE.eq(TERMINATION.getPhase()))
+                .and(SLA.SERVICE_CUSTOMER_ID.equal(userId).or(SLA.SERVICE_PROVIDER_ID.equal(userId))));
+        int penaltyEnforcment = context.fetchCount(context.selectFrom(SLA)
+                .where(SLA.LIFECYCLE_PHASE.eq(PENALTY_ENFORCEMENT.getPhase()))
+                .and(SLA.SERVICE_CUSTOMER_ID.equal(userId).or(SLA.SERVICE_PROVIDER_ID.equal(userId))));
+
+        return new Report(definition, negotiation, monitoring, termination, penaltyEnforcment);
     }
 }
