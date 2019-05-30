@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ChartType} from "chart.js";
 
 @Component({
   selector: 'app-chart',
@@ -7,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChartComponent implements OnInit {
 
-  labels = ['Definition', 'Negotiation', 'Monitor', 'Termination'];
-  chartData = [2, 3, 20, 3];
-  chartType = 'doughnut';
+  labels = ['Definition', 'Negotiation', 'Monitoring', 'Management', 'Termination', 'Penalty Enforcement'];
+  chartData = [2, 3, 10, 3, 3, 2];
+  chartType: ChartType = 'doughnut';
 
   constructor() { }
 
