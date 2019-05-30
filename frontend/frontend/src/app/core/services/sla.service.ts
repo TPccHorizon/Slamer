@@ -31,15 +31,17 @@ export class SlaService {
   }
 
   getMySlas() {
+    let userId = this.authService.currentUserValue.id as unknown as string;
     let params = new HttpParams();
-    params = params.append('user', this.authService.currentUserValue.username);
-    return this.http.get<Sla[]>(`${this.config.apiUrl}/slas`, {params: params});
+    params = params.append('id', userId);
+    return this.http.get<SlaAndParties[]>(`${this.config.apiUrl}/slas`, {params: params});
   }
 
   getSlasForReview() {
+    let userId = this.authService.currentUserValue.id as unknown as string;
     let params = new HttpParams();
-    params = params.append('id', this.authService.currentUserValue.id as unknown as string);
-    return this.http.get(`${this.config.apiUrl}/slas/review`, {params: params});
+    params = params.append('id', userId);
+    return this.http.get<SlaAndParties[]>(`${this.config.apiUrl}/slas/review`, {params: params});
   }
 
   getSlaWithParties(id) {

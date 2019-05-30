@@ -4,6 +4,7 @@ import {Sla} from "../../../shared/models/sla";
 import {first} from "rxjs/operators";
 import {MatSort, MatTableDataSource, Sort} from "@angular/material";
 import {SortingService} from "../../../core/services/sorting.service";
+import {SlaAndParties} from "../../../shared/models/slaAndParties";
 
 @Component({
   selector: 'app-sla-overview',
@@ -13,7 +14,7 @@ import {SortingService} from "../../../core/services/sorting.service";
 export class SlaOverviewComponent implements OnInit {
 
   loading = false;
-  slas: Sla[] = null;
+  slas: SlaAndParties[] = null;
   dataSource : MatTableDataSource<Sla>;
 
   @ViewChild(MatSort) sort: MatSort;

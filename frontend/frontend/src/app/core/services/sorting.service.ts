@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Sort} from "@angular/material";
 import {Sla} from "../../shared/models/sla";
+import {SlaAndParties} from "../../shared/models/slaAndParties";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class SortingService {
 
   constructor() { }
 
-  sortData(slas: Sla[], sort: Sort) {
+  sortData(slas: SlaAndParties[], sort: Sort) {
     console.log("Sorting");
     const data = slas.slice();
     if (!sort.active || sort.direction === '') {
@@ -25,7 +26,7 @@ export class SortingService {
         case 'start': return compare(a.validFrom, b.validFrom, isAsc);
         case 'end': return compare(a.validTo, b.validTo, isAsc);
         case 'sp': return compare(a.serviceProviderId, b.serviceProviderId, isAsc);
-        case 'customer': return compare(a.serviceCustomerId, b.serviceCustomerId, isAsc);
+        case 'customer': return compare(a.serviceCustomer.partyName, b.serviceCustomer.partyName, isAsc);
         case 'phase': return compare(a.lifecyclePhase, b.lifecyclePhase, isAsc);
         default: return 0;
       }

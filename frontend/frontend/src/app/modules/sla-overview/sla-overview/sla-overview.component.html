@@ -6,7 +6,7 @@
     <table matSort (matSortChange)="sortSlas($event)" class="table">
       <thead>
       <tr>
-        <th mat-sort-header="id">ID</th>
+        <th mat-sort-header="id">#</th>
         <th mat-sort-header="title">SLA Title</th>
         <th mat-sort-header="status">Status</th>
         <th mat-sort-header="start">Start</th>
@@ -24,13 +24,16 @@
         <td>{{sla.status}}</td>
         <td>{{sla.validFrom}}</td>
         <td>{{sla.validTo}}</td>
-        <td>{{sla.serviceProviderId}}</td>
-        <td>{{sla.serviceCustomerId}}</td>
+        <td>{{sla.serviceProvider.partyName}}</td>
+        <td>{{sla.serviceCustomer.partyName}}</td>
         <td>{{sla.lifecyclePhase}}</td>
         <td><a mat-stroked-button color="accent" [routerLink]="['/slas/', sla.id]" routerLinkActive="active">Show Details</a></td>
       </tr>
       </tbody>
     </table>
+    <div *ngIf="slas.length===0">
+      There are no new SLAs at the moment.
+    </div>
 
   </div>
 

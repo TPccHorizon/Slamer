@@ -3,6 +3,7 @@ package ch.uzh.slamer.backend.repository;
 import ch.uzh.slamer.backend.exception.RecordNotFoundException;
 import ch.uzh.slamer.backend.model.dto.SlaDTO;
 import ch.uzh.slamer.backend.model.pojo.SlaState;
+import ch.uzh.slamer.backend.model.pojo.SlaWithCustomer;
 import codegen.tables.pojos.Sla;
 import codegen.tables.pojos.SlaUser;
 import codegen.tables.records.SlaRecord;
@@ -10,10 +11,7 @@ import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static ch.uzh.slamer.backend.model.enums.SlaStatus.IDENTIFIED;
 import static codegen.Tables.SLA;

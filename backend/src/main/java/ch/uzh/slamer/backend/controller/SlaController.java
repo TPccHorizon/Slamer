@@ -1,6 +1,5 @@
 package ch.uzh.slamer.backend.controller;
 
-import ch.uzh.slamer.backend.exception.RecordNotFoundException;
 import ch.uzh.slamer.backend.model.dto.*;
 import ch.uzh.slamer.backend.model.pojo.SlaState;
 import ch.uzh.slamer.backend.model.pojo.SlaWithCustomer;
@@ -12,7 +11,6 @@ import ch.uzh.slamer.backend.service.SloService;
 import codegen.tables.pojos.ServiceLevelObjective;
 import codegen.tables.pojos.Sla;
 import codegen.tables.pojos.SlaUser;
-import org.jooq.meta.derby.sys.Sys;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.InvalidKeyException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -58,39 +55,16 @@ public class SlaController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/slas")
-    public ResponseEntity<List<Sla>> getMySlas(@RequestParam("user") String username){
-        int userId = 0;
-        try {
-            userId = userRepository.findByUsername(username).getId();
-        } catch (RecordNotFoundException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<List<SlaDTO>> getMySlas(@RequestParam("id") int userId){
         List<Sla> slas = slaRepository.getUsersSlas(userId);
-        return new ResponseEntity<>(slas, HttpStatus.OK);
+        List<SlaDTO> slaDTOS = mapToSlaDtos(slas);
+        return new ResponseEntity<>(slaDTOS, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/slas/{id}")
     public ResponseEntity<SlaDTO> getOne(@PathVariable int id) {
         Map<Sla, List<SlaUser>> slaListMap = slaRepository.getSlaWithParties(id);
-        SlaDTO slaDTO = null;
-        List<SlaUser> parties = new LinkedList<>();
-        for (Map.Entry<Sla, List<SlaUser>> slaListEntry: slaListMap.entrySet()) {
-            slaDTO = mapper.map(slaListEntry.getKey(), SlaDTO.class);
-            parties = slaListEntry.getValue();
-        }
-        if (slaDTO == null) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
-
-        /* Set parties as Customer and Provider respectively */
-        for (SlaUser party: parties) {
-            if (party.getId().equals(slaDTO.getServiceCustomerId())) {
-                slaDTO.setServiceCustomer(mapper.map(party, SlaUserDTO.class));
-            } else {
-                slaDTO.setServiceProvider(mapper.map(party, SlaUserDTO.class));
-            }
-        }
+        SlaDTO slaDTO = slaService.mapToSla(slaListMap);
 
         /* Get all Service Level Objectives */
         List<ServiceLevelObjective> slos = sloService.getSlosFromSla(slaDTO.getId());
@@ -164,9 +138,20 @@ public class SlaController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/slas/review")
-    public ResponseEntity<List<Sla>> getForReview(@RequestParam("id") int userId) {
+    public ResponseEntity<List<SlaDTO>> getForReview(@RequestParam("id") int userId) {
         List<Sla> slas = slaRepository.getSlasForReview(userId);
-        return new ResponseEntity<>(slas, HttpStatus.OK);
+        List<SlaDTO> slaDTOS = mapToSlaDtos(slas);
+        return new ResponseEntity<>(slaDTOS, HttpStatus.OK);
+    }
+
+    private List<SlaDTO> mapToSlaDtos(List<Sla> slas) {
+        List<SlaDTO> slaDTOS = new ArrayList<>();
+        for (Sla sla: slas) {
+            Map<Sla, List<SlaUser>> slaListMap = slaRepository.getSlaWithParties(sla.getId());
+            SlaDTO slaDTO = slaService.mapToSla(slaListMap);
+            slaDTOS.add(slaDTO);
+        }
+        return slaDTOS;
     }
 
 
