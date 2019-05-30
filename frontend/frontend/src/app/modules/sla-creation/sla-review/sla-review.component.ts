@@ -1,17 +1,17 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {SlaService} from "../../../core/services/sla.service";
 import {Sla} from "../../../shared/models/sla";
-import {first} from "rxjs/operators";
 import {MatSort, MatTableDataSource, Sort} from "@angular/material";
+import {SlaService} from "../../../core/services/sla.service";
 import {SortingService} from "../../../core/services/sorting.service";
+import {first} from "rxjs/operators";
 import {SlaAndParties} from "../../../shared/models/slaAndParties";
 
 @Component({
-  selector: 'app-sla-overview',
-  templateUrl: './sla-overview.component.html',
-  styleUrls: ['./sla-overview.component.css']
+  selector: 'app-sla-review',
+  templateUrl: './sla-review.component.html',
+  styleUrls: ['./sla-review.component.css']
 })
-export class SlaOverviewComponent implements OnInit {
+export class SlaReviewComponent implements OnInit {
 
   loading = false;
   slas: SlaAndParties[] = null;
@@ -21,7 +21,7 @@ export class SlaOverviewComponent implements OnInit {
 
   constructor(private slaService: SlaService, private sorter: SortingService) {
     this.loading = true;
-    this.slaService.getMySlas().pipe(first())
+    this.slaService.getSlasForReview().pipe(first())
       .subscribe(data => {
         this.slas = data;
         this.dataSource = new MatTableDataSource<Sla>(this.slas);
@@ -37,9 +37,6 @@ export class SlaOverviewComponent implements OnInit {
     console.log("SortSlas");
     this.slas = this.sorter.sortData(this.slas, sort);
   }
-
-
-
   ngOnInit() {
   }
 

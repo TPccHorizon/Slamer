@@ -1,23 +1,54 @@
-<h3>Add Service Level Objectives</h3>
-<mat-form-field>
-  <mat-label>Select Type of SLO</mat-label>
-  <mat-select [(value)]="selected">
-    <mat-option *ngFor="let type of sloTypes" [value]="type">
-      {{type}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-<div *ngIf="selected">
-  <div [ngSwitch]="selected">
-    <div *ngSwitchCase="'Uptime'">
-      <app-uptime-form [currentSlaId]="currentSlaId"></app-uptime-form>
-    </div>
-    <div *ngSwitchCase="'Throughput'">
-      <app-throughput-form></app-throughput-form>
-    </div>
-    <div *ngSwitchCase="'Average Response Time'">
-      <app-average-response-form></app-average-response-form>
-    </div>
+
+<div fxLayout="row" fxLayoutAlign="space-between stretch">
+
+  <!--  Overview of created SLOs -->
+  <div fxFlex="30">
+    <app-slo-overview [currentSlaId]="currentSlaId"></app-slo-overview>
   </div>
+<!--  Space -->
+  <div fxFlex="20"></div>
+  <!--  SLO Selection -->
+  <div fxFlex="40">
+
+    <mat-card>
+      <mat-card-title>Add Service Level Objectives</mat-card-title>
+
+      <mat-card-content>
+        <mat-divider></mat-divider>
+
+        <mat-form-field>
+          <mat-label>Select Type of SLO</mat-label>
+          <mat-select [(value)]="selected">
+            <mat-option *ngFor="let type of sloTypes" [value]="type">
+              {{type}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div *ngIf="selected">
+          <div [ngSwitch]="selected">
+            <div *ngSwitchCase="'Uptime'">
+              <app-uptime-form (sloCreated)="createSlo($event)" [currentSlaId]="currentSlaId"></app-uptime-form>
+            </div>
+            <div *ngSwitchCase="'Throughput'">
+              <app-throughput-form (sloCreated)="createSlo($event)" [currentSlaId]="currentSlaId"></app-throughput-form>
+            </div>
+            <div *ngSwitchCase="'Average Response Time'">
+              <app-average-response-form (sloCreated)="createSlo($event)" [currentSlaId]="currentSlaId"></app-average-response-form>
+            </div>
+          </div>
+        </div>
+
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="finish()" color="warn">Finish</button>
+      </mat-card-actions>
+    </mat-card>
+
+
+  </div>
+
+  <div fxFlex></div>
+
 </div>
+
 

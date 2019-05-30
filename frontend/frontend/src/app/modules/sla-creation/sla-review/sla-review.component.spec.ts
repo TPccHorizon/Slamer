@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SlaStepperComponent } from './sla-stepper.component';
+import { SlaReviewComponent } from './sla-review.component';
 
-describe('SlaStepperComponent', () => {
-  let component: SlaStepperComponent;
-  let fixture: ComponentFixture<SlaStepperComponent>;
+describe('SlaReviewComponent', () => {
+  let component: SlaReviewComponent;
+  let fixture: ComponentFixture<SlaReviewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SlaStepperComponent ]
+      declarations: [ SlaReviewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SlaStepperComponent);
+    fixture = TestBed.createComponent(SlaReviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

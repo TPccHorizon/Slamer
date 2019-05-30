@@ -2,17 +2,18 @@ package ch.uzh.slamer.backend.repository;
 
 import ch.uzh.slamer.backend.exception.RecordNotFoundException;
 import ch.uzh.slamer.backend.model.dto.SlaDTO;
+import ch.uzh.slamer.backend.model.pojo.SlaState;
+import ch.uzh.slamer.backend.model.pojo.SlaWithCustomer;
 import codegen.tables.pojos.Sla;
 import codegen.tables.pojos.SlaUser;
 import codegen.tables.records.SlaRecord;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
+import static ch.uzh.slamer.backend.model.enums.SlaStatus.IDENTIFIED;
 import static codegen.Tables.SLA;
 import static codegen.Tables.SLA_USER;
 
@@ -25,7 +26,8 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
     }
 
     public List<Sla> getUsersSlas(int userId) {
-        return context.selectFrom(SLA).where(SLA.SERVICE_CUSTOMER_ID.equal(userId))
+        /* Do not return SLAs with status 'Identified' for customers */
+        return context.selectFrom(SLA).where(SLA.SERVICE_CUSTOMER_ID.equal(userId)).and(SLA.STATUS.notEqual(IDENTIFIED.getStatus()))
                 .or(SLA.SERVICE_PROVIDER_ID.equal(userId))
                 .fetchInto(Sla.class);
     }
@@ -42,6 +44,14 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
                 .set(SLA.SERVICE_CUSTOMER_ID, sla.getServiceCustomerId())
                 .execute();
         return findById(sla.getId());
+    }
+
+    public void updateState(int id, SlaState state) {
+        int updateRecordCount = context.update(SLA)
+                .set(SLA.STATUS, state.getStatus())
+                .set(SLA.LIFECYCLE_PHASE, state.getPhase())
+                .where(SLA.ID.eq(id))
+                .execute();
     }
 
     @Override
@@ -63,5 +73,21 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
         Map<Sla, List<SlaUser>> result = new LinkedHashMap<>();
         result.put(sla, parties);
         return result;
+    }
+
+    @Transactional(readOnly = true)
+    public Integer countNewSLAs(int id) {
+        return context.selectCount().from(SLA)
+                .where(SLA.STATUS.eq(IDENTIFIED.getStatus()))
+                .and(SLA.SERVICE_CUSTOMER_ID.equal(id))
+                .fetchOne(0, int.class);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Sla> getSlasForReview(int id) {
+        return context.selectFrom(SLA)
+                .where(SLA.STATUS.eq(IDENTIFIED.getStatus()))
+                .and(SLA.SERVICE_CUSTOMER_ID.equal(id))
+                .fetchInto(Sla.class);
     }
 }

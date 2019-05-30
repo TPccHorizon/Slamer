@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="sla_management@localhost">
-  <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.9">
+  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.15">
     <root id="1"/>
     <database id="2" parent="1" name="sla_management">
       <ObjectId>24709</ObjectId>
@@ -42,8 +42,8 @@
       <CreateRole>1</CreateRole>
       <CreateDb>1</CreateDb>
       <CanLogin>1</CanLogin>
-      <Replication>1</Replication>
       <ConnectionLimit>-1</ConnectionLimit>
+      <Replication>1</Replication>
       <BypassRls>1</BypassRls>
     </role>
     <schema id="10" parent="2" name="public">
@@ -72,7 +72,6 @@
       <ObjectId>24721</ObjectId>
       <StateNumber>4954</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
-      <BelongsToColumn>1</BelongsToColumn>
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
@@ -80,7 +79,6 @@
       <ObjectId>24788</ObjectId>
       <StateNumber>4954</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
-      <BelongsToColumn>1</BelongsToColumn>
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
@@ -88,7 +86,6 @@
       <ObjectId>24766</ObjectId>
       <StateNumber>4954</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
-      <BelongsToColumn>1</BelongsToColumn>
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
@@ -96,7 +93,6 @@
       <ObjectId>24737</ObjectId>
       <StateNumber>4954</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
-      <BelongsToColumn>1</BelongsToColumn>
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
@@ -104,7 +100,6 @@
       <ObjectId>24710</ObjectId>
       <StateNumber>4954</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
-      <BelongsToColumn>1</BelongsToColumn>
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
@@ -112,7 +107,6 @@
       <ObjectId>24758</ObjectId>
       <StateNumber>4954</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
-      <BelongsToColumn>1</BelongsToColumn>
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
@@ -155,7 +149,6 @@
       <StateNumber>4954</StateNumber>
       <DefaultExpression>nextval(&apos;address_id_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
-      <SequenceName>address_id_seq</SequenceName>
     </column>
     <column id="31" parent="22" name="postal_code">
       <Position>2</Position>
@@ -200,8 +193,8 @@
     <key id="37" parent="22" name="address_pkey">
       <ObjectId>24731</ObjectId>
       <ColNames>id</ColNames>
-      <UnderlyingIndexName>address_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
+      <UnderlyingIndexName>address_pkey</UnderlyingIndexName>
     </key>
     <foreign-key id="38" parent="22" name="address_user_id_fkey">
       <ObjectId>24732</ObjectId>
@@ -336,8 +329,8 @@
     <key id="58" parent="24" name="databasechangeloglock_pkey">
       <ObjectId>24808</ObjectId>
       <ColNames>id</ColNames>
-      <UnderlyingIndexName>databasechangeloglock_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
+      <UnderlyingIndexName>databasechangeloglock_pkey</UnderlyingIndexName>
     </key>
     <column id="59" parent="25" name="id">
       <Position>1</Position>
@@ -346,7 +339,6 @@
       <StateNumber>4954</StateNumber>
       <DefaultExpression>nextval(&apos;penalty_id_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
-      <SequenceName>penalty_id_seq</SequenceName>
     </column>
     <column id="60" parent="25" name="percentage">
       <Position>2</Position>
@@ -377,8 +369,8 @@
     <key id="64" parent="25" name="penalty_pkey">
       <ObjectId>24798</ObjectId>
       <ColNames>id</ColNames>
-      <UnderlyingIndexName>penalty_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
+      <UnderlyingIndexName>penalty_pkey</UnderlyingIndexName>
     </key>
     <foreign-key id="65" parent="25" name="penalty_slo_id_fkey">
       <ObjectId>24799</ObjectId>
@@ -396,7 +388,6 @@
       <StateNumber>4954</StateNumber>
       <DefaultExpression>nextval(&apos;service_level_objective_id_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
-      <SequenceName>service_level_objective_id_seq</SequenceName>
     </column>
     <column id="67" parent="26" name="name">
       <Position>2</Position>
@@ -483,8 +474,8 @@
     <key id="80" parent="26" name="service_level_objective_pkey">
       <ObjectId>24777</ObjectId>
       <ColNames>id</ColNames>
-      <UnderlyingIndexName>service_level_objective_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
+      <UnderlyingIndexName>service_level_objective_pkey</UnderlyingIndexName>
     </key>
     <foreign-key id="81" parent="26" name="service_level_objective_sla_id_fkey">
       <ObjectId>24778</ObjectId>
@@ -516,7 +507,6 @@
       <StateNumber>4954</StateNumber>
       <DefaultExpression>nextval(&apos;sla_id_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
-      <SequenceName>sla_id_seq</SequenceName>
     </column>
     <column id="85" parent="27" name="status">
       <Position>2</Position>
@@ -575,8 +565,8 @@
     <key id="93" parent="27" name="sla_pkey">
       <ObjectId>24747</ObjectId>
       <ColNames>id</ColNames>
-      <UnderlyingIndexName>sla_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
+      <UnderlyingIndexName>sla_pkey</UnderlyingIndexName>
     </key>
     <foreign-key id="94" parent="27" name="sla_service_provider_id_fkey">
       <ObjectId>24748</ObjectId>
@@ -603,7 +593,6 @@
       <StateNumber>4954</StateNumber>
       <DefaultExpression>nextval(&apos;sla_user_id_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
-      <SequenceName>sla_user_id_seq</SequenceName>
     </column>
     <column id="97" parent="28" name="password">
       <Position>2</Position>
@@ -654,8 +643,8 @@
     <key id="104" parent="28" name="sla_user_pkey">
       <ObjectId>24720</ObjectId>
       <ColNames>id</ColNames>
-      <UnderlyingIndexName>sla_user_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
+      <UnderlyingIndexName>sla_user_pkey</UnderlyingIndexName>
     </key>
     <column id="105" parent="29" name="id">
       <Position>1</Position>
@@ -664,7 +653,6 @@
       <StateNumber>4954</StateNumber>
       <DefaultExpression>nextval(&apos;slo_type_id_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
-      <SequenceName>slo_type_id_seq</SequenceName>
     </column>
     <column id="106" parent="29" name="type">
       <Position>2</Position>
@@ -681,8 +669,8 @@
     <key id="108" parent="29" name="slo_type_pkey">
       <ObjectId>24765</ObjectId>
       <ColNames>id</ColNames>
-      <UnderlyingIndexName>slo_type_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
+      <UnderlyingIndexName>slo_type_pkey</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>

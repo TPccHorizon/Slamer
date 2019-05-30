@@ -6,13 +6,14 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  MatBadgeModule,
   MatButtonModule,
   MatCardModule,
   MatDatepickerModule, MatExpansionModule, MatGridListModule,
   MatIconModule,
   MatInputModule,
   MatListModule, MatMenuModule, MatNativeDateModule, MatProgressSpinnerModule, MatSelectModule,
-  MatSidenavModule, MatSnackBar, MatSnackBarModule, MatStepperModule, MatTableModule,
+  MatSidenavModule, MatSnackBar, MatSnackBarModule, MatSortModule, MatStepperModule, MatTableModule,
   MatToolbarModule
 } from "@angular/material";
 import {AppRoutes} from "./app.routing";
@@ -32,7 +33,6 @@ import { SlaCreateComponent } from './modules/sla-creation/sla-create/sla-create
 import { SlaOverviewComponent } from './modules/sla-overview/sla-overview/sla-overview.component';
 import { SlaItemComponent } from './modules/sla-overview/sla-item/sla-item.component';
 import { SlaDetailsComponent } from './modules/sla-overview/sla-details/sla-details.component';
-import { SlaStepperComponent } from './modules/sla-creation/sla-stepper/sla-stepper.component';
 import { SloCreationComponent } from './modules/sla-creation/slo-creation/slo-creation.component';
 import { UptimeFormComponent } from './modules/sla-creation/uptime-form/uptime-form.component';
 import { ThroughputFormComponent } from './modules/sla-creation/throughput-form/throughput-form.component';
@@ -43,6 +43,7 @@ import { ThroughputComponent } from './modules/sla-overview/slo-details/throughp
 import { AverageResponseTimeComponent } from './modules/sla-overview/slo-details/average-response-time/average-response-time.component';
 import { HomeComponent } from './modules/home/home/home.component';
 import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
+import { SlaReviewComponent } from './modules/sla-creation/sla-review/sla-review.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,6 @@ import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
     SlaOverviewComponent,
     SlaItemComponent,
     SlaDetailsComponent,
-    SlaStepperComponent,
     SloCreationComponent,
     UptimeFormComponent,
     ThroughputFormComponent,
@@ -66,6 +66,7 @@ import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
     ThroughputComponent,
     AverageResponseTimeComponent,
     HomeComponent,
+    SlaReviewComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,6 +94,8 @@ import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
     MatSnackBarModule,
     FormsModule,
     NgbDatepickerModule,
+    MatSortModule,
+    MatBadgeModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

@@ -33,6 +33,10 @@ public class ServiceLevelObjectiveRepository extends AbstractRepository<ServiceL
     @Transactional
     @Override
     public ServiceLevelObjective add(ServiceLevelObjective slo) {
+        System.out.println("throughput size" + slo.getThroughputDataSize());
+        System.out.println("throughput unit" + slo.getThroughputDataUnit());
+        System.out.println("throughput treshold value" + slo.getThroughputThresholdValue());
+        System.out.println("time unit" + slo.getTimeUnit());
         ServiceLevelObjectiveRecord persisted = context.insertInto(SERVICE_LEVEL_OBJECTIVE)
                 .set(createRecord(slo))
                 .returning().fetchOne();

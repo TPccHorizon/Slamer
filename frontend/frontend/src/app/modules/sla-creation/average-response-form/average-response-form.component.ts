@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SloService} from "../../../core/services/slo.service";
 import {AlertService} from "../../../core/services/alert.service";
@@ -17,9 +17,12 @@ export class AverageResponseFormComponent implements OnInit {
   submitted = false;
   timeUnits = ['ms', 's', 'min', 'h', 'd'];
 
-  constructor(private formBuilder: FormBuilder,
-              private sloService: SloService,
-              private alertService: AlertService) {
+  @Input()
+  currentSlaId: number;
+  @Output()
+  sloCreated = new EventEmitter();
+
+  constructor(private formBuilder: FormBuilder) {
     this.sloForm = this.formBuilder.group({
       name: ['', Validators.required],
       averageResponseTimeValue: ['', Validators.required],
@@ -37,14 +40,10 @@ export class AverageResponseFormComponent implements OnInit {
     // slo = this.sloForm.value;
     slo.name = this.f.name.value;
     slo.sloType = 'Average Response Time';
+    slo.slaId = this.currentSlaId;
     slo.averageResponseTime = this.f.averageResponseTimeValue.value;
     slo.timeUnit = this.f.timeUnit.value;
-    this.sloService.createSlo(slo).pipe(first()).subscribe(response => {
-      this.sloService.addSlo(response);
-      this.alertService.success('Added new SLO')
-    }, error => {
-      this.alertService.error('SLO could not be added');
-    });
+    this.sloCreated.emit(slo);
   }
 
 }

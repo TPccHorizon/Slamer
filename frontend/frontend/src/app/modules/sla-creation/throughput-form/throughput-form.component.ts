@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SloService} from "../../../core/services/slo.service";
 import {Throughput} from "../../../shared/models/throughput";
@@ -15,13 +15,16 @@ export class ThroughputFormComponent implements OnInit {
   sloForm: FormGroup;
   submitted = false;
 
+  @Input()
+  currentSlaId: number;
+  @Output()
+  sloCreated = new EventEmitter();
+
   dataUnits = ['B', 'KB', 'MB', 'GB', 'kB', 'mB', 'Gb'];
   operators = ['<', '>', '=', '<=', '>='];
   thresholdUnits = ['ms', 's', 'min', 'h', 'd'];
 
-  constructor(private formBuilder: FormBuilder,
-              private sloService: SloService,
-              private alertService: AlertService) {
+  constructor(private formBuilder: FormBuilder) {
     this.sloForm = this.formBuilder.group({
       name: ['', Validators.required],
       dataSize: ['', Validators.required],
@@ -44,15 +47,10 @@ export class ThroughputFormComponent implements OnInit {
     slo.dataSize= this.f.dataSize.value;
     slo.dataUnit= this.f.dataUnit.value;
     slo.operator= this.f.operator.value;
+    slo.slaId = this.currentSlaId;
     slo.thresholdValue= this.f.thresholdValue.value;
     slo.thresholdUnit= this.f.thresholdUnit.value;
-    this.sloService.createSlo(slo).pipe(first()).subscribe(res => {
-      this.sloService.addSlo(res);
-      this.alertService.success('Added new SLO');
-    }, error => {
-      this.alertService.error('SLO could not be added');
-    });
-    this.sloService.addSlo(slo);
+    this.sloCreated.emit(slo);
   }
 
 }

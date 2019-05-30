@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AuthenticationService} from "../services/authentication.service";
-import {AlertService} from "../services/alert.service";
+import {SlaService} from "../services/sla.service";
 
 @Component({
   selector: 'app-navigation',
@@ -10,10 +10,15 @@ import {AlertService} from "../services/alert.service";
 export class NavigationComponent implements OnInit {
 
   @Input() themeColor = '';
+  newSlas: number;
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(private authService: AuthenticationService,
+              private slaService: SlaService) { }
 
   ngOnInit() {
+    this.slaService.slaCount.subscribe(count => {
+      this.newSlas = count;
+    })
   }
 
 }
