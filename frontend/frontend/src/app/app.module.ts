@@ -44,6 +44,8 @@ import { AverageResponseTimeComponent } from './modules/sla-overview/slo-details
 import { HomeComponent } from './modules/home/home/home.component';
 import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
 import { SlaReviewComponent } from './modules/sla-creation/sla-review/sla-review.component';
+import { ChartComponent } from './modules/home/chart/chart.component';
+import {ChartsModule} from "ng2-charts";
 
 @NgModule({
   declarations: [
@@ -67,6 +69,7 @@ import { SlaReviewComponent } from './modules/sla-creation/sla-review/sla-review
     AverageResponseTimeComponent,
     HomeComponent,
     SlaReviewComponent,
+    ChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,6 +99,7 @@ import { SlaReviewComponent } from './modules/sla-creation/sla-review/sla-review
     NgbDatepickerModule,
     MatSortModule,
     MatBadgeModule,
+    ChartsModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
