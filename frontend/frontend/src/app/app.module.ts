@@ -32,7 +32,6 @@ import { SlaCreateComponent } from './modules/sla-creation/sla-create/sla-create
 import { SlaOverviewComponent } from './modules/sla-overview/sla-overview/sla-overview.component';
 import { SlaItemComponent } from './modules/sla-overview/sla-item/sla-item.component';
 import { SlaDetailsComponent } from './modules/sla-overview/sla-details/sla-details.component';
-import { SlaStepperComponent } from './modules/sla-creation/sla-stepper/sla-stepper.component';
 import { SloCreationComponent } from './modules/sla-creation/slo-creation/slo-creation.component';
 import { UptimeFormComponent } from './modules/sla-creation/uptime-form/uptime-form.component';
 import { ThroughputFormComponent } from './modules/sla-creation/throughput-form/throughput-form.component';
@@ -56,7 +55,6 @@ import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
     SlaOverviewComponent,
     SlaItemComponent,
     SlaDetailsComponent,
-    SlaStepperComponent,
     SloCreationComponent,
     UptimeFormComponent,
     ThroughputFormComponent,

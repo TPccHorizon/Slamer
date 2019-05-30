@@ -12,13 +12,11 @@ import {SortingService} from "../../../core/services/sorting.service";
 })
 export class SlaOverviewComponent implements OnInit {
 
-  pageTitle = 'Manage SLAs';
   loading = false;
   slas: Sla[] = null;
   dataSource : MatTableDataSource<Sla>;
 
   @ViewChild(MatSort) sort: MatSort;
-  tableColumns = ['id', 'title', 'status', 'start', 'end', 'sp', 'customer', 'phase', 'details'];
 
   constructor(private slaService: SlaService, private sorter: SortingService) {
     this.loading = true;

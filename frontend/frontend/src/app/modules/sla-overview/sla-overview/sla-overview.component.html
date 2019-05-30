@@ -1,62 +1,10 @@
 <div fxLayout="column" (matSortChange)="sortSlas($event)" fxLayoutAlign="start stretch">
 
-<!--  <table mat-table [dataSource]="dataSource" matSort>-->
-
-<!--    <ng-container matColumnDef="id">-->
-<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>-->
-<!--      <td mat-cell *matCellDef="let sla"> {{sla.id}} </td>-->
-<!--    </ng-container>-->
-
-<!--    <ng-container matColumnDef="title">-->
-<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> SLA Title</th>-->
-<!--      <td mat-cell *matCellDef="let sla"> {{sla.title}} </td>-->
-<!--    </ng-container>-->
-
-<!--    <ng-container matColumnDef="status">-->
-<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>-->
-<!--      <td mat-cell *matCellDef="let sla"> {{sla.status}} </td>-->
-<!--    </ng-container>-->
-
-<!--    <ng-container matColumnDef="start">-->
-<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> Start </th>-->
-<!--      <td mat-cell *matCellDef="let sla"> {{sla.validFrom}} </td>-->
-<!--    </ng-container>-->
-
-<!--    <ng-container matColumnDef="end">-->
-<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> End </th>-->
-<!--      <td mat-cell *matCellDef="let sla"> {{sla.validTo}} </td>-->
-<!--    </ng-container>-->
-
-<!--    <ng-container matColumnDef="sp">-->
-<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> Service Provider </th>-->
-<!--      <td mat-cell *matCellDef="let sla"> {{sla.serviceProviderId}} </td>-->
-<!--    </ng-container>-->
-
-<!--    <ng-container matColumnDef="customer">-->
-<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer </th>-->
-<!--      <td mat-cell *matCellDef="let sla"> {{sla.serviceCustomerId}} </td>-->
-<!--    </ng-container>-->
-
-<!--    <ng-container matColumnDef="phase">-->
-<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> Lifecycle Phase </th>-->
-<!--      <td mat-cell *matCellDef="let sla"> {{sla.lifecyclePhase}} </td>-->
-<!--    </ng-container>-->
-
-<!--    <ng-container matColumnDef="details">-->
-<!--      <th mat-header-cell *matHeaderCellDef></th>-->
-<!--      <td mat-cell *matCellDef="let sla">-->
-<!--        <a mat-flat-button color="primary" [routerLink]="['/slas/', sla.id]" routerLinkActive="active">Show Details</a>-->
-<!--      </td>-->
-<!--    </ng-container>-->
-
-<!--    <tr mat-header-row *matHeaderRowDef="tableColumns; sticky: true"></tr>-->
-<!--    <tr mat-row *matRowDef="let myRowData; columns: tableColumns"></tr>-->
+  <div *ngIf="!loading">
 
 
-<!--  </table>-->
-
-  <table matSort (matSortChange)="sortSlas($event)" class="table">
-    <thead>
+    <table matSort (matSortChange)="sortSlas($event)" class="table">
+      <thead>
       <tr>
         <th mat-sort-header="id">ID</th>
         <th mat-sort-header="title">SLA Title</th>
@@ -68,8 +16,8 @@
         <th mat-sort-header="phase">Lifecycle Phase</th>
         <th></th>
       </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
       <tr *ngFor="let sla of slas">
         <td>{{sla.id}}</td>
         <td>{{sla.title}}</td>
@@ -81,29 +29,16 @@
         <td>{{sla.lifecyclePhase}}</td>
         <td><a mat-stroked-button color="accent" [routerLink]="['/slas/', sla.id]" routerLinkActive="active">Show Details</a></td>
       </tr>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+
+  </div>
+
+  <div *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+
 
 </div>
 
 
-<!--<div *ngIf="!loading">-->
-<!--  <div *ngIf="slas && slas.length>0" style="width: 600px">-->
-
-<!--    <div class="container" fxLayout="column" fxLayoutGap="15px">-->
-<!--      <h2>{{pageTitle}}</h2>-->
-<!--      <div fxFlex="100%" *ngFor="let sla of slas; let i = index">-->
-<!--        <app-sla-item fxFlex="100%" [sla]="sla" ></app-sla-item>-->
-<!--      </div>-->
-
-<!--    </div>-->
-
-<!--  </div>-->
-<!--  <div *ngIf="!slas || slas.length === 0">-->
-<!--    <h2>{{pageTitle}}</h2>-->
-<!--    <p>You don't have any SLAs at the moment.</p>-->
-<!--  </div>-->
-<!--</div>-->
-<!--<div *ngIf="loading">-->
-<!--  <mat-spinner></mat-spinner>-->
-<!--</div>-->
