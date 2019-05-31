@@ -107,6 +107,10 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
         int monitoring = context.fetchCount(context.selectFrom(SLA)
                 .where(SLA.LIFECYCLE_PHASE.eq(MONITORING.getPhase()))
                 .and(SLA.SERVICE_CUSTOMER_ID.equal(userId).or(SLA.SERVICE_PROVIDER_ID.equal(userId))));
+        int management = context.fetchCount(context.selectFrom(SLA)
+                .where(SLA.LIFECYCLE_PHASE.eq(MANAGEMENT.getPhase()))
+                .and(SLA.SERVICE_CUSTOMER_ID.equal(userId).or(SLA.SERVICE_PROVIDER_ID.equal(userId))));
+
         int termination = context.fetchCount(context.selectFrom(SLA)
                 .where(SLA.LIFECYCLE_PHASE.eq(TERMINATION.getPhase()))
                 .and(SLA.SERVICE_CUSTOMER_ID.equal(userId).or(SLA.SERVICE_PROVIDER_ID.equal(userId))));
@@ -114,6 +118,6 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
                 .where(SLA.LIFECYCLE_PHASE.eq(PENALTY_ENFORCEMENT.getPhase()))
                 .and(SLA.SERVICE_CUSTOMER_ID.equal(userId).or(SLA.SERVICE_PROVIDER_ID.equal(userId))));
 
-        return new Report(definition, negotiation, monitoring, termination, penaltyEnforcment);
+        return new Report(definition, negotiation, monitoring, management, termination, penaltyEnforcment);
     }
 }

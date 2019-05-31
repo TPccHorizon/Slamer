@@ -27,7 +27,7 @@ export class ChartComponent implements OnInit {
   }
 
   mapToArray(report: Report) {
-    return [report.definition, report.negotiation, report.monitoring, report.termination, report.penaltyEnforcement]
+    return [report.definition, report.negotiation, report.monitoring, report.management, report.termination, report.penaltyEnforcement]
   }
 
 }

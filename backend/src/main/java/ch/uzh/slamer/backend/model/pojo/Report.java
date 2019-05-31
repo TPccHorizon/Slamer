@@ -14,6 +14,9 @@ public class Report {
     private int monitoring;
 
     @JsonProperty
+    private int management;
+
+    @JsonProperty
     private int termination;
 
     @JsonProperty
@@ -21,13 +24,16 @@ public class Report {
 
     public Report() { }
 
-    public Report(int definition, int negotiation, int monitoring, int termination, int penaltyEnforcement) {
+    public Report(int definition, int negotiation, int monitoring, int management, int termination, int penaltyEnforcement) {
         this.definition = definition;
         this.negotiation = negotiation;
         this.monitoring = monitoring;
+        this.management = management;
         this.termination = termination;
         this.penaltyEnforcement = penaltyEnforcement;
     }
+
+    public int getManagement() { return management; }
 
     public int getDefinition() {
         return definition;
