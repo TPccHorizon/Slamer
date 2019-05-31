@@ -6,22 +6,22 @@
     <table matSort (matSortChange)="sortSlas($event)" class="table">
       <thead>
       <tr>
-        <th mat-sort-header="id">#</th>
         <th mat-sort-header="title">SLA Title</th>
         <th mat-sort-header="start">Start</th>
         <th mat-sort-header="end">End</th>
         <th mat-sort-header="sp">Service Provider</th>
+        <th mat-sort-header="price">Price</th>
         <th></th>
       </tr>
       </thead>
       <tbody>
 
       <tr *ngFor="let sla of slas">
-        <td>{{sla.id}}</td>
         <td>{{sla.title}}</td>
         <td>{{sla.validFrom}}</td>
         <td>{{sla.validTo}}</td>
         <td>{{sla.serviceProvider.partyName}}</td>
+        <td>{{sla.servicePrice}}</td>
         <td><a mat-stroked-button color="accent" [routerLink]="['/slas/', sla.id]" routerLinkActive="active">Review</a></td>
       </tr>
       </tbody>

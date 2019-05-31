@@ -20,7 +20,7 @@ export class SortingService {
     return data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case 'id': return compare(a.id, b.id, isAsc);
+        case 'price': return compare(a.servicePrice, b.servicePrice, isAsc);
         case 'title': return compare(a.title, b.title, isAsc);
         case 'status': return compare(a.status, b.status, isAsc);
         case 'start': return compare(a.validFrom, b.validFrom, isAsc);
