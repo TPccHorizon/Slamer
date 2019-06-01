@@ -22,7 +22,7 @@
         <td>{{sla.validTo}}</td>
         <td>{{sla.serviceProvider.partyName}}</td>
         <td>{{sla.servicePrice}}</td>
-        <td><a mat-stroked-button color="accent" [routerLink]="['/slas/', sla.id]" routerLinkActive="active">Review</a></td>
+        <td><a mat-stroked-button color="accent" (click)="openDialog(sla)">Review</a></td>
       </tr>
       </tbody>
     </table>

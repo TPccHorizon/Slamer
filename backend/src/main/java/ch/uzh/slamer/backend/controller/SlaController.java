@@ -69,17 +69,7 @@ public class SlaController {
 
         /* Get all Service Level Objectives */
         List<ServiceLevelObjective> slos = sloService.getSlosFromSla(slaDTO.getId());
-        for (ServiceLevelObjective slo: slos) {
-            ServiceLevelObjectiveDTO sloDto;
-            if (slo.getSloType().equals("Uptime")) {
-                sloDto = mapper.map(slo, UptimeDTO.class);
-            } else if (slo.getSloType().equals("Throughput")) {
-                sloDto = mapper.map(slo, ThroughputDTO.class);
-            } else {
-                sloDto = mapper.map(slo, AverageResponseTimeDTO.class);
-            }
-            slaDTO.addSlo(sloDto);
-        }
+        mapSlos(slaDTO, slos);
 
         System.out.println("Got SLA");
         return new ResponseEntity<>(slaDTO, HttpStatus.OK);
@@ -124,11 +114,9 @@ public class SlaController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
         // map slos to dto
-        List<ServiceLevelObjectiveDTO> serviceLevelObjectiveDTOS = new ArrayList<>();
-        for (ServiceLevelObjective slo: serviceLevelObjectives) {
-            serviceLevelObjectiveDTOS.add(mapper.map(slo, ServiceLevelObjectiveDTO.class));
-        }
-        return new ResponseEntity<>(serviceLevelObjectiveDTOS, HttpStatus.OK);
+        SlaDTO tempSla = new SlaDTO();
+        mapSlos(tempSla, serviceLevelObjectives);
+        return new ResponseEntity<>(tempSla.getSlos(), HttpStatus.OK);
 
     }
 
@@ -159,6 +147,20 @@ public class SlaController {
             slaDTOS.add(slaDTO);
         }
         return slaDTOS;
+    }
+
+    private void mapSlos(SlaDTO slaDTO, List<ServiceLevelObjective> slos) {
+        for (ServiceLevelObjective slo: slos) {
+            ServiceLevelObjectiveDTO sloDto;
+            if (slo.getSloType().equals("Uptime")) {
+                sloDto = mapper.map(slo, UptimeDTO.class);
+            } else if (slo.getSloType().equals("Throughput")) {
+                sloDto = mapper.map(slo, ThroughputDTO.class);
+            } else {
+                sloDto = mapper.map(slo, AverageResponseTimeDTO.class);
+            }
+            slaDTO.addSlo(sloDto);
+        }
     }
 
 

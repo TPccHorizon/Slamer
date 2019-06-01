@@ -1,0 +1,19 @@
+<div fxLayout="row" fxLayoutAlign="space-between stretch">
+  <div fxFlex="100"><b>{{slo.name}}</b></div>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-between stretch">
+  <div fxFlex="60" [ngSwitch]="slo.sloType">
+    <div *ngSwitchCase="'Uptime'">
+      <app-uptime [uptime]="slo"></app-uptime>
+    </div>
+    <div *ngSwitchCase="'Throughput'">
+      <app-throughput [throughput]="slo"></app-throughput>
+    </div>
+    <div *ngSwitchCase="'Average Response Time'">
+      <app-average-response-time [responseTime]="slo"></app-average-response-time>
+    </div>
+  </div>
+  <div fxFlex="40">
+    <mat-checkbox></mat-checkbox>
+  </div>
+</div>

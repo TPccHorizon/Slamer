@@ -8,8 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatBadgeModule,
   MatButtonModule,
-  MatCardModule,
-  MatDatepickerModule, MatExpansionModule, MatGridListModule,
+  MatCardModule, MatCheckboxModule,
+  MatDatepickerModule, MatDialogModule, MatExpansionModule, MatGridListModule,
   MatIconModule,
   MatInputModule,
   MatListModule, MatMenuModule, MatNativeDateModule, MatProgressSpinnerModule, MatSelectModule,
@@ -46,6 +46,9 @@ import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
 import { SlaReviewComponent } from './modules/sla-review/sla-review/sla-review.component';
 import { ChartComponent } from './modules/home/chart/chart.component';
 import {ChartsModule} from "ng2-charts";
+import { ModalComponent } from './modules/sla-review/modal/modal.component';
+import { SlaPropComponent } from './modules/sla-review/modal/sla-prop/sla-prop.component';
+import { SloComponent } from './modules/sla-review/modal/slo/slo.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +73,9 @@ import {ChartsModule} from "ng2-charts";
     HomeComponent,
     SlaReviewComponent,
     ChartComponent,
+    ModalComponent,
+    SlaPropComponent,
+    SloComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,7 +105,12 @@ import {ChartsModule} from "ng2-charts";
     NgbDatepickerModule,
     MatSortModule,
     MatBadgeModule,
-    ChartsModule
+    ChartsModule,
+    MatDialogModule,
+    MatCheckboxModule
+  ],
+  entryComponents: [
+    ModalComponent
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
