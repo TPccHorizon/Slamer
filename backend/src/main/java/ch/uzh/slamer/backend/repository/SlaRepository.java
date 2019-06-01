@@ -18,6 +18,7 @@ import java.util.*;
 
 import static ch.uzh.slamer.backend.model.enums.LifecyclePhase.*;
 import static ch.uzh.slamer.backend.model.enums.SlaStatus.IDENTIFIED;
+import static ch.uzh.slamer.backend.model.enums.SlaStatus.REQUESTED;
 import static codegen.Tables.SLA;
 import static codegen.Tables.SLA_USER;
 
@@ -82,7 +83,7 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
     @Transactional(readOnly = true)
     public Integer countNewSLAs(int id) {
         return context.selectCount().from(SLA)
-                .where(SLA.STATUS.eq(IDENTIFIED.getStatus()))
+                .where(SLA.STATUS.eq(REQUESTED.getStatus()))
                 .and(SLA.SERVICE_CUSTOMER_ID.equal(id))
                 .fetchOne(0, int.class);
     }
@@ -90,7 +91,7 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
     @Transactional(readOnly = true)
     public List<Sla> getSlasForReview(int id) {
         return context.selectFrom(SLA)
-                .where(SLA.STATUS.eq(IDENTIFIED.getStatus()))
+                .where(SLA.STATUS.eq(REQUESTED.getStatus()))
                 .and(SLA.SERVICE_CUSTOMER_ID.equal(id))
                 .fetchInto(Sla.class);
     }
