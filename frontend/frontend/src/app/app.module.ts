@@ -12,7 +12,7 @@ import {
   MatDatepickerModule, MatDialogModule, MatExpansionModule, MatGridListModule,
   MatIconModule,
   MatInputModule,
-  MatListModule, MatMenuModule, MatNativeDateModule, MatProgressSpinnerModule, MatSelectModule,
+  MatListModule, MatMenuModule, MatNativeDateModule, MatProgressSpinnerModule, MatRadioModule, MatSelectModule,
   MatSidenavModule, MatSnackBar, MatSnackBarModule, MatSortModule, MatStepperModule, MatTableModule,
   MatToolbarModule
 } from "@angular/material";
@@ -107,7 +107,8 @@ import { SloComponent } from './modules/sla-review/modal/slo/slo.component';
     MatBadgeModule,
     ChartsModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatRadioModule
   ],
   entryComponents: [
     ModalComponent

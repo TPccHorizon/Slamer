@@ -13,6 +13,8 @@ export class SlaPropComponent implements OnInit {
   @Input()
   propertyName: string;
 
+  isAccepted: string;
+
   constructor() { }
 
   ngOnInit() {

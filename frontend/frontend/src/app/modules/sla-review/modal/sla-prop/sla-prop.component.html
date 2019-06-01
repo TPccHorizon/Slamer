@@ -1,7 +1,18 @@
 <div fxLayout="row" fxLayoutAlign="space-between stretch">
-  <div fxFlex="25">{{propertyName}}: </div>
-  <div fxFlex="35">{{property}}</div>
-  <div fxFlex="40">
-    <mat-checkbox></mat-checkbox>
+  <div fxFlex="10">{{propertyName}}: </div>
+  <div fxFlex="20">{{property}}</div>
+  <div fxFlex="20">
+    <mat-radio-group [(ngModel)]="isAccepted">
+      <mat-radio-button value="true">Yes</mat-radio-button>
+      <mat-radio-button value="false">No</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div fxFlex="20">
+    <div *ngIf="isAccepted==='false'">
+      <mat-form-field>
+        <textarea matInput placeholder="Whats wrong?"></textarea>
+      </mat-form-field>
+    </div>
+
   </div>
 </div>

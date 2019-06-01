@@ -48,7 +48,7 @@ export class SlaReviewComponent  {
       sla.slos = slos;
       const dialogRef = this.dialog.open(ModalComponent, {
         data: sla,
-        minWidth: 600
+        minWidth: 850
       });
 
       dialogRef.afterClosed().subscribe(result => {

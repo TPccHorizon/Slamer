@@ -3,8 +3,8 @@
   <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="start">
 
     <div fxLayout="row" fxLayoutAlign="space-between stretch">
-      <div fxFlex="60"><h5>Properties</h5></div>
-      <div fxFlex="40"><h5>Accept?</h5></div>
+      <div fxFlex="50"><h5>Properties</h5></div>
+      <div fxFlex="50"><h5>Accept?</h5></div>
     </div>
 
     <app-sla-prop [property]="sla.validFrom" [propertyName]="'Start'"></app-sla-prop>
@@ -12,8 +12,8 @@
     <app-sla-prop [property]="sla.servicePrice" [propertyName]="'Price'"></app-sla-prop>
 
     <div fxLayout="row" fxLayoutAlign="space-between stretch">
-      <div fxFlex="60"><h5>SLOs</h5></div>
-      <div fxFlex="40"><h5>Accept?</h5></div>
+      <div fxFlex="50"><h5>SLOs</h5></div>
+      <div fxFlex="50"><h5>Accept?</h5></div>
     </div>
 
     <app-slo *ngFor="let slo of sla.slos" [slo]="slo"></app-slo>

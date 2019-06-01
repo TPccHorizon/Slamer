@@ -7,11 +7,13 @@ import {ServiceLevelObjective} from "../../../../shared/models/serviceLevelObjec
   styleUrls: ['./slo.component.css']
 })
 export class SloComponent implements OnInit {
-
-  constructor() { }
-
   @Input()
   slo: ServiceLevelObjective;
+
+  isAccepted: string;
+  constructor() { }
+
+
 
   ngOnInit() {
   }
