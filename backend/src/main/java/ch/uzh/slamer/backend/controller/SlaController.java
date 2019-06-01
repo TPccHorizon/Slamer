@@ -1,6 +1,7 @@
 package ch.uzh.slamer.backend.controller;
 
 import ch.uzh.slamer.backend.model.dto.*;
+import ch.uzh.slamer.backend.model.pojo.Report;
 import ch.uzh.slamer.backend.model.pojo.SlaState;
 import ch.uzh.slamer.backend.model.pojo.SlaWithCustomer;
 import ch.uzh.slamer.backend.repository.SlaRepository;
@@ -142,6 +143,12 @@ public class SlaController {
         List<Sla> slas = slaRepository.getSlasForReview(userId);
         List<SlaDTO> slaDTOS = mapToSlaDtos(slas);
         return new ResponseEntity<>(slaDTOS, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/slas/report")
+    public ResponseEntity<Report> getReport(@RequestParam("id") int userId) {
+        Report report = slaRepository.getSlaReport(userId);
+        return new ResponseEntity<>(report, HttpStatus.OK);
     }
 
     private List<SlaDTO> mapToSlaDtos(List<Sla> slas) {
