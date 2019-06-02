@@ -32,11 +32,13 @@ public class ServiceLevelObjectiveDTO {
 
     public ServiceLevelObjectiveDTO() { }
 
-    public ServiceLevelObjectiveDTO(Integer id, String name, Integer slaId, String sloType) {
+    public ServiceLevelObjectiveDTO(Integer id, String name, Integer slaId, String sloType, boolean accepted, String comment) {
         this.id = id;
         this.name = name;
         this.slaId = slaId;
         this.sloType = sloType;
+        this.accepted = accepted;
+        this.comment = comment;
     }
 
     public Integer getId() {
@@ -69,5 +71,13 @@ public class ServiceLevelObjectiveDTO {
 
     public void setSloType(String sloType) {
         this.sloType = sloType;
+    }
+
+    public boolean isAccepted() {
+        return accepted;
+    }
+
+    public String getComment() {
+        return comment;
     }
 }

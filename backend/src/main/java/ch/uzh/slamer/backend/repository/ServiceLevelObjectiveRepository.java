@@ -21,13 +21,10 @@ public class ServiceLevelObjectiveRepository extends AbstractRepository<ServiceL
 
 
     @Override
-    public ServiceLevelObjective update(ServiceLevelObjective entity) throws RecordNotFoundException {
-        return null;
-    }
-
-    @Override
-    public ServiceLevelObjectiveRecord createRecord(ServiceLevelObjective entity) {
-        return context.newRecord(SERVICE_LEVEL_OBJECTIVE, entity);
+    public ServiceLevelObjective update(ServiceLevelObjective entity){
+        ServiceLevelObjectiveRecord record = context.newRecord(SERVICE_LEVEL_OBJECTIVE, entity);
+        record.update();
+        return record.into(ServiceLevelObjective.class);
     }
 
     @Transactional

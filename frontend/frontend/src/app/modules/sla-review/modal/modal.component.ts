@@ -45,6 +45,7 @@ export class ModalComponent {
     this.review.slos = sla.slos;
     this.review.slos.forEach(function (slo) {
       slo.accepted = true;
+      slo.slaId = sla.id;
     })
   }
 

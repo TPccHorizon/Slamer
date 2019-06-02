@@ -19,17 +19,6 @@ public class SlaUserRepository extends AbstractRepository<SlaUserRecord, Integer
         super(context, SLA_USER, SLA_USER.ID, SlaUser.class);
     }
 
-    @Override
-    public SlaUserRecord createRecord(SlaUser user) {
-        SlaUserRecord record = new SlaUserRecord();
-        record.setPartyName(user.getPartyName())
-                .setPassword(user.getPassword())
-                .setUsername(user.getUsername())
-                .setSalt(user.getSalt())
-                .setPhoneNr(user.getPhoneNr());
-        return record;
-    }
-
     @Transactional
     @Override
     public SlaUser update(SlaUser slaUser) throws RecordNotFoundException {

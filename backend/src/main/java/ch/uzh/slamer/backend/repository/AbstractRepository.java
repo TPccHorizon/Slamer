@@ -75,7 +75,9 @@ public abstract class AbstractRepository<R extends UpdatableRecord, ID, T> imple
     @Override
     public abstract T update(T entity) throws RecordNotFoundException;
 
-    public abstract R createRecord(T entity);
+    public R createRecord(T entity){
+        return context.newRecord(table, entity);
+    }
 
     T convertResultIntoModel(R result) {
         return result.into(pojoClass);
