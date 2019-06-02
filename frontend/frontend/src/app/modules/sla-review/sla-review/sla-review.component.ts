@@ -9,6 +9,8 @@ import {ModalComponent} from "../modal/modal.component";
 import {SloService} from "../../../core/services/slo.service";
 import {ReviewService} from "../../../core/services/review.service";
 import {AlertService} from "../../../core/services/alert.service";
+import {SLA_STATES} from "../../../shared/constants/sla-states";
+import {el} from "@angular/platform-browser/testing/src/browser_util";
 
 @Component({
   selector: 'app-sla-review',
@@ -49,16 +51,20 @@ export class SlaReviewComponent  {
       dialogRef.afterClosed().subscribe(result => {
         console.log("Closed dialog");
         console.log(result);
-        this.reviewService.createReview(result).pipe(first())
-          .subscribe(created => {
-            console.log(created);
-            this.alertService.success("Sent Review to " + sla.serviceProvider.partyName);
-            this.refreshList();
-            this.slaService.countNewSLAs();
-          }, error => {
-            console.log(error);
-            this.alertService.error("An error occurred");
-          })
+        if (result != null) {
+          this.reviewService.createReview(result).pipe(first())
+            .subscribe(created => {
+              console.log(created);
+              this.alertService.success("Sent Review to " + sla.serviceProvider.partyName);
+              this.refreshList();
+              this.slaService.countNewSLAs();
+            }, error => {
+              console.log(error);
+              this.alertService.error("An error occurred");
+            });
+
+        }
+
       });
     });
   }
@@ -74,6 +80,21 @@ export class SlaReviewComponent  {
         console.log(error);
         this.loading = false;
       })
+  }
+
+  getButtonLabel(sla: SlaAndParties) {
+    let status = sla.status;
+    let label = '';
+    if (status === SLA_STATES.REQUESTED) {
+      label = 'Review';
+    } else if (status === SLA_STATES.ACCEPTED) {
+      label = 'Deploy';
+    } else if (status === SLA_STATES.REJECTED) {
+      label = 'Revise';
+    } else {
+      label = '-';
+    }
+    return label;
   }
 
 }

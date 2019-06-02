@@ -11,6 +11,7 @@
         <th mat-sort-header="end">End</th>
         <th mat-sort-header="sp">Service Provider</th>
         <th mat-sort-header="price">Price</th>
+        <th mat-sort-header="status">Status</th>
         <th></th>
       </tr>
       </thead>
@@ -22,7 +23,8 @@
         <td>{{sla.validTo}}</td>
         <td>{{sla.serviceProvider.partyName}}</td>
         <td>{{sla.servicePrice}}</td>
-        <td><a mat-stroked-button color="accent" (click)="openDialog(sla)">Review</a></td>
+        <td>{{sla.status}}</td>
+        <td><a mat-stroked-button color="accent" (click)="openDialog(sla)">{{getButtonLabel(sla)}}</a></td>
       </tr>
       </tbody>
     </table>
