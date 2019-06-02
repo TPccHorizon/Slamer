@@ -18,7 +18,7 @@ export class SloOverviewComponent implements OnInit {
   addedSla = new BehaviorSubject<any>(null);
 
   constructor(private sloServce: SloService) {
-    this.sloServce.slos.pipe(first()).subscribe(() => {
+    this.sloServce.sloSource.subscribe(() => {
       console.log("SLO addition detected");
       this.loadSLOs();
     })
@@ -34,7 +34,9 @@ export class SloOverviewComponent implements OnInit {
   loadSLOs() {
     console.log("Load SLOs");
     this.sloServce.getSlos(this.currentSlaId).subscribe( slos => {
+      console.log("Got new SLOs: ");
       this.createdSlos = slos;
+      console.log(this.createdSlos);
     })
   }
 

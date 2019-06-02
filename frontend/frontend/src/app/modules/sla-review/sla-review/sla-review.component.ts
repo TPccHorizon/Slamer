@@ -30,16 +30,7 @@ export class SlaReviewComponent  {
               private reviewService: ReviewService,
               private alertService: AlertService) {
     this.loading = true;
-    this.slaService.getSlasForReview().pipe(first())
-      .subscribe(data => {
-        this.slas = data;
-        this.dataSource = new MatTableDataSource<Sla>(this.slas);
-        this.dataSource.sort = this.sort;
-        this.loading = false;
-      }, error => {
-        console.log(error);
-        this.loading = false;
-      })
+    this.refreshList();
   }
 
   sortSlas(sort: Sort) {
@@ -62,12 +53,27 @@ export class SlaReviewComponent  {
           .subscribe(created => {
             console.log(created);
             this.alertService.success("Sent Review to " + sla.serviceProvider.partyName);
+            this.refreshList();
+            this.slaService.countNewSLAs();
           }, error => {
             console.log(error);
             this.alertService.error("An error occurred");
           })
       });
     });
+  }
+
+  refreshList() {
+    this.slaService.getSlasForReview().pipe(first())
+      .subscribe(data => {
+        this.slas = data;
+        this.dataSource = new MatTableDataSource<Sla>(this.slas);
+        this.dataSource.sort = this.sort;
+        this.loading = false;
+      }, error => {
+        console.log(error);
+        this.loading = false;
+      })
   }
 
 }
