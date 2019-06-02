@@ -23,7 +23,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ServiceLevelObjective implements Serializable {
 
-    private static final long serialVersionUID = -1252474512;
+    private static final long serialVersionUID = 619631160;
 
     private Integer    id;
     private String     name;
@@ -36,6 +36,8 @@ public class ServiceLevelObjective implements Serializable {
     private BigDecimal throughputDataSize;
     private BigDecimal throughputThresholdValue;
     private BigDecimal averageResponseTimeValue;
+    private Boolean    accepted;
+    private String     comment;
 
     public ServiceLevelObjective() {}
 
@@ -51,6 +53,8 @@ public class ServiceLevelObjective implements Serializable {
         this.throughputDataSize = value.throughputDataSize;
         this.throughputThresholdValue = value.throughputThresholdValue;
         this.averageResponseTimeValue = value.averageResponseTimeValue;
+        this.accepted = value.accepted;
+        this.comment = value.comment;
     }
 
     public ServiceLevelObjective(
@@ -64,7 +68,9 @@ public class ServiceLevelObjective implements Serializable {
         String     throughputDataUnit,
         BigDecimal throughputDataSize,
         BigDecimal throughputThresholdValue,
-        BigDecimal averageResponseTimeValue
+        BigDecimal averageResponseTimeValue,
+        Boolean    accepted,
+        String     comment
     ) {
         this.id = id;
         this.name = name;
@@ -77,6 +83,8 @@ public class ServiceLevelObjective implements Serializable {
         this.throughputDataSize = throughputDataSize;
         this.throughputThresholdValue = throughputThresholdValue;
         this.averageResponseTimeValue = averageResponseTimeValue;
+        this.accepted = accepted;
+        this.comment = comment;
     }
 
     public Integer getId() {
@@ -178,6 +186,24 @@ public class ServiceLevelObjective implements Serializable {
         return this;
     }
 
+    public Boolean getAccepted() {
+        return this.accepted;
+    }
+
+    public ServiceLevelObjective setAccepted(Boolean accepted) {
+        this.accepted = accepted;
+        return this;
+    }
+
+    public String getComment() {
+        return this.comment;
+    }
+
+    public ServiceLevelObjective setComment(String comment) {
+        this.comment = comment;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -253,6 +279,18 @@ public class ServiceLevelObjective implements Serializable {
         }
         else if (!averageResponseTimeValue.equals(other.averageResponseTimeValue))
             return false;
+        if (accepted == null) {
+            if (other.accepted != null)
+                return false;
+        }
+        else if (!accepted.equals(other.accepted))
+            return false;
+        if (comment == null) {
+            if (other.comment != null)
+                return false;
+        }
+        else if (!comment.equals(other.comment))
+            return false;
         return true;
     }
 
@@ -271,6 +309,8 @@ public class ServiceLevelObjective implements Serializable {
         result = prime * result + ((this.throughputDataSize == null) ? 0 : this.throughputDataSize.hashCode());
         result = prime * result + ((this.throughputThresholdValue == null) ? 0 : this.throughputThresholdValue.hashCode());
         result = prime * result + ((this.averageResponseTimeValue == null) ? 0 : this.averageResponseTimeValue.hashCode());
+        result = prime * result + ((this.accepted == null) ? 0 : this.accepted.hashCode());
+        result = prime * result + ((this.comment == null) ? 0 : this.comment.hashCode());
         return result;
     }
 
@@ -289,6 +329,8 @@ public class ServiceLevelObjective implements Serializable {
         sb.append(", ").append(throughputDataSize);
         sb.append(", ").append(throughputThresholdValue);
         sb.append(", ").append(averageResponseTimeValue);
+        sb.append(", ").append(accepted);
+        sb.append(", ").append(comment);
 
         sb.append(")");
         return sb.toString();

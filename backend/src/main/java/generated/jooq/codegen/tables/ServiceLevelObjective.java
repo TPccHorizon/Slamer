@@ -42,7 +42,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ServiceLevelObjective extends TableImpl<ServiceLevelObjectiveRecord> {
 
-    private static final long serialVersionUID = -1122199801;
+    private static final long serialVersionUID = 291103717;
 
     /**
      * The reference instance of <code>public.service_level_objective</code>
@@ -111,6 +111,16 @@ public class ServiceLevelObjective extends TableImpl<ServiceLevelObjectiveRecord
      * The column <code>public.service_level_objective.average_response_time_value</code>.
      */
     public final TableField<ServiceLevelObjectiveRecord, BigDecimal> AVERAGE_RESPONSE_TIME_VALUE = createField("average_response_time_value", org.jooq.impl.SQLDataType.NUMERIC, this, "");
+
+    /**
+     * The column <code>public.service_level_objective.accepted</code>.
+     */
+    public final TableField<ServiceLevelObjectiveRecord, Boolean> ACCEPTED = createField("accepted", org.jooq.impl.SQLDataType.BOOLEAN, this, "");
+
+    /**
+     * The column <code>public.service_level_objective.comment</code>.
+     */
+    public final TableField<ServiceLevelObjectiveRecord, String> COMMENT = createField("comment", org.jooq.impl.SQLDataType.VARCHAR, this, "");
 
     /**
      * Create a <code>public.service_level_objective</code> table reference

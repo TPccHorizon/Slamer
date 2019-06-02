@@ -3,9 +3,10 @@ package ch.uzh.slamer.backend.model.enums;
 public enum SlaStatus {
     IDENTIFIED("Identified", 1),
     REQUESTED("Requested", 2),
-    IN_REVIEW("In Review", 3),
-    ACTIVE("Active", 4),
-    INACTIVE("Inactive", 5);
+    ACCEPTED("Accepted", 3),
+    REJECTED("Rejected", 4),
+    ACTIVE("Active", 5),
+    INACTIVE("Inactive", 6);
 
     private String status;
     private int step;

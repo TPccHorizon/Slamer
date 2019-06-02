@@ -10,6 +10,7 @@ import codegen.tables.Databasechangeloglock;
 import codegen.tables.Penalty;
 import codegen.tables.ServiceLevelObjective;
 import codegen.tables.Sla;
+import codegen.tables.SlaReview;
 import codegen.tables.SlaUser;
 import codegen.tables.SloType;
 
@@ -58,6 +59,11 @@ public class Tables {
      * The table <code>public.sla</code>.
      */
     public static final Sla SLA = codegen.tables.Sla.SLA;
+
+    /**
+     * The table <code>public.sla_review</code>.
+     */
+    public static final SlaReview SLA_REVIEW = codegen.tables.SlaReview.SLA_REVIEW;
 
     /**
      * The table <code>public.sla_user</code>.

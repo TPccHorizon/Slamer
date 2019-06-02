@@ -24,6 +24,12 @@ public class ServiceLevelObjectiveDTO {
     @JsonProperty
     private String sloType;
 
+    @JsonProperty
+    private boolean accepted;
+
+    @JsonProperty
+    private String comment;
+
     public ServiceLevelObjectiveDTO() { }
 
     public ServiceLevelObjectiveDTO(Integer id, String name, Integer slaId, String sloType) {
