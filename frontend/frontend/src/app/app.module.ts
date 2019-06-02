@@ -50,6 +50,7 @@ import { ReviewDialogComponent } from './modules/sla-review/modal/review-dialog.
 import { SlaPropComponent } from './modules/sla-review/modal/sla-prop/sla-prop.component';
 import { SloComponent } from './modules/sla-review/modal/slo/slo.component';
 import { DeployDialogComponent } from './modules/sla-review/deploy-dialog/deploy-dialog/deploy-dialog.component';
+import { ReviseComponent } from './modules/sla-review/deploy-dialog/revise/revise.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { DeployDialogComponent } from './modules/sla-review/deploy-dialog/deploy
     SlaPropComponent,
     SloComponent,
     DeployDialogComponent,
+    ReviseComponent,
   ],
   imports: [
     BrowserModule,
