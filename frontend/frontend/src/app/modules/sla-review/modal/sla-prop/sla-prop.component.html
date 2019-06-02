@@ -1,15 +1,15 @@
 <div fxLayout="row" fxLayoutAlign="space-between stretch">
   <div fxFlex="10">{{propertyName}}: </div>
-  <div fxFlex="20">{{property}}</div>
+  <div fxFlex="20">{{property.value}}</div>
   <div fxFlex="20">
-    <mat-radio-group [(ngModel)]="isAccepted">
-      <mat-radio-button value="true">Yes</mat-radio-button>
-      <mat-radio-button value="false">No</mat-radio-button>
+    <mat-radio-group [(ngModel)]="property.accepted" (click)="select()">
+      <mat-radio-button name="accepted" [value]="true">Yes</mat-radio-button>
+      <mat-radio-button name="accepted" [value]="false">No</mat-radio-button>
     </mat-radio-group>
   </div>
   <div fxFlex="20">
-    <div *ngIf="isAccepted==='false'">
-      <mat-form-field>
+    <div *ngIf="!property.accepted">
+      <mat-form-field name="comment" [(ngModel)]="property.comment" ngDefaultControl>
         <textarea matInput placeholder="Whats wrong?"></textarea>
       </mat-form-field>
     </div>

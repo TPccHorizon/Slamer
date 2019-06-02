@@ -7,21 +7,21 @@
       <div fxFlex="50"><h5>Accept?</h5></div>
     </div>
 
-    <app-sla-prop [property]="sla.validFrom" [propertyName]="'Start'"></app-sla-prop>
-    <app-sla-prop [property]="sla.validTo" [propertyName]="'End'"></app-sla-prop>
-    <app-sla-prop [property]="sla.servicePrice" [propertyName]="'Price'"></app-sla-prop>
+    <app-sla-prop [property]="review.validFrom" (selectedChoice)="onAnswer($event)" [propertyName]="'Start'"></app-sla-prop>
+    <app-sla-prop [property]="review.validTo" (selectedChoice)="onAnswer($event)" [propertyName]="'End'"></app-sla-prop>
+    <app-sla-prop [property]="review.servicePrice" (selectedChoice)="onAnswer($event)" [propertyName]="'Price'"></app-sla-prop>
 
     <div fxLayout="row" fxLayoutAlign="space-between stretch">
       <div fxFlex="50"><h5>SLOs</h5></div>
       <div fxFlex="50"><h5>Accept?</h5></div>
     </div>
 
-    <app-slo *ngFor="let slo of sla.slos" [slo]="slo"></app-slo>
+    <app-slo *ngFor="let slo of review.slos" [slo]="slo" (selectedChoice)="onAnswer($event)"></app-slo>
 
   </div>
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-button>Save and Close</button>
+  <button mat-button (click)="onSubmit()">Save and Close</button>
 </mat-dialog-actions>

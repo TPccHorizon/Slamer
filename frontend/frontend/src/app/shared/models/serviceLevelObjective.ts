@@ -3,4 +3,6 @@ export class ServiceLevelObjective {
   name: string;
   slaId: number;
   sloType: string;
+  accepted: boolean;
+  comment: string;
 }

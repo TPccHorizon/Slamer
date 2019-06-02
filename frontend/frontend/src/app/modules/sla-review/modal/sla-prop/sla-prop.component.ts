@@ -1,23 +1,26 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {SlaReview} from "../../../../shared/models/SlaReview";
 
 @Component({
   selector: 'app-sla-prop',
   templateUrl: './sla-prop.component.html',
   styleUrls: ['./sla-prop.component.css']
 })
-export class SlaPropComponent implements OnInit {
+export class SlaPropComponent {
 
   @Input()
-  property: any;
+  property: SlaReview;
 
   @Input()
   propertyName: string;
+  @Output()
+  selectedChoice = new EventEmitter<boolean>();
 
-  isAccepted: string;
 
   constructor() { }
 
-  ngOnInit() {
+  select() {
+    this.selectedChoice.emit(true);
   }
 
 }

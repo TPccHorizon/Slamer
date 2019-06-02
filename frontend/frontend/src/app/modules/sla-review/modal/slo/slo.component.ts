@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ServiceLevelObjective} from "../../../../shared/models/serviceLevelObjective";
 
 @Component({
@@ -6,16 +6,16 @@ import {ServiceLevelObjective} from "../../../../shared/models/serviceLevelObjec
   templateUrl: './slo.component.html',
   styleUrls: ['./slo.component.css']
 })
-export class SloComponent implements OnInit {
+export class SloComponent {
   @Input()
   slo: ServiceLevelObjective;
 
-  isAccepted: string;
+  @Output()
+  selectedChoice = new EventEmitter<boolean>();
   constructor() { }
 
-
-
-  ngOnInit() {
+  select() {
+    this.selectedChoice.emit(true);
   }
 
 }

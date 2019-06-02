@@ -1,7 +1,8 @@
 export class SLA_STATES {
   public static IDENTIFIED = 'Identified';
   public static REQUESTED  = 'Requested';
-  public static IN_REVIEW = 'In Review';
+  public static ACCEPTED = 'Accepted';
+  public static REJECTED = 'Rejected';
   public static INACTIVE = 'Inactive';
   public static ACTIVE = 'Active';
 }
