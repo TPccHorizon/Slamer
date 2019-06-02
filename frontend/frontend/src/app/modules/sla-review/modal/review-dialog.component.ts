@@ -12,8 +12,6 @@ import {SlaReview} from "../../../shared/models/SlaReview";
 export class ReviewDialogComponent {
 
 
-  slosReviewed = new Array<boolean>(0);
-  readyToSubmit = false;
   review = new Review();
 
   constructor(public dialogRef: MatDialogRef<ReviewDialogComponent>,
@@ -50,13 +48,6 @@ export class ReviewDialogComponent {
 
   onCancel(): void {
     this.dialogRef.close();
-  }
-
-  onAnswer(answered: boolean) {
-    let numberOfAnswers = this.slosReviewed.push(answered);
-    if (numberOfAnswers === this.sla.slos.length + 3) {
-      this.readyToSubmit = true;
-    }
   }
 
   onSubmit() {

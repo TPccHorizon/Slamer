@@ -49,6 +49,7 @@ import {ChartsModule} from "ng2-charts";
 import { ReviewDialogComponent } from './modules/sla-review/modal/review-dialog.component';
 import { SlaPropComponent } from './modules/sla-review/modal/sla-prop/sla-prop.component';
 import { SloComponent } from './modules/sla-review/modal/slo/slo.component';
+import { DeployDialogComponent } from './modules/sla-review/deploy-dialog/deploy-dialog/deploy-dialog.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { SloComponent } from './modules/sla-review/modal/slo/slo.component';
     ReviewDialogComponent,
     SlaPropComponent,
     SloComponent,
+    DeployDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -111,7 +113,8 @@ import { SloComponent } from './modules/sla-review/modal/slo/slo.component';
     MatRadioModule
   ],
   entryComponents: [
-    ReviewDialogComponent
+    ReviewDialogComponent,
+    DeployDialogComponent
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

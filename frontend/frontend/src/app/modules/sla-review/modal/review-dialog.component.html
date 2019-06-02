@@ -7,9 +7,9 @@
       <div fxFlex="50"><h5>Accept?</h5></div>
     </div>
 
-    <app-sla-prop [property]="review.validFrom" (selectedChoice)="onAnswer($event)" [propertyName]="'Start'"></app-sla-prop>
-    <app-sla-prop [property]="review.validTo" (selectedChoice)="onAnswer($event)" [propertyName]="'End'"></app-sla-prop>
-    <app-sla-prop [property]="review.servicePrice" (selectedChoice)="onAnswer($event)" [propertyName]="'Price'"></app-sla-prop>
+    <app-sla-prop [property]="review.validFrom" [propertyName]="'Start'"></app-sla-prop>
+    <app-sla-prop [property]="review.validTo"  [propertyName]="'End'"></app-sla-prop>
+    <app-sla-prop [property]="review.servicePrice" [propertyName]="'Price'"></app-sla-prop>
 
     <div fxLayout="row" fxLayoutAlign="space-between stretch">
       <div fxFlex="50"><h5>SLOs</h5></div>

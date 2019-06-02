@@ -10,6 +10,7 @@ import {SloService} from "../../../core/services/slo.service";
 import {ReviewService} from "../../../core/services/review.service";
 import {AlertService} from "../../../core/services/alert.service";
 import {SLA_STATES} from "../../../shared/constants/sla-states";
+import {DeployDialogComponent} from "../deploy-dialog/deploy-dialog/deploy-dialog.component";
 
 @Component({
   selector: 'app-sla-review',
@@ -40,6 +41,14 @@ export class SlaReviewComponent  {
   }
 
   openDialog(sla: SlaAndParties) {
+    if (sla.status === SLA_STATES.REQUESTED) {
+      this.openReviewMode(sla);
+    } else if (sla.status === SLA_STATES.ACCEPTED) {
+      this.openDeployMode();
+    }
+  }
+
+  openReviewMode(sla: SlaAndParties) {
     this.sloService.getSlos(sla.id).pipe(first()).subscribe(slos => {
       sla.slos = slos;
       const dialogRef = this.dialog.open(ReviewDialogComponent, {
@@ -65,6 +74,20 @@ export class SlaReviewComponent  {
         }
 
       });
+    });
+  }
+
+  openDeployMode() {
+    const dialogRef = this.dialog.open(DeployDialogComponent, {
+      minWidth: 400
+    });
+
+    dialogRef.afterClosed().subscribe(doDeploy => {
+      if (doDeploy) {
+        //TODO: service to deploy smart contract
+        console.log("Deploy SLA!");
+        this.alertService.success("SLA has been deployed");
+      }
     });
   }
 
