@@ -22,13 +22,15 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SlaReview implements Serializable {
 
-    private static final long serialVersionUID = 352535040;
+    private static final long serialVersionUID = 1815832364;
 
     private Integer id;
     private String  property;
     private Integer slaId;
     private Boolean accepted;
     private String  comment;
+    private String  value;
+    private String  valueType;
 
     public SlaReview() {}
 
@@ -38,6 +40,8 @@ public class SlaReview implements Serializable {
         this.slaId = value.slaId;
         this.accepted = value.accepted;
         this.comment = value.comment;
+        this.value = value.value;
+        this.valueType = value.valueType;
     }
 
     public SlaReview(
@@ -45,13 +49,17 @@ public class SlaReview implements Serializable {
         String  property,
         Integer slaId,
         Boolean accepted,
-        String  comment
+        String  comment,
+        String  value,
+        String  valueType
     ) {
         this.id = id;
         this.property = property;
         this.slaId = slaId;
         this.accepted = accepted;
         this.comment = comment;
+        this.value = value;
+        this.valueType = valueType;
     }
 
     public Integer getId() {
@@ -99,6 +107,24 @@ public class SlaReview implements Serializable {
         return this;
     }
 
+    public String getValue() {
+        return this.value;
+    }
+
+    public SlaReview setValue(String value) {
+        this.value = value;
+        return this;
+    }
+
+    public String getValueType() {
+        return this.valueType;
+    }
+
+    public SlaReview setValueType(String valueType) {
+        this.valueType = valueType;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -138,6 +164,18 @@ public class SlaReview implements Serializable {
         }
         else if (!comment.equals(other.comment))
             return false;
+        if (value == null) {
+            if (other.value != null)
+                return false;
+        }
+        else if (!value.equals(other.value))
+            return false;
+        if (valueType == null) {
+            if (other.valueType != null)
+                return false;
+        }
+        else if (!valueType.equals(other.valueType))
+            return false;
         return true;
     }
 
@@ -150,6 +188,8 @@ public class SlaReview implements Serializable {
         result = prime * result + ((this.slaId == null) ? 0 : this.slaId.hashCode());
         result = prime * result + ((this.accepted == null) ? 0 : this.accepted.hashCode());
         result = prime * result + ((this.comment == null) ? 0 : this.comment.hashCode());
+        result = prime * result + ((this.value == null) ? 0 : this.value.hashCode());
+        result = prime * result + ((this.valueType == null) ? 0 : this.valueType.hashCode());
         return result;
     }
 
@@ -162,6 +202,8 @@ public class SlaReview implements Serializable {
         sb.append(", ").append(slaId);
         sb.append(", ").append(accepted);
         sb.append(", ").append(comment);
+        sb.append(", ").append(value);
+        sb.append(", ").append(valueType);
 
         sb.append(")");
         return sb.toString();

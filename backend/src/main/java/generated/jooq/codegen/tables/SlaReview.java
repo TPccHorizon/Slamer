@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SlaReview extends TableImpl<SlaReviewRecord> {
 
-    private static final long serialVersionUID = -32969735;
+    private static final long serialVersionUID = -756371076;
 
     /**
      * The reference instance of <code>public.sla_review</code>
@@ -80,6 +80,16 @@ public class SlaReview extends TableImpl<SlaReviewRecord> {
      * The column <code>public.sla_review.comment</code>.
      */
     public final TableField<SlaReviewRecord, String> COMMENT = createField("comment", org.jooq.impl.SQLDataType.VARCHAR, this, "");
+
+    /**
+     * The column <code>public.sla_review.value</code>.
+     */
+    public final TableField<SlaReviewRecord, String> VALUE = createField("value", org.jooq.impl.SQLDataType.VARCHAR, this, "");
+
+    /**
+     * The column <code>public.sla_review.value_type</code>.
+     */
+    public final TableField<SlaReviewRecord, String> VALUE_TYPE = createField("value_type", org.jooq.impl.SQLDataType.VARCHAR, this, "");
 
     /**
      * Create a <code>public.sla_review</code> table reference

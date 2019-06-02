@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReviseComponent } from './revise.component';
+import { ReviseDialogComponent } from './revise-dialog.component';
 
-describe('ReviseComponent', () => {
-  let component: ReviseComponent;
-  let fixture: ComponentFixture<ReviseComponent>;
+describe('ReviseDialogComponent', () => {
+  let component: ReviseDialogComponent;
+  let fixture: ComponentFixture<ReviseDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReviseComponent ]
+      declarations: [ ReviseDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ReviseComponent);
+    fixture = TestBed.createComponent(ReviseDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -11,6 +11,8 @@ import {ReviewService} from "../../../core/services/review.service";
 import {AlertService} from "../../../core/services/alert.service";
 import {SLA_STATES} from "../../../shared/constants/sla-states";
 import {DeployDialogComponent} from "../deploy-dialog/deploy-dialog/deploy-dialog.component";
+import {Review} from "../../../shared/models/review";
+import {ReviseDialogComponent} from "../revise-dialog/revise/revise-dialog.component";
 
 @Component({
   selector: 'app-sla-review',
@@ -45,6 +47,8 @@ export class SlaReviewComponent  {
       this.openReviewMode(sla);
     } else if (sla.status === SLA_STATES.ACCEPTED) {
       this.openDeployMode();
+    } else if (sla.status === SLA_STATES.REJECTED) {
+      this.openRevisionMode(sla);
     }
   }
 
@@ -89,6 +93,27 @@ export class SlaReviewComponent  {
         this.alertService.success("SLA has been deployed");
       }
     });
+  }
+
+  openRevisionMode(sla: SlaAndParties) {
+    let review = new Review();
+    this.reviewService.getReview(sla.id).pipe(first()).subscribe(response => {
+      review = response;
+      console.log(response);
+      const dialogRef = this.dialog.open(ReviseDialogComponent, {
+        data: review,
+        minWidth: 850
+      });
+
+      dialogRef.afterClosed().subscribe(updatedReview => {
+        console.log("Update review");
+        console.log(updatedReview);
+      });
+
+    }, error => {
+      console.log(error);
+      this.alertService.error('Could not get Review Data');
+    })
   }
 
   refreshList() {

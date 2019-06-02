@@ -22,4 +22,13 @@ public class ReviewController {
         }
         return new ResponseEntity<>(false, HttpStatus.CONFLICT);
     }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/reviews/{id}")
+    public ResponseEntity<ReviewDTO> getReview(@PathVariable int id) {
+        ReviewDTO reviewDTO = reviewService.getReviewBySlaId(id);
+        if (reviewDTO == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(reviewDTO, HttpStatus.OK);
+    }
 }

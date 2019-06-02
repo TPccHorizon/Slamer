@@ -33,6 +33,29 @@ public class ReviewService {
     @Autowired
     ModelMapper mapper;
 
+    public ReviewDTO getReviewBySlaId(int slaId) {
+        List<SlaReview> reviews = reviewRepository.getReviewsOfSla(slaId);
+        ReviewDTO reviewDTO = new ReviewDTO();
+        reviewDTO.setSlaId(slaId);
+        for (SlaReview review: reviews) {
+            switch (review.getProperty()) {
+                case "validFrom":
+                    reviewDTO.setValidFrom(review);
+                    break;
+                case "validTo":
+                    reviewDTO.setValidTo(review);
+                    break;
+                case "servicePrice":
+                    reviewDTO.setServicePrice(review);
+                    break;
+            }
+        }
+
+        List<ServiceLevelObjective> slos = sloRepository.getAllBySlaId(slaId);
+        reviewDTO.setSlos(slos.stream().map(slo -> mapper.map(slo, ServiceLevelObjectiveDTO.class))
+        .collect(Collectors.toList()));
+        return reviewDTO;
+    }
 
     public boolean addNewReview(ReviewDTO review) {
         SlaReview validFrom = review.getValidFrom();

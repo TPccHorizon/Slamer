@@ -50,7 +50,8 @@ import { ReviewDialogComponent } from './modules/sla-review/modal/review-dialog.
 import { SlaPropComponent } from './modules/sla-review/modal/sla-prop/sla-prop.component';
 import { SloComponent } from './modules/sla-review/modal/slo/slo.component';
 import { DeployDialogComponent } from './modules/sla-review/deploy-dialog/deploy-dialog/deploy-dialog.component';
-import { ReviseComponent } from './modules/sla-review/deploy-dialog/revise/revise.component';
+import { ReviseDialogComponent } from './modules/sla-review/revise-dialog/revise/revise-dialog.component';
+import { SlaPropEditComponent } from './modules/sla-review/revise-dialog/sla-prop-edit/sla-prop-edit.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { ReviseComponent } from './modules/sla-review/deploy-dialog/revise/revis
     SlaPropComponent,
     SloComponent,
     DeployDialogComponent,
-    ReviseComponent,
+    ReviseDialogComponent,
+    SlaPropEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -116,7 +118,8 @@ import { ReviseComponent } from './modules/sla-review/deploy-dialog/revise/revis
   ],
   entryComponents: [
     ReviewDialogComponent,
-    DeployDialogComponent
+    DeployDialogComponent,
+    ReviseDialogComponent
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

@@ -26,18 +26,21 @@ export class ReviewDialogComponent {
     validFrom.property='validFrom';
     validFrom.comment = '';
     validFrom.value = sla.validFrom;
+    validFrom.valueType = 'Date';
     this.review.validFrom = validFrom;
     let validTo = new SlaReview();
     validTo.accepted=true;
     validTo.property='validTo';
     validTo.comment = '';
     validTo.value = sla.validTo;
+    validTo.valueType = 'Date';
     this.review.validTo = validTo;
     let servicePrice = new SlaReview();
     servicePrice.accepted = true;
     servicePrice.property = 'servicePrice';
     servicePrice.comment = '';
     servicePrice.value = sla.servicePrice;
+    servicePrice.valueType = 'Number';
     this.review.servicePrice = servicePrice;
     this.review.slos = sla.slos;
     this.review.slos.forEach(function (slo) {

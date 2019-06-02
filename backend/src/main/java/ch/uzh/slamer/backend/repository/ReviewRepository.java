@@ -7,6 +7,8 @@ import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static codegen.tables.SlaReview.SLA_REVIEW;
 
 @Repository
@@ -22,5 +24,11 @@ public class ReviewRepository extends AbstractRepository<SlaReviewRecord, Intege
         SlaReviewRecord record = context.newRecord(SLA_REVIEW, entity);
         record.update();
         return record.into(SlaReview.class);
+    }
+
+    public List<SlaReview> getReviewsOfSla(Integer slaId) {
+        return context.selectFrom(SLA_REVIEW)
+                .where(SLA_REVIEW.SLA_ID.equal(slaId))
+                .fetchInto(SlaReview.class);
     }
 }
