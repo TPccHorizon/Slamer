@@ -5,12 +5,11 @@ import {SlaService} from "../../../core/services/sla.service";
 import {SortingService} from "../../../core/services/sorting.service";
 import {first} from "rxjs/operators";
 import {SlaAndParties} from "../../../shared/models/slaAndParties";
-import {ModalComponent} from "../modal/modal.component";
+import {ReviewDialogComponent} from "../modal/review-dialog.component";
 import {SloService} from "../../../core/services/slo.service";
 import {ReviewService} from "../../../core/services/review.service";
 import {AlertService} from "../../../core/services/alert.service";
 import {SLA_STATES} from "../../../shared/constants/sla-states";
-import {el} from "@angular/platform-browser/testing/src/browser_util";
 
 @Component({
   selector: 'app-sla-review',
@@ -43,7 +42,7 @@ export class SlaReviewComponent  {
   openDialog(sla: SlaAndParties) {
     this.sloService.getSlos(sla.id).pipe(first()).subscribe(slos => {
       sla.slos = slos;
-      const dialogRef = this.dialog.open(ModalComponent, {
+      const dialogRef = this.dialog.open(ReviewDialogComponent, {
         data: sla,
         minWidth: 850
       });

@@ -46,7 +46,7 @@ import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
 import { SlaReviewComponent } from './modules/sla-review/sla-review/sla-review.component';
 import { ChartComponent } from './modules/home/chart/chart.component';
 import {ChartsModule} from "ng2-charts";
-import { ModalComponent } from './modules/sla-review/modal/modal.component';
+import { ReviewDialogComponent } from './modules/sla-review/modal/review-dialog.component';
 import { SlaPropComponent } from './modules/sla-review/modal/sla-prop/sla-prop.component';
 import { SloComponent } from './modules/sla-review/modal/slo/slo.component';
 
@@ -73,7 +73,7 @@ import { SloComponent } from './modules/sla-review/modal/slo/slo.component';
     HomeComponent,
     SlaReviewComponent,
     ChartComponent,
-    ModalComponent,
+    ReviewDialogComponent,
     SlaPropComponent,
     SloComponent,
   ],
@@ -111,7 +111,7 @@ import { SloComponent } from './modules/sla-review/modal/slo/slo.component';
     MatRadioModule
   ],
   entryComponents: [
-    ModalComponent
+    ReviewDialogComponent
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

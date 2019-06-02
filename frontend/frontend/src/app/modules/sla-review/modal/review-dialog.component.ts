@@ -3,21 +3,20 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {SlaAndParties} from "../../../shared/models/slaAndParties";
 import {Review} from "../../../shared/models/review";
 import {SlaReview} from "../../../shared/models/SlaReview";
-import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.css']
+  templateUrl: './review-dialog.component.html',
+  styleUrls: ['./review-dialog.component.css']
 })
-export class ModalComponent {
+export class ReviewDialogComponent {
 
 
   slosReviewed = new Array<boolean>(0);
   readyToSubmit = false;
   review = new Review();
 
-  constructor(public dialogRef: MatDialogRef<ModalComponent>,
+  constructor(public dialogRef: MatDialogRef<ReviewDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public sla: SlaAndParties) {
       this.mapToReview(sla);
   }
