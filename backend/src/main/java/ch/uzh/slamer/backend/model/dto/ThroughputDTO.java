@@ -24,8 +24,8 @@ public class ThroughputDTO extends ServiceLevelObjectiveDTO {
 
     public ThroughputDTO() { }
 
-    public ThroughputDTO(Integer id, String name, Integer slaId, String sloType, String throughputDataUnit, BigDecimal throughputDataSize, String relationalOperator, BigDecimal throughputThresholdValue, String timeUnit) {
-        super(id, name, slaId, sloType);
+    public ThroughputDTO(Integer id, String name, Integer slaId, String sloType, boolean accepted, String comment, String throughputDataUnit, BigDecimal throughputDataSize, String relationalOperator, BigDecimal throughputThresholdValue, String timeUnit) {
+        super(id, name, slaId, sloType, accepted, comment);
         this.throughputDataUnit = throughputDataUnit;
         this.throughputDataSize = throughputDataSize;
         this.relationalOperator = relationalOperator;

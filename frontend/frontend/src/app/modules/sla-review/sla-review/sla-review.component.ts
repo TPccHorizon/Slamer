@@ -7,6 +7,8 @@ import {first} from "rxjs/operators";
 import {SlaAndParties} from "../../../shared/models/slaAndParties";
 import {ModalComponent} from "../modal/modal.component";
 import {SloService} from "../../../core/services/slo.service";
+import {ReviewService} from "../../../core/services/review.service";
+import {AlertService} from "../../../core/services/alert.service";
 
 @Component({
   selector: 'app-sla-review',
@@ -24,7 +26,9 @@ export class SlaReviewComponent  {
   constructor(private slaService: SlaService,
               private sloService: SloService,
               private sorter: SortingService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private reviewService: ReviewService,
+              private alertService: AlertService) {
     this.loading = true;
     this.slaService.getSlasForReview().pipe(first())
       .subscribe(data => {
@@ -54,6 +58,14 @@ export class SlaReviewComponent  {
       dialogRef.afterClosed().subscribe(result => {
         console.log("Closed dialog");
         console.log(result);
+        this.reviewService.createReview(result).pipe(first())
+          .subscribe(created => {
+            console.log(created);
+            this.alertService.success("Sent Review to " + sla.serviceProvider.partyName);
+          }, error => {
+            console.log(error);
+            this.alertService.error("An error occurred");
+          })
       });
     });
   }

@@ -12,8 +12,8 @@ public class UptimeDTO extends ServiceLevelObjectiveDTO {
 
     public UptimeDTO() { }
 
-    public UptimeDTO(Integer id, String name, Integer slaId, String sloType, BigDecimal percentageOfAvailability) {
-        super(id, name, slaId, sloType);
+    public UptimeDTO(Integer id, String name, Integer slaId, String sloType, boolean accepted, String comment, BigDecimal percentageOfAvailability) {
+        super(id, name, slaId, sloType, accepted, comment);
         this.percentageOfAvailability = percentageOfAvailability;
     }
 

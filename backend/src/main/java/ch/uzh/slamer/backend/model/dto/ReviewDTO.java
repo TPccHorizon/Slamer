@@ -52,4 +52,24 @@ public class ReviewDTO {
     public List<ServiceLevelObjectiveDTO> getSlos() {
         return slos;
     }
+
+    public void setSlaId(int slaId) {
+        this.slaId = slaId;
+    }
+
+    public void setValidFrom(SlaReview validFrom) {
+        this.validFrom = validFrom;
+    }
+
+    public void setValidTo(SlaReview validTo) {
+        this.validTo = validTo;
+    }
+
+    public void setServicePrice(SlaReview servicePrice) {
+        this.servicePrice = servicePrice;
+    }
+
+    public void setSlos(List<ServiceLevelObjectiveDTO> slos) {
+        this.slos = slos;
+    }
 }

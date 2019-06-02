@@ -38,17 +38,10 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
     }
 
     @Override
-    public Sla update(Sla sla) throws RecordNotFoundException {
-        int updateRecordCount = context.update(SLA)
-                .set(SLA.STATUS, sla.getStatus())
-                .set(SLA.SERVICE_PRICE, sla.getServicePrice())
-                .set(SLA.LIFECYCLE_PHASE, sla.getLifecyclePhase())
-                .set(SLA.VALID_FROM, sla.getValidFrom())
-                .set(SLA.VALID_TO, sla.getValidTo())
-                .set(SLA.SERVICE_PROVIDER_ID, sla.getServiceProviderId())
-                .set(SLA.SERVICE_CUSTOMER_ID, sla.getServiceCustomerId())
-                .execute();
-        return findById(sla.getId());
+    public Sla update(Sla sla) {
+        SlaRecord record = context.newRecord(SLA, sla);
+        record.update();
+        return record.into(Sla.class);
     }
 
     public void updateState(int id, SlaState state) {
