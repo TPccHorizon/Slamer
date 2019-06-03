@@ -3,14 +3,18 @@
   <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="start">
 
     <div fxLayout="row" fxLayoutAlign="space-between stretch">
-      <div fxFlex="50"><h5>Properties</h5></div>
-      <div fxFlex="50"><h5>Issues</h5></div>
+      <div fxFlex="100"><h5>Properties</h5></div>
     </div>
 
     <app-sla-prop-edit [property]="review.validFrom"></app-sla-prop-edit>
     <app-sla-prop-edit [property]="review.validTo"></app-sla-prop-edit>
     <app-sla-prop-edit [property]="review.servicePrice"></app-sla-prop-edit>
 
+    <div fxLayout="row" fxLayoutAlign="space-between stretch">
+      <div fxFlex="100"><h5>SLOs</h5></div>
+    </div>
+
+    <app-slo-edit *ngFor="let slo of review.slos" [slo]="slo"></app-slo-edit>
 
   </div>
 </mat-dialog-content>

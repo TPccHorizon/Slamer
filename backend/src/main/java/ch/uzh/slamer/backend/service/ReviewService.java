@@ -1,8 +1,7 @@
 package ch.uzh.slamer.backend.service;
 
 import ch.uzh.slamer.backend.exception.RecordNotFoundException;
-import ch.uzh.slamer.backend.model.dto.ReviewDTO;
-import ch.uzh.slamer.backend.model.dto.ServiceLevelObjectiveDTO;
+import ch.uzh.slamer.backend.model.dto.*;
 import ch.uzh.slamer.backend.repository.ReviewRepository;
 import ch.uzh.slamer.backend.repository.ServiceLevelObjectiveRepository;
 import ch.uzh.slamer.backend.repository.SlaRepository;
@@ -52,8 +51,11 @@ public class ReviewService {
         }
 
         List<ServiceLevelObjective> slos = sloRepository.getAllBySlaId(slaId);
-        reviewDTO.setSlos(slos.stream().map(slo -> mapper.map(slo, ServiceLevelObjectiveDTO.class))
-        .collect(Collectors.toList()));
+        SlaDTO tempSla = new SlaDTO();
+        mapSlos(tempSla, slos);
+        reviewDTO.setSlos(tempSla.getSlos());
+        System.out.println(reviewDTO.getSlos().get(0).getComment());
+        System.out.println(reviewDTO.getSlos().get(1).getComment());
         return reviewDTO;
     }
 
@@ -133,5 +135,19 @@ public class ReviewService {
 
     public Sla setStateAfterRevision(ReviewDTO review) {
         return null;
+    }
+
+    private void mapSlos(SlaDTO slaDTO, List<ServiceLevelObjective> slos) {
+        for (ServiceLevelObjective slo: slos) {
+            ServiceLevelObjectiveDTO sloDto;
+            if (slo.getSloType().equals("Uptime")) {
+                sloDto = mapper.map(slo, UptimeDTO.class);
+            } else if (slo.getSloType().equals("Throughput")) {
+                sloDto = mapper.map(slo, ThroughputDTO.class);
+            } else {
+                sloDto = mapper.map(slo, AverageResponseTimeDTO.class);
+            }
+            slaDTO.addSlo(sloDto);
+        }
     }
 }
