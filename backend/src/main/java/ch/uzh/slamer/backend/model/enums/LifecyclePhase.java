@@ -2,9 +2,8 @@ package ch.uzh.slamer.backend.model.enums;
 
 public enum LifecyclePhase {
     DEFINITION("Definition"),
-    NEGOTIATION("Negotiation"),
+    ESTABLISHMENT("Establishment"),
     MONITORING("Monitoring"),
-    MANAGEMENT("Management"),
     TERMINATION("Termination"),
     PENALTY_ENFORCEMENT("Penalty Enforcement");
 

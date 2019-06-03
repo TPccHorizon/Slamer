@@ -13,7 +13,7 @@ import {SlaReviewComponent} from "./modules/sla-review/sla-review/sla-review.com
 export const AppRoutes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    component: SlaOverviewComponent,
     canActivate: [AuthGuard]
   },
   {
