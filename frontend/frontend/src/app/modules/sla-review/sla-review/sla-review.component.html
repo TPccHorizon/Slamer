@@ -10,6 +10,7 @@
         <th mat-sort-header="start">Start</th>
         <th mat-sort-header="end">End</th>
         <th mat-sort-header="sp">Service Provider</th>
+        <th mat-sort-header="customer">Customer</th>
         <th mat-sort-header="price">Price</th>
         <th mat-sort-header="status">Status</th>
         <th></th>
@@ -22,8 +23,9 @@
         <td>{{sla.validFrom}}</td>
         <td>{{sla.validTo}}</td>
         <td>{{sla.serviceProvider.partyName}}</td>
+        <td>{{sla.serviceCustomer.partyName}}</td>
         <td>{{sla.servicePrice}}</td>
-        <td>{{sla.status}}</td>
+        <td class="{{sla.status}}">{{sla.status}}</td>
         <td><a mat-stroked-button color="accent" (click)="openDialog(sla)">{{getButtonLabel(sla)}}</a></td>
       </tr>
       </tbody>

@@ -17,7 +17,7 @@ import {ReviseDialogComponent} from "../revise-dialog/revise/revise-dialog.compo
 @Component({
   selector: 'app-sla-review',
   templateUrl: './sla-review.component.html',
-  styleUrls: ['./sla-review.component.css']
+  styleUrls: ['./sla-review.component.scss']
 })
 export class SlaReviewComponent  {
 
