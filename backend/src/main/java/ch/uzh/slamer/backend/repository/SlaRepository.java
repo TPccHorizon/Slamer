@@ -1,24 +1,19 @@
 package ch.uzh.slamer.backend.repository;
 
-import ch.uzh.slamer.backend.exception.RecordNotFoundException;
-import ch.uzh.slamer.backend.model.dto.SlaDTO;
 import ch.uzh.slamer.backend.model.pojo.Report;
 import ch.uzh.slamer.backend.model.pojo.SlaState;
-import ch.uzh.slamer.backend.model.pojo.SlaWithCustomer;
 import codegen.tables.pojos.Sla;
 import codegen.tables.pojos.SlaUser;
 import codegen.tables.records.SlaRecord;
+import org.jooq.Condition;
 import org.jooq.DSLContext;
-import org.jooq.Field;
-import org.jooq.impl.DSL;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 import static ch.uzh.slamer.backend.model.enums.LifecyclePhase.*;
-import static ch.uzh.slamer.backend.model.enums.SlaStatus.IDENTIFIED;
-import static ch.uzh.slamer.backend.model.enums.SlaStatus.REQUESTED;
+import static ch.uzh.slamer.backend.model.enums.SlaStatus.*;
 import static codegen.Tables.SLA;
 import static codegen.Tables.SLA_USER;
 
@@ -38,17 +33,10 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
     }
 
     @Override
-    public Sla update(Sla sla) throws RecordNotFoundException {
-        int updateRecordCount = context.update(SLA)
-                .set(SLA.STATUS, sla.getStatus())
-                .set(SLA.SERVICE_PRICE, sla.getServicePrice())
-                .set(SLA.LIFECYCLE_PHASE, sla.getLifecyclePhase())
-                .set(SLA.VALID_FROM, sla.getValidFrom())
-                .set(SLA.VALID_TO, sla.getValidTo())
-                .set(SLA.SERVICE_PROVIDER_ID, sla.getServiceProviderId())
-                .set(SLA.SERVICE_CUSTOMER_ID, sla.getServiceCustomerId())
-                .execute();
-        return findById(sla.getId());
+    public Sla update(Sla sla) {
+        SlaRecord record = context.newRecord(SLA, sla);
+        record.update();
+        return record.into(Sla.class);
     }
 
     public void updateState(int id, SlaState state) {
@@ -82,17 +70,27 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
 
     @Transactional(readOnly = true)
     public Integer countNewSLAs(int id) {
+        Condition forCustomer = SLA.STATUS.eq(REQUESTED.getStatus()).and(SLA.SERVICE_CUSTOMER_ID.equal(id));
+        Condition forProvider = SLA.STATUS.eq(ACCEPTED.getStatus()).and(SLA.SERVICE_PROVIDER_ID.equal(id))
+                .or(SLA.STATUS.equal(REJECTED.getStatus())).and(SLA.SERVICE_PROVIDER_ID.equal(id));
+
         return context.selectCount().from(SLA)
-                .where(SLA.STATUS.eq(REQUESTED.getStatus()))
-                .and(SLA.SERVICE_CUSTOMER_ID.equal(id))
+                .where(forCustomer)
+                .or(forProvider)
                 .fetchOne(0, int.class);
     }
 
     @Transactional(readOnly = true)
     public List<Sla> getSlasForReview(int id) {
+        Condition forCustomer = SLA.STATUS.eq(REQUESTED.getStatus()).and(SLA.SERVICE_CUSTOMER_ID.equal(id));
+        Condition forProvider = SLA.STATUS.eq(ACCEPTED.getStatus()).and(SLA.SERVICE_PROVIDER_ID.equal(id))
+                .or(SLA.STATUS.equal(REJECTED.getStatus())).and(SLA.SERVICE_PROVIDER_ID.equal(id));
+
         return context.selectFrom(SLA)
-                .where(SLA.STATUS.eq(REQUESTED.getStatus()))
-                .and(SLA.SERVICE_CUSTOMER_ID.equal(id))
+                // get slas for the customer to review
+                .where(forCustomer)
+                // get slas for the service provider to deploy/revise
+                .or(forProvider)
                 .fetchInto(Sla.class);
     }
 
@@ -102,16 +100,12 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
         int definition = context.fetchCount(context.selectFrom(SLA)
                 .where(SLA.LIFECYCLE_PHASE.eq(DEFINITION.getPhase()))
                 .and(SLA.SERVICE_CUSTOMER_ID.equal(userId).or(SLA.SERVICE_PROVIDER_ID.equal(userId))));
-        int negotiation = context.fetchCount(context.selectFrom(SLA)
-                .where(SLA.LIFECYCLE_PHASE.eq(NEGOTIATION.getPhase()))
+        int establishment = context.fetchCount(context.selectFrom(SLA)
+                .where(SLA.LIFECYCLE_PHASE.eq(ESTABLISHMENT.getPhase()))
                 .and(SLA.SERVICE_CUSTOMER_ID.equal(userId).or(SLA.SERVICE_PROVIDER_ID.equal(userId))));
         int monitoring = context.fetchCount(context.selectFrom(SLA)
                 .where(SLA.LIFECYCLE_PHASE.eq(MONITORING.getPhase()))
                 .and(SLA.SERVICE_CUSTOMER_ID.equal(userId).or(SLA.SERVICE_PROVIDER_ID.equal(userId))));
-        int management = context.fetchCount(context.selectFrom(SLA)
-                .where(SLA.LIFECYCLE_PHASE.eq(MANAGEMENT.getPhase()))
-                .and(SLA.SERVICE_CUSTOMER_ID.equal(userId).or(SLA.SERVICE_PROVIDER_ID.equal(userId))));
-
         int termination = context.fetchCount(context.selectFrom(SLA)
                 .where(SLA.LIFECYCLE_PHASE.eq(TERMINATION.getPhase()))
                 .and(SLA.SERVICE_CUSTOMER_ID.equal(userId).or(SLA.SERVICE_PROVIDER_ID.equal(userId))));
@@ -119,6 +113,6 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
                 .where(SLA.LIFECYCLE_PHASE.eq(PENALTY_ENFORCEMENT.getPhase()))
                 .and(SLA.SERVICE_CUSTOMER_ID.equal(userId).or(SLA.SERVICE_PROVIDER_ID.equal(userId))));
 
-        return new Report(definition, negotiation, monitoring, management, termination, penaltyEnforcment);
+        return new Report(definition, establishment, monitoring, termination, penaltyEnforcment);
     }
 }

@@ -8,11 +8,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatBadgeModule,
   MatButtonModule,
-  MatCardModule,
-  MatDatepickerModule, MatExpansionModule, MatGridListModule,
+  MatCardModule, MatCheckboxModule,
+  MatDatepickerModule, MatDialogModule, MatExpansionModule, MatGridListModule,
   MatIconModule,
   MatInputModule,
-  MatListModule, MatMenuModule, MatNativeDateModule, MatProgressSpinnerModule, MatSelectModule,
+  MatListModule, MatMenuModule, MatNativeDateModule, MatProgressSpinnerModule, MatRadioModule, MatSelectModule,
   MatSidenavModule, MatSnackBar, MatSnackBarModule, MatSortModule, MatStepperModule, MatTableModule,
   MatToolbarModule
 } from "@angular/material";
@@ -43,9 +43,16 @@ import { ThroughputComponent } from './modules/sla-overview/slo-details/throughp
 import { AverageResponseTimeComponent } from './modules/sla-overview/slo-details/average-response-time/average-response-time.component';
 import { HomeComponent } from './modules/home/home/home.component';
 import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
-import { SlaReviewComponent } from './modules/sla-creation/sla-review/sla-review.component';
+import { SlaReviewComponent } from './modules/sla-review/sla-review/sla-review.component';
 import { ChartComponent } from './modules/home/chart/chart.component';
 import {ChartsModule} from "ng2-charts";
+import { ReviewDialogComponent } from './modules/sla-review/modal/review-dialog.component';
+import { SlaPropComponent } from './modules/sla-review/modal/sla-prop/sla-prop.component';
+import { SloComponent } from './modules/sla-review/modal/slo/slo.component';
+import { DeployDialogComponent } from './modules/sla-review/deploy-dialog/deploy-dialog/deploy-dialog.component';
+import { ReviseDialogComponent } from './modules/sla-review/revise-dialog/revise/revise-dialog.component';
+import { SlaPropEditComponent } from './modules/sla-review/revise-dialog/sla-prop-edit/sla-prop-edit.component';
+import { SloEditComponent } from './modules/sla-review/revise-dialog/slo-edit/slo-edit.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +77,13 @@ import {ChartsModule} from "ng2-charts";
     HomeComponent,
     SlaReviewComponent,
     ChartComponent,
+    ReviewDialogComponent,
+    SlaPropComponent,
+    SloComponent,
+    DeployDialogComponent,
+    ReviseDialogComponent,
+    SlaPropEditComponent,
+    SloEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,7 +113,15 @@ import {ChartsModule} from "ng2-charts";
     NgbDatepickerModule,
     MatSortModule,
     MatBadgeModule,
-    ChartsModule
+    ChartsModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatRadioModule
+  ],
+  entryComponents: [
+    ReviewDialogComponent,
+    DeployDialogComponent,
+    ReviseDialogComponent
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

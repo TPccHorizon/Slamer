@@ -9,6 +9,7 @@ import codegen.tables.Databasechangeloglock;
 import codegen.tables.Penalty;
 import codegen.tables.ServiceLevelObjective;
 import codegen.tables.Sla;
+import codegen.tables.SlaReview;
 import codegen.tables.SlaUser;
 import codegen.tables.SloType;
 
@@ -41,6 +42,7 @@ public class Indexes {
     public static final Index PENALTY_PKEY = Indexes0.PENALTY_PKEY;
     public static final Index SERVICE_LEVEL_OBJECTIVE_PKEY = Indexes0.SERVICE_LEVEL_OBJECTIVE_PKEY;
     public static final Index SLA_PKEY = Indexes0.SLA_PKEY;
+    public static final Index SLA_REVIEW_PKEY = Indexes0.SLA_REVIEW_PKEY;
     public static final Index SLA_USER_PKEY = Indexes0.SLA_USER_PKEY;
     public static final Index SLO_TYPE_PKEY = Indexes0.SLO_TYPE_PKEY;
 
@@ -54,6 +56,7 @@ public class Indexes {
         public static Index PENALTY_PKEY = Internal.createIndex("penalty_pkey", Penalty.PENALTY, new OrderField[] { Penalty.PENALTY.ID }, true);
         public static Index SERVICE_LEVEL_OBJECTIVE_PKEY = Internal.createIndex("service_level_objective_pkey", ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE, new OrderField[] { ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE.ID }, true);
         public static Index SLA_PKEY = Internal.createIndex("sla_pkey", Sla.SLA, new OrderField[] { Sla.SLA.ID }, true);
+        public static Index SLA_REVIEW_PKEY = Internal.createIndex("sla_review_pkey", SlaReview.SLA_REVIEW, new OrderField[] { SlaReview.SLA_REVIEW.ID }, true);
         public static Index SLA_USER_PKEY = Internal.createIndex("sla_user_pkey", SlaUser.SLA_USER, new OrderField[] { SlaUser.SLA_USER.ID }, true);
         public static Index SLO_TYPE_PKEY = Internal.createIndex("slo_type_pkey", SloType.SLO_TYPE, new OrderField[] { SloType.SLO_TYPE.ID }, true);
     }

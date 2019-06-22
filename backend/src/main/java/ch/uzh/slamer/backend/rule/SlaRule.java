@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import java.security.InvalidKeyException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import static ch.uzh.slamer.backend.model.enums.LifecyclePhase.*;
 import static ch.uzh.slamer.backend.model.enums.SlaStatus.*;
@@ -26,9 +25,8 @@ public class SlaRule {
         stateMap.put(ACTIVE.getStatus(), INACTIVE);
         stateMap.put(INACTIVE.getStatus(), null);
 
-        phaseMap.put(IDENTIFIED.getStatus(), NEGOTIATION);
+        phaseMap.put(IDENTIFIED.getStatus(), ESTABLISHMENT);
         phaseMap.put(REQUESTED.getStatus(), MONITORING);
-        phaseMap.put(ACTIVE.getStatus(), MANAGEMENT);
 //        phaseMap.put(MANAGEMENT.getPhase(), );
     }
 

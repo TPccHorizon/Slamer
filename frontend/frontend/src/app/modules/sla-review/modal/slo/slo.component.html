@@ -1,0 +1,30 @@
+<div fxLayout="row" fxLayoutAlign="space-between stretch">
+  <div fxFlex="100"><b>{{slo.name}}</b></div>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-between stretch">
+  <div fxFlex="40" [ngSwitch]="slo.sloType">
+    <div *ngSwitchCase="'Uptime'">
+      <app-uptime [uptime]="slo"></app-uptime>
+    </div>
+    <div *ngSwitchCase="'Throughput'">
+      <app-throughput [throughput]="slo"></app-throughput>
+    </div>
+    <div *ngSwitchCase="'Average Response Time'">
+      <app-average-response-time [responseTime]="slo"></app-average-response-time>
+    </div>
+  </div>
+  <div fxFlex="20">
+    <mat-radio-group [(ngModel)]="slo.accepted" (click)="select()">
+      <mat-radio-button [value]="true">Yes</mat-radio-button>
+      <mat-radio-button [value]="false">No</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div fxFlex="20">
+    <div *ngIf="!slo.accepted">
+      <mat-form-field name="comment" [(ngModel)]="slo.comment" ngDefaultControl>
+        <textarea matInput placeholder="Whats wrong?"></textarea>
+      </mat-form-field>
+    </div>
+
+  </div>
+</div>

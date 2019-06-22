@@ -4,11 +4,12 @@ import {Observable} from "rxjs";
 import { map } from 'rxjs/operators';
 import {AuthenticationService} from "../services/authentication.service";
 import {SlaUser} from "../../shared/models/slaUser";
+import {SlaService} from "../services/sla.service";
 
 @Injectable()
 export class ResponseInterceptor implements HttpInterceptor{
 
-  constructor(private authenticationService: AuthenticationService) {}
+  constructor(private authenticationService: AuthenticationService, private slaService: SlaService) {}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let loginData = req.body;
     return next.handle(req).pipe(map(event => {
@@ -21,6 +22,7 @@ export class ResponseInterceptor implements HttpInterceptor{
           this.authenticationService.storeJwtToken(tempUser, token);
           this.authenticationService.getMe(loginData.username).subscribe(user => {
             this.authenticationService.storeJwtToken(user, token);
+            this.slaService.countNewSLAs();
           });
 
         }

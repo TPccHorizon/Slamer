@@ -18,8 +18,8 @@ public class AverageResponseTimeDTO extends ServiceLevelObjectiveDTO {
 
     public AverageResponseTimeDTO() { }
 
-    public AverageResponseTimeDTO(Integer id, String name, Integer slaId, String sloType, String relationalOperator, BigDecimal averageResponseTimeValue, String timeUnit) {
-        super(id, name, slaId, sloType);
+    public AverageResponseTimeDTO(Integer id, String name, Integer slaId, String sloType, boolean accepted, String comment, String relationalOperator, BigDecimal averageResponseTimeValue, String timeUnit) {
+        super(id, name, slaId, sloType, accepted, comment);
         this.relationalOperator = relationalOperator;
         this.averageResponseTimeValue = averageResponseTimeValue;
         this.timeUnit = timeUnit;

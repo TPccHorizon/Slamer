@@ -1,6 +1,7 @@
 package ch.uzh.slamer.backend.service;
 
 import ch.uzh.slamer.backend.exception.RecordNotFoundException;
+import ch.uzh.slamer.backend.model.dto.ReviewDTO;
 import ch.uzh.slamer.backend.model.dto.SlaDTO;
 import ch.uzh.slamer.backend.model.dto.SlaUserDTO;
 import ch.uzh.slamer.backend.model.enums.LifecyclePhase;
@@ -11,6 +12,7 @@ import ch.uzh.slamer.backend.repository.SlaUserRepository;
 import codegen.tables.pojos.Sla;
 import codegen.tables.pojos.SlaUser;
 import codegen.tables.records.SlaRecord;
+import org.jooq.meta.derby.sys.Sys;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import static ch.uzh.slamer.backend.model.enums.SlaStatus.*;
+
 @Component
 public class SlaService {
 
@@ -29,6 +33,9 @@ public class SlaService {
 
     @Autowired
     SlaRepository slaRepository;
+
+    @Autowired
+    ReviewService reviewService;
 
     @Autowired
     ModelMapper mapper;

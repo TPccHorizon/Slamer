@@ -9,7 +9,7 @@ import {Config} from "../../config";
 })
 export class SloService {
 
-  private sloSource = new BehaviorSubject<ServiceLevelObjective[]>([]);
+  public sloSource = new BehaviorSubject<ServiceLevelObjective[]>([]);
   private currentSlaId : number;
 
   public slos = this.sloSource.asObservable();

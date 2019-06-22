@@ -44,6 +44,11 @@ public class Sequences {
     public static final Sequence<Integer> SLA_ID_SEQ = new SequenceImpl<Integer>("sla_id_seq", Public.PUBLIC, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
 
     /**
+     * The sequence <code>public.sla_review_id_seq</code>
+     */
+    public static final Sequence<Integer> SLA_REVIEW_ID_SEQ = new SequenceImpl<Integer>("sla_review_id_seq", Public.PUBLIC, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
+
+    /**
      * The sequence <code>public.sla_user_id_seq</code>
      */
     public static final Sequence<Integer> SLA_USER_ID_SEQ = new SequenceImpl<Integer>("sla_user_id_seq", Public.PUBLIC, org.jooq.impl.SQLDataType.INTEGER.nullable(false));

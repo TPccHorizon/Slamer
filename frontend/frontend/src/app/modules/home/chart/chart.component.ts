@@ -11,7 +11,7 @@ import {Report} from "../../../shared/models/Report";
 })
 export class ChartComponent implements OnInit {
 
-  labels = ['Definition', 'Negotiation', 'Monitoring', 'Management', 'Termination', 'Penalty Enforcement'];
+  labels = ['Definition', 'Establishment', 'Monitoring', 'Termination', 'Penalty Enforcement'];
   chartData : number[];
   chartType: ChartType = 'doughnut';
   isReady = false;
@@ -27,7 +27,7 @@ export class ChartComponent implements OnInit {
   }
 
   mapToArray(report: Report) {
-    return [report.definition, report.negotiation, report.monitoring, report.management, report.termination, report.penaltyEnforcement]
+    return [report.definition, report.negotiation, report.monitoring, report.termination, report.penaltyEnforcement]
   }
 
 }

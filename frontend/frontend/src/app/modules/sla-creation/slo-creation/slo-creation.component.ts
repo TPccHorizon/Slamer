@@ -35,7 +35,7 @@ export class SloCreationComponent implements OnInit {
     console.log(slo);
     this.sloService.createSlo(slo).pipe(first()).subscribe(response => {
       this.sloService.addSlo(response);
-      this.alertService.success('Added new SLO')
+      this.alertService.success('Added new SLO');
     }, error => {
       this.alertService.error('SLO could not be added');
     });

@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Review SLA</h1>
+<mat-dialog-content>
+  <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="start">
+
+    <div fxLayout="row" fxLayoutAlign="space-between stretch">
+      <div fxFlex="50"><h5>Properties</h5></div>
+      <div fxFlex="50"><h5>Accept?</h5></div>
+    </div>
+
+    <app-sla-prop [property]="review.validFrom" [propertyName]="'Start'"></app-sla-prop>
+    <app-sla-prop [property]="review.validTo"  [propertyName]="'End'"></app-sla-prop>
+    <app-sla-prop [property]="review.servicePrice" [propertyName]="'Price'"></app-sla-prop>
+
+    <div fxLayout="row" fxLayoutAlign="space-between stretch">
+      <div fxFlex="50"><h5>SLOs</h5></div>
+      <div fxFlex="50"><h5>Accept?</h5></div>
+    </div>
+
+    <app-slo *ngFor="let slo of review.slos" [slo]="slo"></app-slo>
+
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="onSubmit()">Save and Close</button>
+</mat-dialog-actions>

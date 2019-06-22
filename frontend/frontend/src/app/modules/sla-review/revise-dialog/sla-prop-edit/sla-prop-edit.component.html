@@ -1,0 +1,28 @@
+<div fxLayout="row" fxLayoutAlign="space-between stretch">
+  <div fxFlex="15">{{property.property}}: </div>
+  <div fxFlex="45">
+    <div *ngIf="property.valueType === 'Date'">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker"
+               [(ngModel)]="property.value" [disabled]="property.accepted">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div *ngIf="property.valueType === 'Number'">
+      <mat-form-field>
+        <input matInput [(ngModel)]="property.value" [disabled]="property.accepted">
+      </mat-form-field>
+    </div>
+
+  </div>
+  <div fxFlex="40">
+    <div *ngIf="property.accepted">
+      <mat-icon>check</mat-icon>
+    </div>
+    <div *ngIf="!property.accepted">
+      {{property.comment}}
+    </div>
+
+  </div>
+</div>

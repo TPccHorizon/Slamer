@@ -10,6 +10,7 @@ import codegen.tables.Databasechangeloglock;
 import codegen.tables.Penalty;
 import codegen.tables.ServiceLevelObjective;
 import codegen.tables.Sla;
+import codegen.tables.SlaReview;
 import codegen.tables.SlaUser;
 import codegen.tables.SloType;
 
@@ -38,7 +39,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -450768380;
+    private static final long serialVersionUID = 1402664955;
 
     /**
      * The reference instance of <code>public</code>
@@ -74,6 +75,11 @@ public class Public extends SchemaImpl {
      * The table <code>public.sla</code>.
      */
     public final Sla SLA = codegen.tables.Sla.SLA;
+
+    /**
+     * The table <code>public.sla_review</code>.
+     */
+    public final SlaReview SLA_REVIEW = codegen.tables.SlaReview.SLA_REVIEW;
 
     /**
      * The table <code>public.sla_user</code>.
@@ -114,6 +120,7 @@ public class Public extends SchemaImpl {
             Sequences.PENALTY_ID_SEQ,
             Sequences.SERVICE_LEVEL_OBJECTIVE_ID_SEQ,
             Sequences.SLA_ID_SEQ,
+            Sequences.SLA_REVIEW_ID_SEQ,
             Sequences.SLA_USER_ID_SEQ,
             Sequences.SLO_TYPE_ID_SEQ);
     }
@@ -133,6 +140,7 @@ public class Public extends SchemaImpl {
             Penalty.PENALTY,
             ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE,
             Sla.SLA,
+            SlaReview.SLA_REVIEW,
             SlaUser.SLA_USER,
             SloType.SLO_TYPE);
     }
