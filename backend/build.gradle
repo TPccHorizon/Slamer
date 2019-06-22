@@ -40,6 +40,7 @@ dependencies {
     implementation 'org.jooq:jooq:3.11.11'
     implementation 'org.jooq:jooq-meta:3.11.11'
     implementation 'org.jooq:jooq-codegen:3.11.11'
+    implementation 'org.web3j:core:4.3.0'
     runtime 'org.postgresql:postgresql:42.2.5'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     jooqRuntime 'org.postgresql:postgresql:42.2.5'
