@@ -13,6 +13,8 @@ import {SLA_STATES} from "../../../shared/constants/sla-states";
 import {DeployDialogComponent} from "../deploy-dialog/deploy-dialog/deploy-dialog.component";
 import {Review} from "../../../shared/models/review";
 import {ReviseDialogComponent} from "../revise-dialog/revise/revise-dialog.component";
+import {HttpClient} from "@angular/common/http";
+import {Config} from "../../../config";
 
 @Component({
   selector: 'app-sla-review',
@@ -32,7 +34,8 @@ export class SlaReviewComponent  {
               private sorter: SortingService,
               private dialog: MatDialog,
               private reviewService: ReviewService,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private http: HttpClient, private config: Config) {
     this.loading = true;
     this.refreshList();
   }
@@ -90,6 +93,9 @@ export class SlaReviewComponent  {
       if (doDeploy) {
         //TODO: service to deploy smart contract
         console.log("Deploy SLA!");
+        this.slaService.deploy().pipe(first()).subscribe(res => {
+          console.log(res);
+        });
         this.alertService.success("SLA has been deployed");
       }
     });

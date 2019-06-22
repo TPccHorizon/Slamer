@@ -53,6 +53,10 @@ export class SlaService {
     return this.http.put<SlaAndParties>(`${this.config.apiUrl}/slas/${id}`, currentStatus);
   }
 
+  deploy() {
+    return this.http.get(`${this.config.apiUrl}/version`);
+  }
+
   countNewSLAs() {
     this.authService.currentUser.subscribe(user => {
       let userId = user.id as unknown as string;

@@ -1,6 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {SlaAndParties} from "../../../../shared/models/slaAndParties";
+import {HttpClient} from "@angular/common/http";
+import {Config} from "../../../../config";
 
 @Component({
   selector: 'app-deploy-dialog',
@@ -17,6 +19,7 @@ export class DeployDialogComponent {
 
   onDeploy(): void {
     this.dialogRef.close(true);
+    console.log("Deploy");
   }
 
 }
