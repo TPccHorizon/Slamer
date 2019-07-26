@@ -26,7 +26,6 @@ public class SlaUserRepository extends AbstractRepository<SlaUserRecord, Integer
                 .set(SLA_USER.PARTY_NAME, slaUser.getPartyName())
                 .set(SLA_USER.PARTY_TYPE, slaUser.getPartyType())
                 .set(SLA_USER.PASSWORD, slaUser.getPassword())
-                .set(SLA_USER.SALT, slaUser.getSalt())
                 .set(SLA_USER.PHONE_NR, slaUser.getPhoneNr())
                 .set(SLA_USER.USERNAME, slaUser.getUsername())
                 .where(SLA_USER.ID.equal(slaUser.getId()))

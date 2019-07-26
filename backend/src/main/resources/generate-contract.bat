@@ -1,0 +1,1 @@
+web3j solidity generate -b .\src\main\resources\templates\SimpleSLA.bin -a src/main/resources/templates/SimpleSLA.abi -o src/main/java/ch.uzh.slamer.backend.solidity -p backend.slamer.backend.contracts

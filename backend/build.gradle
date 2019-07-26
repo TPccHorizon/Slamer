@@ -108,5 +108,5 @@ generateSampleJooqSchemaSource {
     }
 }
 // removes the task dependency from compileJava to generateSampleJooqSchemaSource
-//project.tasks.getByName('compileJava').dependsOn -= 'generateSampleJooqSchemaSource'
+project.tasks.getByName('compileJava').dependsOn -= 'generateSampleJooqSchemaSource'
 //org.jooq.util.GenerationTool.generate(writer.toString())

@@ -41,6 +41,10 @@ export class SloCreationComponent implements OnInit {
     });
   }
 
+  setPenalty() {
+
+  }
+
   finish() {
     this.router.navigate(['/slas/' + this.currentSlaId]);
   }
