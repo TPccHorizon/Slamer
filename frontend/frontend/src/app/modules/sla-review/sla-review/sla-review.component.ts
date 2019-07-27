@@ -15,6 +15,7 @@ import {Review} from "../../../shared/models/review";
 import {ReviseDialogComponent} from "../revise-dialog/revise/revise-dialog.component";
 import {HttpClient} from "@angular/common/http";
 import {Config} from "../../../config";
+import { ActivateDialogComponent } from '../activate-dialog/activate-dialog.component';
 
 @Component({
   selector: 'app-sla-review',
@@ -49,10 +50,36 @@ export class SlaReviewComponent  {
     if (sla.status === SLA_STATES.REQUESTED) {
       this.openReviewMode(sla);
     } else if (sla.status === SLA_STATES.ACCEPTED) {
-      this.openDeployMode();
+      this.openDeployMode(sla);
     } else if (sla.status === SLA_STATES.REJECTED) {
       this.openRevisionMode(sla);
+    } else if (sla.status === SLA_STATES.DEPLOYMENT) {
+      this.openActivateMode(sla);
     }
+  }
+
+  openActivateMode(sla: SlaAndParties) {
+    const dialogRef = this.dialog.open(ActivateDialogComponent, {
+      minWidth: 400,
+      data: sla,
+    });
+
+    dialogRef.afterClosed().subscribe(doActivate => {
+      if (doActivate) {
+        console.log("Activate SLA");
+        this.slaService.activateSLA(sla).subscribe(success => {
+          if (success) {
+            this.alertService.success("SLA has been activated");
+            this.refreshList();
+          } else {
+            this.alertService.error("Something went wrong");
+          }
+        }, error => {
+          this.alertService.error("Unexpected error");
+        })
+      }
+    })
+
   }
 
   openReviewMode(sla: SlaAndParties) {
@@ -84,18 +111,19 @@ export class SlaReviewComponent  {
     });
   }
 
-  openDeployMode() {
+  openDeployMode(sla: Sla) {
     const dialogRef = this.dialog.open(DeployDialogComponent, {
-      minWidth: 400
+      minWidth: 400,
     });
 
     dialogRef.afterClosed().subscribe(doDeploy => {
       if (doDeploy) {
         //TODO: service to deploy smart contract
         console.log("Deploy SLA!");
-        this.slaService.deploy().pipe(first()).subscribe(res => {
+        this.slaService.deploy(sla).pipe(first()).subscribe(res => {
           console.log(res);
         });
+        this.refreshList();
         this.alertService.success("SLA has been deployed");
       }
     });
@@ -144,8 +172,8 @@ export class SlaReviewComponent  {
       label = 'Deploy';
     } else if (status === SLA_STATES.REJECTED) {
       label = 'Revise';
-    } else {
-      label = '-';
+    } else if (status === SLA_STATES.DEPLOYMENT) {
+      label = 'Activate';
     }
     return label;
   }

@@ -5,6 +5,7 @@ import {first} from "rxjs/operators";
 import {SlaAndParties} from "../../../shared/models/slaAndParties";
 import {SLA_STATES} from "../../../shared/constants/sla-states";
 import {AlertService} from "../../../core/services/alert.service";
+import {init} from "protractor/built/launcher";
 
 @Component({
   selector: 'app-sla-details',
@@ -23,6 +24,28 @@ export class SlaDetailsComponent implements OnInit {
               private alertService: AlertService) { }
 
   ngOnInit() {
+    this.init();
+  }
+
+  terminateByViolation() {
+    this.slaService.terminate(this.sla.id).subscribe(res => {
+      this.init();
+      this.alertService.success("SLA has been terminated");
+    }, error => {
+      this.alertService.error(error);
+      this.init();
+    });
+  }
+
+  sendToCustomerForReview() {
+    this.slaService.updateSLAStatus(this.sla.status, this.sla.id).pipe(first())
+      .subscribe(result => {
+        this.assignResponse(result);
+        this.alertService.success("Sent SLA to " + this.sla.serviceCustomer.partyName);
+      });
+  }
+
+  init() {
     let id = this.route.snapshot.paramMap.get('id');
     this.slaService.getSlaWithParties(id as unknown as number).pipe(first())
       .subscribe(result => {
@@ -38,16 +61,18 @@ export class SlaDetailsComponent implements OnInit {
     return this.sla.serviceProvider.id === me.id;
   }
 
-  sendToCustomerForReview() {
-    this.slaService.updateSLAStatus(this.sla.status, this.sla.id).pipe(first())
-      .subscribe(result => {
-        this.assignResponse(result);
-        this.alertService.success("Sent SLA to " + this.sla.serviceCustomer.partyName);
-      });
+  isCustomer() {
+    let me = JSON.parse(localStorage.getItem('currentUser'));
+    return this.sla.serviceCustomer.id === me.id;
   }
+
 
   isIdentified() {
     return this.sla.status === SLA_STATES.IDENTIFIED;
+  }
+
+  isActive() {
+    return this.sla.status === SLA_STATES.ACTIVE;
   }
 
   private assignResponse(response) {

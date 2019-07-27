@@ -4,6 +4,8 @@
   <a *ngIf="sla && isIdentified() && isServiceProvider()" class="btn btn-primary" (click)="sendToCustomerForReview()">Send to Customer for Review</a>
   <a *ngIf="sla && isIdentified() && isServiceProvider()" class="btn btn-success"
      [routerLink]="['/slas/', sla.id, 'slo']">Add more SLOs</a>
+  <a *ngIf="sla && isActive() && isCustomer()" class="btn btn-danger"
+      (click)="terminateByViolation()">Terminate by violation (Testing)</a>
 </div>
 
 <div *ngIf="sla">

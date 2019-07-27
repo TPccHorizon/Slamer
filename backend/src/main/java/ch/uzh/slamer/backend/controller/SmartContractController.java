@@ -77,7 +77,7 @@ public class SmartContractController {
         try {
             sla = slaRepository.findById(deposit.getSlaId());
             contractAddress = sla.getHash();
-            if (contractAddress == null || contractAddress.equals("") || !sla.getStatus().equals(SlaStatus.ACCEPTED.getStatus())) {
+            if (contractAddress == null || contractAddress.equals("") || !sla.getStatus().equals(SlaStatus.DEPLOYMENT.getStatus())) {
                 System.out.println("SLA is not active or has no Smart Contract Address");
                 return new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED);
             }

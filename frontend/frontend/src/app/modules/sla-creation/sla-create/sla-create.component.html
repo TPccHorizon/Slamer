@@ -41,7 +41,9 @@
 
     <div class="form-group">
       <label>SLA Price</label>
-      <input type="number" formControlName="servicePrice" class="form-control" [ngClass]="{'is-invalid': submitted && f.servicePrice.errors}">
+      <input type="number" formControlName="servicePrice" class="form-control"
+             [ngClass]="{'is-invalid': submitted && f.servicePrice.errors}"
+              placeholder="Ether">
       <div *ngIf="submitted && f.servicePrice.errors" class="invalid-feedback">
         <div *ngIf="f.servicePrice.errors.required">Service Price is required</div>
       </div>
