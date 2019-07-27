@@ -16,6 +16,7 @@ import {ReviseDialogComponent} from "../revise-dialog/revise/revise-dialog.compo
 import {HttpClient} from "@angular/common/http";
 import {Config} from "../../../config";
 import { ActivateDialogComponent } from '../activate-dialog/activate-dialog.component';
+import {BalanceService} from "../../../core/services/balance.service";
 
 @Component({
   selector: 'app-sla-review',
@@ -36,7 +37,7 @@ export class SlaReviewComponent  {
               private dialog: MatDialog,
               private reviewService: ReviewService,
               private alertService: AlertService,
-              private http: HttpClient, private config: Config) {
+              private balanceService: BalanceService) {
     this.loading = true;
     this.refreshList();
   }
@@ -70,6 +71,7 @@ export class SlaReviewComponent  {
         this.slaService.activateSLA(sla).subscribe(success => {
           if (success) {
             this.alertService.success("SLA has been activated");
+            this.balanceService.getBalance();
             this.refreshList();
           } else {
             this.alertService.error("Something went wrong");
@@ -122,9 +124,11 @@ export class SlaReviewComponent  {
         console.log("Deploy SLA!");
         this.slaService.deploy(sla).pipe(first()).subscribe(res => {
           console.log(res);
+          this.refreshList();
+          this.balanceService.getBalance();
+          this.alertService.success("SLA has been deployed");
         });
-        this.refreshList();
-        this.alertService.success("SLA has been deployed");
+
       }
     });
   }

@@ -56,7 +56,7 @@ public class SmartContractController {
             System.out.println("The SLA can only be deployed by the Service Provider");
             return new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED);
         }
-        sla.setStatus(SlaStatus.ACCEPTED.getStatus());
+        sla.setStatus(SlaStatus.DEPLOYMENT.getStatus());
         sla.setHash(contractAddress);
         slaRepository.update(sla);
         return new ResponseEntity<>(true, HttpStatus.OK);

@@ -6,6 +6,7 @@ import {SlaAndParties} from "../../../shared/models/slaAndParties";
 import {SLA_STATES} from "../../../shared/constants/sla-states";
 import {AlertService} from "../../../core/services/alert.service";
 import {init} from "protractor/built/launcher";
+import {BalanceService} from "../../../core/services/balance.service";
 
 @Component({
   selector: 'app-sla-details',
@@ -21,7 +22,8 @@ export class SlaDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private slaService: SlaService,
-              private alertService: AlertService) { }
+              private alertService: AlertService,
+              private balanceService: BalanceService) { }
 
   ngOnInit() {
     this.init();
@@ -30,10 +32,12 @@ export class SlaDetailsComponent implements OnInit {
   terminateByViolation() {
     this.slaService.terminate(this.sla.id).subscribe(res => {
       this.init();
+      this.balanceService.getBalance();
       this.alertService.success("SLA has been terminated");
     }, error => {
       this.alertService.error(error);
       this.init();
+      this.balanceService.getBalance();
     });
   }
 
