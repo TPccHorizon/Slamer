@@ -1,9 +1,9 @@
 export class SlaUser {
   id: number;
   username: string;
-  password: string;
+  privateKey: string;
   partyName: string;
   partyType: string;
-  phoneNr: string;
+  wallet: string;
   token: string;
 }

@@ -40,7 +40,7 @@ public class AuthenticationService {
 //    }
 //
 //    private SlaUser getSafeUser(SlaUser user) {
-//        return new SlaUser(null, bCryptPasswordEncoder.encode(user.getPassword()), user.getPhoneNr(),
+//        return new SlaUser(null, bCryptPasswordEncoder.encode(user.getPassword()), user.getWallet(),
 //                user.getUsername(), user.getPartyType(), user.getPartyName());
 //    }
 

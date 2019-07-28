@@ -4,13 +4,13 @@
 <div *ngIf="user">
   <h3>{{user.partyName}}</h3>
 
-  <mat-grid-list cols="3" rowHeight="100px">
+  <mat-grid-list cols="2" rowHeight="100px">
     <mat-grid-tile>
       <div>
         <div>
           <h5>ETH Wallet Address</h5>
         </div>
-        <div>some long hash addresss fofaosdfaosdf</div>
+        <div>{{user.wallet}}</div>
       </div>
     </mat-grid-tile>
     <mat-grid-tile>
@@ -18,10 +18,9 @@
         <div>
           <h5>Private Key</h5>
         </div>
-        <div>some long hash addresss fofaosdfaosdf</div>
+        <div>{{user.privateKey}}</div>
       </div>
     </mat-grid-tile>
-    <mat-grid-tile></mat-grid-tile>
   </mat-grid-list>
 
 </div>
