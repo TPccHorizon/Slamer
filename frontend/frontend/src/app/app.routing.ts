@@ -8,6 +8,7 @@ import {SlaDetailsComponent} from "./modules/sla-overview/sla-details/sla-detail
 import {SloCreationComponent} from "./modules/sla-creation/slo-creation/slo-creation.component";
 import {HomeComponent} from "./modules/home/home/home.component";
 import {SlaReviewComponent} from "./modules/sla-review/sla-review/sla-review.component";
+import {SettingsComponent} from "./modules/settings/settings/settings.component";
 
 
 export const AppRoutes: Routes = [
@@ -23,6 +24,10 @@ export const AppRoutes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent
   },
   {
     path: 'new', component: SlaCreateComponent

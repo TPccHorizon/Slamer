@@ -54,7 +54,7 @@ public class SimpleSLA extends Contract {
 
     public static final String FUNC_GETPRICE = "getPrice";
 
-    public static final String FUNC_TERMINATESLA = "terminateSLA";
+    public static final String FUNC_TERMINATESLA = "terminateSLAByViolation";
 
     public static final String FUNC_GETCURRENTBALANCE = "getCurrentBalance";
 

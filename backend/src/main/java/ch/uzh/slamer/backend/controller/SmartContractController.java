@@ -178,7 +178,7 @@ public class SmartContractController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/terminate/{id}")
-    public ResponseEntity<String> terminateSLA(@PathVariable int id) {
+    public ResponseEntity<String> terminateSLAByViolation(@PathVariable int id) {
         Sla sla;
         SlaUser user;
         try {
@@ -206,6 +206,20 @@ public class SmartContractController {
             return new ResponseEntity<>("Could not perform termination", HttpStatus.CONFLICT);
         }
     }
+
+//    @RequestMapping(method = RequestMethod.DELETE, path = "/expire/{id}")
+//    public ResponseEntity<String> terminateNormally(@PathVariable int id) {
+//        Sla sla;
+//        SlaUser user;
+//        try {
+//            sla = slaRepository.findById(id);
+//            user = slaUserRepository.findById(sla.getServiceCustomerId());
+//        } catch (RecordNotFoundException e) {
+//            e.printStackTrace();
+//            System.out.println("SLA or User not found");
+//            return new ResponseEntity<>("SLA or User not found", HttpStatus.NOT_FOUND);
+//        }
+//    }
 
     @RequestMapping(method = RequestMethod.GET, path = "/balance/{userId}")
     public ResponseEntity<String> getBalance(@PathVariable int userId) {

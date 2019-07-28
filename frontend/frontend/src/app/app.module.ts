@@ -54,6 +54,7 @@ import { ReviseDialogComponent } from './modules/sla-review/revise-dialog/revise
 import { SlaPropEditComponent } from './modules/sla-review/revise-dialog/sla-prop-edit/sla-prop-edit.component';
 import { SloEditComponent } from './modules/sla-review/revise-dialog/slo-edit/slo-edit.component';
 import { ActivateDialogComponent } from './modules/sla-review/activate-dialog/activate-dialog.component';
+import { SettingsComponent } from './modules/settings/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { ActivateDialogComponent } from './modules/sla-review/activate-dialog/ac
     SlaPropEditComponent,
     SloEditComponent,
     ActivateDialogComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
