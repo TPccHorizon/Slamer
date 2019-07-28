@@ -21,17 +21,10 @@ public class SlaUserRepository extends AbstractRepository<SlaUserRecord, Integer
 
     @Transactional
     @Override
-    public SlaUser update(SlaUser slaUser) throws RecordNotFoundException {
-        int updatedRecordCount = context.update(SLA_USER)
-                .set(SLA_USER.PARTY_NAME, slaUser.getPartyName())
-                .set(SLA_USER.PARTY_TYPE, slaUser.getPartyType())
-                .set(SLA_USER.PASSWORD, slaUser.getPassword())
-                .set(SLA_USER.PHONE_NR, slaUser.getPhoneNr())
-                .set(SLA_USER.USERNAME, slaUser.getUsername())
-                .where(SLA_USER.ID.equal(slaUser.getId()))
-                .execute();
-
-        return findById(slaUser.getId());
+    public SlaUser update(SlaUser slaUser) {
+        SlaUserRecord record = context.newRecord(SLA_USER, slaUser);
+        record.update();
+        return record.into(SlaUser.class);
     }
 
     public SlaUser findByUsername(String username) throws RecordNotFoundException {
