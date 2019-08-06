@@ -2,12 +2,14 @@ pragma solidity ^0.5.9;
 //pragma experimental ABIEncoderV2;
 
 
-//import './ServiceLevelObjective.sol';
+import './ServiceLevelObjective.sol';
 
 contract SimpleSLA {
 
     SLA deployedSLA;
     event CustomerDeposit(address indexed from, uint value);
+    event ContractCreated();
+    event ContractComplete();
     event SLATerminated(uint timeOfTermination);
     uint secondsPerDay = 86400;
 
@@ -23,6 +25,11 @@ contract SimpleSLA {
         _;
     }
 
+    modifier onlyCustomer() {
+        require(msg.sender == deployedSLA.customer);
+        _;
+    }
+
     struct validityPeriod {
         uint startTime; // timestamp (seconds)
         uint endTime;
@@ -33,7 +40,7 @@ contract SimpleSLA {
         address payable serviceProvider;
         address payable customer;
         address monitoringService;
-        //Slo[] slos;
+        mapping(uint => Slo) slos;
         uint price; // price for the service
         bool paid; // is it paid?  = false
         bool terminated;
@@ -41,22 +48,25 @@ contract SimpleSLA {
         validityPeriod validity;
     }
 
-    constructor(uint _price, address payable _customer, uint _daysOfValidity) public{
-        require(msg.sender != _customer);
-        deployedSLA.price = _price;
+    constructor(address payable _customer, uint _price, uint _daysOfValidity) public{
+        require(msg.sender != _customer, "The SP must not be the customer");
         deployedSLA.serviceProvider = msg.sender;
         deployedSLA.customer = _customer;
+        deployedSLA.price = _price;
         deployedSLA.paid = false;
         deployedSLA.terminated = false;
-        deployedSLA.status = 3; // Accepted
         deployedSLA.validity.daysOfValidity = _daysOfValidity;
+        emit ContractCreated();
     }
-    /*
 
-    function addUptime(uint _id, uint _price, string memory _name, string memory _type, uint _availability) public onlySP{
-        deployedSLA.slos.push(new Uptime(_id, _price, _name, _type, _availability));
-        deployedSLA.price += _price;
-    }*/
+
+    function addUptime(uint _id, uint _availability) public onlySP{
+        deployedSLA.slos[_id] = new Uptime(_id, _availability);
+    }
+
+    function addAvrgResponseTime(uint _id, uint _responseTime) public onlySP {
+        deployedSLA.slos[_id] = new AvrgResponseTime(_id, _responseTime);
+    }
 
         /* SLA gets activated on deposit */
     function deposit() public payable returns (bool) {
@@ -93,6 +103,18 @@ contract SimpleSLA {
         deployedSLA.customer.transfer(compensationValue);
     }
 
+    function verifyAverageResponseTime(uint _sloId, uint _measured) public {
+        Slo avrgResTime = deployedSLA.slos[_sloId];
+        if (!avrgResTime.verify(_measured)) {
+            terminateSLA();
+        }
+    }
+
+    function confirmComplete() public onlySP {
+        deployedSLA.status = 3; // Accepted
+        emit ContractComplete();
+    }
+
     function isStillInValidity() public view returns (bool) {
         return deployedSLA.validity.startTime < block.timestamp && block.timestamp <= deployedSLA.validity.endTime;
     }
@@ -100,6 +122,7 @@ contract SimpleSLA {
     function isActive() public view returns (bool) {
         return !deployedSLA.terminated && deployedSLA.status != 6 && isStillInValidity();
     }
+
 
     function getStartTime() public view returns (uint) {
         return deployedSLA.validity.startTime;
@@ -128,4 +151,11 @@ contract SimpleSLA {
     function isSLAinitialized() private view returns(bool){
         return deployedSLA.serviceProvider == address(0);
     }
+
+    // is only used for simulating an expiration of the SLA
+    function expireSLA() public {
+        deployedSLA.validity.endTime = block.timestamp - 1;
+    }
+
+
 }

@@ -1,6 +1,8 @@
 package ch.uzh.slamer.backend.smartcontract;
 
 import ch.uzh.slamer.backend.contracts.SimpleSLA;
+import ch.uzh.slamer.backend.model.dto.MeasuredResponseTime;
+import ch.uzh.slamer.backend.model.pojo.SlaForMonitoring;
 import codegen.tables.pojos.Sla;
 import codegen.tables.pojos.SlaUser;
 import org.web3j.crypto.Credentials;
@@ -53,8 +55,8 @@ public class SLAContractManager {
         return SimpleSLA.deploy(web3j,
                                 transactionManager,
                                 contractGasProvider,
-                                price,
                                 customer.getWallet(),
+                                price,
                                 daysOfValidity)
                 .send()
                 .getContractAddress();
@@ -70,6 +72,12 @@ public class SLAContractManager {
     public TransactionReceipt terminateSLA(String contractAddress) throws Exception {
         SimpleSLA sla = SimpleSLA.load(contractAddress, web3j, transactionManager, contractGasProvider);
         return sla.terminateSLA().send();
+    }
+
+    public void validateResponseTime(MeasuredResponseTime measured, SlaForMonitoring sla) {
+        SimpleSLA contract = SimpleSLA.load(sla.getSla().getHash(), web3j, transactionManager, contractGasProvider);
+        int multipliedValue = (int) measured.getMeasured() * 100;
+        contract.verifyAverageResponseTime(BigInteger.valueOf(measured.getSloId()), BigInteger.valueOf(multipliedValue));
     }
 
     public String getSLAData(String contractAddress) throws Exception {
