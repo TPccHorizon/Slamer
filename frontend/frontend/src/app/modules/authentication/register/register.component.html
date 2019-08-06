@@ -21,22 +21,6 @@
       </div>
 
       <div class="form-group">
-        <label >Phone Nr.</label>
-        <input type="text" formControlName="wallet" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.wallet.errors }" />
-        <div *ngIf="submitted && f.wallet.errors" class="invalid-feedback">
-          <div *ngIf="f.wallet.errors.required">Phone Nr. is required</div>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label >Party Type</label>
-        <input type="text" formControlName="partyType" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.partyType.errors }" />
-        <div *ngIf="submitted && f.partyType.errors" class="invalid-feedback">
-          <div *ngIf="f.partyType.errors.required">Party Type is required</div>
-        </div>
-      </div>
-
-      <div class="form-group">
         <label >Password</label>
         <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">

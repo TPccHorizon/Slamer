@@ -23,7 +23,9 @@ export class NavigationComponent implements OnInit {
     this.slaService.slaCount.subscribe(count => {
       this.newSlas = count;
     });
-    this.balanceService.getBalance();
+    if (this.authService.isLoggedIn()) {
+      this.balanceService.getBalance();
+    }
   }
 
   toSettings() {
