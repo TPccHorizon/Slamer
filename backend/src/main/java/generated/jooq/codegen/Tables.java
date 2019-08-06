@@ -4,15 +4,12 @@
 package codegen;
 
 
-import codegen.tables.Address;
 import codegen.tables.Databasechangelog;
 import codegen.tables.Databasechangeloglock;
-import codegen.tables.Penalty;
 import codegen.tables.ServiceLevelObjective;
 import codegen.tables.Sla;
 import codegen.tables.SlaReview;
 import codegen.tables.SlaUser;
-import codegen.tables.SloType;
 
 import javax.annotation.Generated;
 
@@ -31,11 +28,6 @@ import javax.annotation.Generated;
 public class Tables {
 
     /**
-     * The table <code>public.address</code>.
-     */
-    public static final Address ADDRESS = codegen.tables.Address.ADDRESS;
-
-    /**
      * The table <code>public.databasechangelog</code>.
      */
     public static final Databasechangelog DATABASECHANGELOG = codegen.tables.Databasechangelog.DATABASECHANGELOG;
@@ -44,11 +36,6 @@ public class Tables {
      * The table <code>public.databasechangeloglock</code>.
      */
     public static final Databasechangeloglock DATABASECHANGELOGLOCK = codegen.tables.Databasechangeloglock.DATABASECHANGELOGLOCK;
-
-    /**
-     * The table <code>public.penalty</code>.
-     */
-    public static final Penalty PENALTY = codegen.tables.Penalty.PENALTY;
 
     /**
      * The table <code>public.service_level_objective</code>.
@@ -69,9 +56,4 @@ public class Tables {
      * The table <code>public.sla_user</code>.
      */
     public static final SlaUser SLA_USER = codegen.tables.SlaUser.SLA_USER;
-
-    /**
-     * The table <code>public.slo_type</code>.
-     */
-    public static final SloType SLO_TYPE = codegen.tables.SloType.SLO_TYPE;
 }

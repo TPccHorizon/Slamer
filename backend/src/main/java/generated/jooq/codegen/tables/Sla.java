@@ -43,7 +43,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Sla extends TableImpl<SlaRecord> {
 
-    private static final long serialVersionUID = -490879134;
+    private static final long serialVersionUID = -674685063;
 
     /**
      * The reference instance of <code>public.sla</code>
@@ -107,6 +107,11 @@ public class Sla extends TableImpl<SlaRecord> {
      * The column <code>public.sla.hash</code>.
      */
     public final TableField<SlaRecord, String> HASH = createField("hash", org.jooq.impl.SQLDataType.VARCHAR, this, "");
+
+    /**
+     * The column <code>public.sla.monitoring_solution_id</code>.
+     */
+    public final TableField<SlaRecord, Integer> MONITORING_SOLUTION_ID = createField("monitoring_solution_id", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
      * Create a <code>public.sla</code> table reference
@@ -186,7 +191,7 @@ public class Sla extends TableImpl<SlaRecord> {
      */
     @Override
     public List<ForeignKey<SlaRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<SlaRecord, ?>>asList(Keys.SLA__SLA_SERVICE_PROVIDER_ID_FKEY, Keys.SLA__SLA_SERVICE_CUSTOMER_ID_FKEY);
+        return Arrays.<ForeignKey<SlaRecord, ?>>asList(Keys.SLA__SLA_SERVICE_PROVIDER_ID_FKEY, Keys.SLA__SLA_SERVICE_CUSTOMER_ID_FKEY, Keys.SLA__FK_MONITORING);
     }
 
     public SlaUser sla_SlaServiceProviderIdFkey() {
@@ -195,6 +200,10 @@ public class Sla extends TableImpl<SlaRecord> {
 
     public SlaUser sla_SlaServiceCustomerIdFkey() {
         return new SlaUser(this, Keys.SLA__SLA_SERVICE_CUSTOMER_ID_FKEY);
+    }
+
+    public SlaUser sla_FkMonitoring() {
+        return new SlaUser(this, Keys.SLA__FK_MONITORING);
     }
 
     /**

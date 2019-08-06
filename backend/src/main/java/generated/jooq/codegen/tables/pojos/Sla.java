@@ -24,7 +24,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Sla implements Serializable {
 
-    private static final long serialVersionUID = -1062967825;
+    private static final long serialVersionUID = 1691675744;
 
     private Integer    id;
     private String     status;
@@ -36,6 +36,7 @@ public class Sla implements Serializable {
     private Integer    serviceCustomerId;
     private String     title;
     private String     hash;
+    private Integer    monitoringSolutionId;
 
     public Sla() {}
 
@@ -50,6 +51,7 @@ public class Sla implements Serializable {
         this.serviceCustomerId = value.serviceCustomerId;
         this.title = value.title;
         this.hash = value.hash;
+        this.monitoringSolutionId = value.monitoringSolutionId;
     }
 
     public Sla(
@@ -62,7 +64,8 @@ public class Sla implements Serializable {
         Integer    serviceProviderId,
         Integer    serviceCustomerId,
         String     title,
-        String     hash
+        String     hash,
+        Integer    monitoringSolutionId
     ) {
         this.id = id;
         this.status = status;
@@ -74,6 +77,7 @@ public class Sla implements Serializable {
         this.serviceCustomerId = serviceCustomerId;
         this.title = title;
         this.hash = hash;
+        this.monitoringSolutionId = monitoringSolutionId;
     }
 
     public Integer getId() {
@@ -166,6 +170,15 @@ public class Sla implements Serializable {
         return this;
     }
 
+    public Integer getMonitoringSolutionId() {
+        return this.monitoringSolutionId;
+    }
+
+    public Sla setMonitoringSolutionId(Integer monitoringSolutionId) {
+        this.monitoringSolutionId = monitoringSolutionId;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -235,6 +248,12 @@ public class Sla implements Serializable {
         }
         else if (!hash.equals(other.hash))
             return false;
+        if (monitoringSolutionId == null) {
+            if (other.monitoringSolutionId != null)
+                return false;
+        }
+        else if (!monitoringSolutionId.equals(other.monitoringSolutionId))
+            return false;
         return true;
     }
 
@@ -252,6 +271,7 @@ public class Sla implements Serializable {
         result = prime * result + ((this.serviceCustomerId == null) ? 0 : this.serviceCustomerId.hashCode());
         result = prime * result + ((this.title == null) ? 0 : this.title.hashCode());
         result = prime * result + ((this.hash == null) ? 0 : this.hash.hashCode());
+        result = prime * result + ((this.monitoringSolutionId == null) ? 0 : this.monitoringSolutionId.hashCode());
         return result;
     }
 
@@ -269,6 +289,7 @@ public class Sla implements Serializable {
         sb.append(", ").append(serviceCustomerId);
         sb.append(", ").append(title);
         sb.append(", ").append(hash);
+        sb.append(", ").append(monitoringSolutionId);
 
         sb.append(")");
         return sb.toString();
