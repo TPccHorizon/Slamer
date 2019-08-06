@@ -27,11 +27,11 @@ public class AuthenticationController {
     @Autowired
     ModelMapper mapper;
 
-//    @RequestMapping(method = RequestMethod.POST, path = "/register")
-//    public ResponseEntity<SlaUser> register(@RequestBody SlaUser slaUser) {
-//        SlaUser user = authenticationService.registerNewUser(slaUser);
-//        return new ResponseEntity<>(user, HttpStatus.OK);
-//    }
+    @RequestMapping(method = RequestMethod.POST, path = "/register")
+    public ResponseEntity<SlaUser> register(@RequestBody SlaUser slaUser) {
+        SlaUser user = authenticationService.registerNewUser(slaUser);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 
     @RequestMapping(method = RequestMethod.POST, path = "/login")
     public ResponseEntity<SlaUser> login(@RequestBody LoginData loginData) {
