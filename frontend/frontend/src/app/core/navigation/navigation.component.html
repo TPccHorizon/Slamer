@@ -1,12 +1,17 @@
 <mat-toolbar role="heading" color="accent" >
   <span class="toggle-button" [routerLink]="['/']">SLAMer</span>
   <span class="fill-toolbar"></span>
+  <span *ngIf="authService.isLoggedIn()" style="margin-right: 20px;">
+    Balance: {{balanceService.currentBalance}} ETH
+
+  </span>
   <span *ngIf="authService.isLoggedIn()">
     {{authService.currentUserValue.partyName}}
   </span>
+
   <div *ngIf="authService.isLoggedIn()">
     <mat-menu #matMenu="matMenu" >
-      <button mat-menu-item>
+      <button mat-menu-item (click)="toSettings()">
         <mat-icon>settings</mat-icon>
         <span>Settings</span>
       </button>
@@ -43,10 +48,6 @@
       <mat-nav-list>
         <a mat-list-item [routerLink]="['/new']"><mat-icon>add</mat-icon> Create SLA</a>
       </mat-nav-list>
-
-<!--      <mat-nav-list>-->
-<!--        <a mat-list-item [routerLink]="['/slas']"><mat-icon>folder</mat-icon>Manage SLAs</a>-->
-<!--      </mat-nav-list>-->
 
       <mat-nav-list>
         <a mat-list-item [routerLink]="['/slas/review']"><mat-icon>notification_important</mat-icon>

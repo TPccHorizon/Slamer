@@ -22,9 +22,9 @@
 
       <div class="form-group">
         <label >Phone Nr.</label>
-        <input type="text" formControlName="phoneNr" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phoneNr.errors }" />
-        <div *ngIf="submitted && f.phoneNr.errors" class="invalid-feedback">
-          <div *ngIf="f.phoneNr.errors.required">Phone Nr. is required</div>
+        <input type="text" formControlName="wallet" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.wallet.errors }" />
+        <div *ngIf="submitted && f.wallet.errors" class="invalid-feedback">
+          <div *ngIf="f.wallet.errors.required">Phone Nr. is required</div>
         </div>
       </div>
 

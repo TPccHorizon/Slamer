@@ -24,7 +24,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Sla implements Serializable {
 
-    private static final long serialVersionUID = 1244733090;
+    private static final long serialVersionUID = -1062967825;
 
     private Integer    id;
     private String     status;
@@ -35,6 +35,7 @@ public class Sla implements Serializable {
     private Integer    serviceProviderId;
     private Integer    serviceCustomerId;
     private String     title;
+    private String     hash;
 
     public Sla() {}
 
@@ -48,6 +49,7 @@ public class Sla implements Serializable {
         this.serviceProviderId = value.serviceProviderId;
         this.serviceCustomerId = value.serviceCustomerId;
         this.title = value.title;
+        this.hash = value.hash;
     }
 
     public Sla(
@@ -59,7 +61,8 @@ public class Sla implements Serializable {
         Date       validTo,
         Integer    serviceProviderId,
         Integer    serviceCustomerId,
-        String     title
+        String     title,
+        String     hash
     ) {
         this.id = id;
         this.status = status;
@@ -70,6 +73,7 @@ public class Sla implements Serializable {
         this.serviceProviderId = serviceProviderId;
         this.serviceCustomerId = serviceCustomerId;
         this.title = title;
+        this.hash = hash;
     }
 
     public Integer getId() {
@@ -153,6 +157,15 @@ public class Sla implements Serializable {
         return this;
     }
 
+    public String getHash() {
+        return this.hash;
+    }
+
+    public Sla setHash(String hash) {
+        this.hash = hash;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -216,6 +229,12 @@ public class Sla implements Serializable {
         }
         else if (!title.equals(other.title))
             return false;
+        if (hash == null) {
+            if (other.hash != null)
+                return false;
+        }
+        else if (!hash.equals(other.hash))
+            return false;
         return true;
     }
 
@@ -232,6 +251,7 @@ public class Sla implements Serializable {
         result = prime * result + ((this.serviceProviderId == null) ? 0 : this.serviceProviderId.hashCode());
         result = prime * result + ((this.serviceCustomerId == null) ? 0 : this.serviceCustomerId.hashCode());
         result = prime * result + ((this.title == null) ? 0 : this.title.hashCode());
+        result = prime * result + ((this.hash == null) ? 0 : this.hash.hashCode());
         return result;
     }
 
@@ -248,6 +268,7 @@ public class Sla implements Serializable {
         sb.append(", ").append(serviceProviderId);
         sb.append(", ").append(serviceCustomerId);
         sb.append(", ").append(title);
+        sb.append(", ").append(hash);
 
         sb.append(")");
         return sb.toString();

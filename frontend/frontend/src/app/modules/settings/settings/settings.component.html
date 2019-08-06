@@ -1,0 +1,50 @@
+<h1>
+  Settings
+</h1>
+<div *ngIf="user">
+  <h3>{{user.partyName}}</h3>
+  <button mat-button (click)="edit()">
+    <i class="material-icons">
+      edit
+    </i>
+  </button>
+  <form [formGroup]="formGroup" (ngSubmit)="save()">
+    <mat-grid-list cols="2" rowHeight="100px">
+      <mat-grid-tile>
+        <div style="width: 100%">
+          <div>
+            <h5>ETH Wallet Address</h5>
+          </div>
+          <div>
+            <mat-form-field style="width: 100%">
+              <input matInput type="text" formControlName="wallet"
+                     [readonly]="isReadOnly"
+                     [disabled]="isReadOnly">
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div style="width: 100%" >
+          <div>
+            <h5>Private Key</h5>
+          </div>
+          <div >
+            <mat-form-field style="width: 100%" >
+              <input matInput type="text" formControlName="privateKey"
+                     [readonly]="isReadOnly"
+                     [disabled]="isReadOnly">
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <div *ngIf="!isReadOnly">
+      <button mat-stroked-button color="accent">
+        <mat-icon>save_alt</mat-icon>
+        Save
+      </button>
+    </div>
+  </form>
+
+</div>

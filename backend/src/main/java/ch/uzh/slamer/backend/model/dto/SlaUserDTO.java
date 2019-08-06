@@ -8,7 +8,10 @@ public class SlaUserDTO {
     private Integer id;
 
     @JsonProperty
-    private String  phoneNr;
+    private String wallet;
+
+    @JsonProperty
+    private String privateKey;
 
     @JsonProperty
     private String  username;
@@ -18,9 +21,10 @@ public class SlaUserDTO {
 
     public SlaUserDTO() { }
 
-    public SlaUserDTO(Integer id, String phoneNr, String username, String partyName) {
+    public SlaUserDTO(Integer id, String wallet, String privateKey, String username, String partyName) {
         this.id = id;
-        this.phoneNr = phoneNr;
+        this.wallet = wallet;
+        this.privateKey = privateKey;
         this.username = username;
         this.partyName = partyName;
     }
@@ -33,12 +37,20 @@ public class SlaUserDTO {
         this.id = id;
     }
 
-    public String getPhoneNr() {
-        return phoneNr;
+    public String getWallet() {
+        return wallet;
     }
 
-    public void setPhoneNr(String phoneNr) {
-        this.phoneNr = phoneNr;
+    public void setWallet(String wallet) {
+        this.wallet = wallet;
+    }
+
+    public String getPrivateKey() {
+        return privateKey;
+    }
+
+    public void setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
     }
 
     public String getUsername() {

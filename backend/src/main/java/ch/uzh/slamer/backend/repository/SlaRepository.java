@@ -82,7 +82,8 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
 
     @Transactional(readOnly = true)
     public List<Sla> getSlasForReview(int id) {
-        Condition forCustomer = SLA.STATUS.eq(REQUESTED.getStatus()).and(SLA.SERVICE_CUSTOMER_ID.equal(id));
+        Condition forCustomer = SLA.STATUS.eq(REQUESTED.getStatus()).and(SLA.SERVICE_CUSTOMER_ID.equal(id))
+                .or(SLA.STATUS.equal(DEPLOYMENT.getStatus())).and(SLA.SERVICE_CUSTOMER_ID.equal(id));
         Condition forProvider = SLA.STATUS.eq(ACCEPTED.getStatus()).and(SLA.SERVICE_PROVIDER_ID.equal(id))
                 .or(SLA.STATUS.equal(REJECTED.getStatus())).and(SLA.SERVICE_PROVIDER_ID.equal(id));
 

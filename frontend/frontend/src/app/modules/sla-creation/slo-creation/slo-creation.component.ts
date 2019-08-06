@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SloService} from "../../../core/services/slo.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {BehaviorSubject, Observable} from "rxjs";

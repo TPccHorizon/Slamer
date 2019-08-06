@@ -9,6 +9,8 @@ import {SlaAndParties} from "../../shared/models/slaAndParties";
 import {first} from "rxjs/operators";
 import {BehaviorSubject} from "rxjs";
 import {Report} from "../../shared/models/Report";
+import {DeploymentData} from "../../shared/models/deploymentData";
+import {ActivationDeposit} from "../../shared/models/activationDeposit";
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +53,25 @@ export class SlaService {
 
   updateSLAStatus(currentStatus: string, id: number) {
     return this.http.put<SlaAndParties>(`${this.config.apiUrl}/slas/${id}`, currentStatus);
+  }
+
+  deploy(sla: Sla) {
+    let data = new DeploymentData();
+    data.slaId = sla.id;
+    data.serviceProviderId = sla.serviceProviderId;
+    return this.http.post<Boolean>(`${this.config.apiUrl}/deploy`, data);
+  }
+
+  terminate(slaId: number) {
+    return this.http.delete(`${this.config.apiUrl}/terminate/${slaId}`);
+  }
+
+  activateSLA(sla: SlaAndParties) {
+    let deposit = new ActivationDeposit();
+    deposit.customerId = sla.serviceCustomer.id;
+    deposit.slaId = sla.id;
+    deposit.slaPrice = sla.servicePrice;
+    return this.http.put<Boolean>(`${this.config.apiUrl}/deposit`, deposit);
   }
 
   countNewSLAs() {

@@ -40,6 +40,7 @@ dependencies {
     implementation 'org.jooq:jooq:3.11.11'
     implementation 'org.jooq:jooq-meta:3.11.11'
     implementation 'org.jooq:jooq-codegen:3.11.11'
+    implementation 'org.web3j:core:4.3.0'
     runtime 'org.postgresql:postgresql:42.2.5'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     jooqRuntime 'org.postgresql:postgresql:42.2.5'
@@ -107,5 +108,5 @@ generateSampleJooqSchemaSource {
     }
 }
 // removes the task dependency from compileJava to generateSampleJooqSchemaSource
-//project.tasks.getByName('compileJava').dependsOn -= 'generateSampleJooqSchemaSource'
+project.tasks.getByName('compileJava').dependsOn -= 'generateSampleJooqSchemaSource'
 //org.jooq.util.GenerationTool.generate(writer.toString())

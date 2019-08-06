@@ -22,44 +22,48 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SlaUser implements Serializable {
 
-    private static final long serialVersionUID = -895232115;
+    private static final long serialVersionUID = -1573985270;
 
     private Integer id;
     private String  password;
-    private String  salt;
     private String  phoneNr;
     private String  username;
     private String  partyName;
     private String  partyType;
+    private String  wallet;
+    private String  privateKey;
 
     public SlaUser() {}
 
     public SlaUser(SlaUser value) {
         this.id = value.id;
         this.password = value.password;
-        this.salt = value.salt;
         this.phoneNr = value.phoneNr;
         this.username = value.username;
         this.partyName = value.partyName;
         this.partyType = value.partyType;
+        this.wallet = value.wallet;
+        this.privateKey = value.privateKey;
     }
 
     public SlaUser(
         Integer id,
         String  password,
-        String  salt,
         String  phoneNr,
         String  username,
         String  partyName,
-        String  partyType
+        String  partyType,
+        String  wallet,
+        String  privateKey
     ) {
         this.id = id;
         this.password = password;
-        this.salt = salt;
         this.phoneNr = phoneNr;
         this.username = username;
         this.partyName = partyName;
         this.partyType = partyType;
+        this.wallet = wallet;
+        this.privateKey = privateKey;
     }
 
     public Integer getId() {
@@ -77,15 +81,6 @@ public class SlaUser implements Serializable {
 
     public SlaUser setPassword(String password) {
         this.password = password;
-        return this;
-    }
-
-    public String getSalt() {
-        return this.salt;
-    }
-
-    public SlaUser setSalt(String salt) {
-        this.salt = salt;
         return this;
     }
 
@@ -125,6 +120,24 @@ public class SlaUser implements Serializable {
         return this;
     }
 
+    public String getWallet() {
+        return this.wallet;
+    }
+
+    public SlaUser setWallet(String wallet) {
+        this.wallet = wallet;
+        return this;
+    }
+
+    public String getPrivateKey() {
+        return this.privateKey;
+    }
+
+    public SlaUser setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -145,12 +158,6 @@ public class SlaUser implements Serializable {
                 return false;
         }
         else if (!password.equals(other.password))
-            return false;
-        if (salt == null) {
-            if (other.salt != null)
-                return false;
-        }
-        else if (!salt.equals(other.salt))
             return false;
         if (phoneNr == null) {
             if (other.phoneNr != null)
@@ -176,6 +183,18 @@ public class SlaUser implements Serializable {
         }
         else if (!partyType.equals(other.partyType))
             return false;
+        if (wallet == null) {
+            if (other.wallet != null)
+                return false;
+        }
+        else if (!wallet.equals(other.wallet))
+            return false;
+        if (privateKey == null) {
+            if (other.privateKey != null)
+                return false;
+        }
+        else if (!privateKey.equals(other.privateKey))
+            return false;
         return true;
     }
 
@@ -185,11 +204,12 @@ public class SlaUser implements Serializable {
         int result = 1;
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
         result = prime * result + ((this.password == null) ? 0 : this.password.hashCode());
-        result = prime * result + ((this.salt == null) ? 0 : this.salt.hashCode());
         result = prime * result + ((this.phoneNr == null) ? 0 : this.phoneNr.hashCode());
         result = prime * result + ((this.username == null) ? 0 : this.username.hashCode());
         result = prime * result + ((this.partyName == null) ? 0 : this.partyName.hashCode());
         result = prime * result + ((this.partyType == null) ? 0 : this.partyType.hashCode());
+        result = prime * result + ((this.wallet == null) ? 0 : this.wallet.hashCode());
+        result = prime * result + ((this.privateKey == null) ? 0 : this.privateKey.hashCode());
         return result;
     }
 
@@ -199,11 +219,12 @@ public class SlaUser implements Serializable {
 
         sb.append(id);
         sb.append(", ").append(password);
-        sb.append(", ").append(salt);
         sb.append(", ").append(phoneNr);
         sb.append(", ").append(username);
         sb.append(", ").append(partyName);
         sb.append(", ").append(partyType);
+        sb.append(", ").append(wallet);
+        sb.append(", ").append(privateKey);
 
         sb.append(")");
         return sb.toString();

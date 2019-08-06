@@ -26,7 +26,7 @@ export class SlaUserService {
   }
 
   update(user: SlaUser) {
-    return this.http.put(`${this.config.apiUrl}/users/${user.id}`, user, this.httpOptions);
+    return this.http.put<Boolean>(`${this.config.apiUrl}/users/${user.id}`, user, this.httpOptions);
   }
 
   delete(id: number) {
