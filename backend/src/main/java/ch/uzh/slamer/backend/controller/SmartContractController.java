@@ -6,9 +6,11 @@ import ch.uzh.slamer.backend.model.enums.LifecyclePhase;
 import ch.uzh.slamer.backend.model.enums.SlaStatus;
 import ch.uzh.slamer.backend.model.pojo.SmartContractDeployment;
 import ch.uzh.slamer.backend.model.pojo.SmartContractDeposit;
+import ch.uzh.slamer.backend.repository.ServiceLevelObjectiveRepository;
 import ch.uzh.slamer.backend.repository.SlaRepository;
 import ch.uzh.slamer.backend.repository.SlaUserRepository;
 import ch.uzh.slamer.backend.smartcontract.SLAContractManager;
+import codegen.tables.pojos.ServiceLevelObjective;
 import codegen.tables.pojos.Sla;
 import codegen.tables.pojos.SlaUser;
 import org.jooq.meta.derby.sys.Sys;
@@ -18,6 +20,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.web3j.protocol.core.methods.response.Log;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
+
+import java.util.List;
 
 
 @CrossOrigin(allowCredentials = "false", origins = "${security.allowed-origin}")
@@ -30,6 +34,9 @@ public class SmartContractController {
     @Autowired
     SlaUserRepository slaUserRepository;
 
+    @Autowired
+    ServiceLevelObjectiveRepository sloRepository;
+
     @RequestMapping(method = RequestMethod.POST, path = "/deploy")
     public ResponseEntity<Boolean> deploySLA(@RequestBody SmartContractDeployment deployment) {
         String contractAddress;
@@ -40,6 +47,9 @@ public class SmartContractController {
             SlaUser provider = slaUserRepository.findById(sla.getServiceProviderId());
             SLAContractManager contractManager = new SLAContractManager(provider.getPrivateKey());
             contractAddress = contractManager.deployContract(sla, customer);
+            List<ServiceLevelObjective> slos = sloRepository.getAllBySlaId(sla.getId());
+            System.out.println("Deployed Smart Contract");
+            contractManager.addSLOs(slos, contractAddress);
         }
         catch (RecordNotFoundException e) {
             e.printStackTrace();

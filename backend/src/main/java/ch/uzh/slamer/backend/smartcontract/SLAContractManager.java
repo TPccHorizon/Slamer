@@ -3,11 +3,15 @@ package ch.uzh.slamer.backend.smartcontract;
 import ch.uzh.slamer.backend.contracts.SimpleSLA;
 import ch.uzh.slamer.backend.model.dto.MeasuredResponseTime;
 import ch.uzh.slamer.backend.model.pojo.SlaForMonitoring;
+import codegen.tables.pojos.ServiceLevelObjective;
 import codegen.tables.pojos.Sla;
 import codegen.tables.pojos.SlaUser;
+import io.reactivex.disposables.Disposable;
+import org.web3j.abi.EventEncoder;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.request.EthFilter;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.core.methods.response.Transaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
@@ -22,6 +26,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.util.List;
 
 public class SLAContractManager {
 
@@ -53,7 +58,8 @@ public class SLAContractManager {
         System.out.println("DAYS: " + daysOfValidity.toString());
         BigInteger price = etherToWei(sla.getServicePrice().floatValue());
         System.out.println("Account/Wallet: " + customer.getWallet());
-        System.out.println("price" + price.toString());
+        System.out.println("price " + price.toString());
+
         return SimpleSLA.deploy(web3j,
                                 transactionManager,
                                 contractGasProvider,
@@ -62,6 +68,26 @@ public class SLAContractManager {
                                 daysOfValidity)
                 .send()
                 .getContractAddress();
+    }
+
+    public void addSLOs(List<ServiceLevelObjective> slos, String contractAddress) throws Exception {
+        SimpleSLA contract = SimpleSLA.load(contractAddress, web3j, transactionManager, contractGasProvider);
+        EthFilter filter = new EthFilter(DefaultBlockParameterName.EARLIEST, DefaultBlockParameterName.LATEST, contractAddress);
+        // Filter listens to contract complete event
+        filter.addSingleTopic(EventEncoder.encode(SimpleSLA.CONTRACTCOMPLETE_EVENT));
+        web3j.ethLogFlowable(filter).subscribe(log -> {
+            System.out.println("SOLIDITY EVENT: ");
+            System.out.println(log);
+        });
+
+        for (ServiceLevelObjective slo: slos) {
+            if (slo.getSloType().equals("Average Response Time")) {
+                System.out.println("Adding AvrgResponseTime to SC");
+                BigInteger responseTime = slo.getAverageResponseTimeValue().toBigInteger();
+                contract.addAvrgResponseTime(BigInteger.valueOf(slo.getId()), responseTime).send();
+            }
+        }
+        contract.confirmComplete().send();
     }
 
     public void depositFunds(String contractAddress, int depositValue) throws Exception {
