@@ -52,6 +52,8 @@ public class SLAContractManager {
         BigInteger daysOfValidity = BigInteger.valueOf(diff/ (1000 * 60 * 60 * 24));
         System.out.println("DAYS: " + daysOfValidity.toString());
         BigInteger price = etherToWei(sla.getServicePrice().floatValue());
+        System.out.println("Account/Wallet: " + customer.getWallet());
+        System.out.println("price" + price.toString());
         return SimpleSLA.deploy(web3j,
                                 transactionManager,
                                 contractGasProvider,

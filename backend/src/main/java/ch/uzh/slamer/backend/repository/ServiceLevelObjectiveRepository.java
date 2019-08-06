@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static codegen.tables.ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE;
-import static codegen.tables.SloType.SLO_TYPE;
 
 @Repository
 public class ServiceLevelObjectiveRepository extends AbstractRepository<ServiceLevelObjectiveRecord, Integer, ServiceLevelObjective>{

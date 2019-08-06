@@ -24,7 +24,7 @@ public class UserController {
     public ResponseEntity<Boolean> updateWallet(@RequestBody SlaUserDTO userDTO, @PathVariable int id) {
         try {
             SlaUser user = userRepository.findById(id);
-            user.setWallet(userDTO.getWallet());
+            user.setWallet(userDTO.getWallet().toLowerCase());
             user.setPrivateKey(userDTO.getPrivateKey());
             userRepository.update(user);
             return new ResponseEntity<>(true, HttpStatus.OK);
