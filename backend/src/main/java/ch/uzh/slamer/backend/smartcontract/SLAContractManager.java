@@ -7,6 +7,7 @@ import codegen.tables.pojos.ServiceLevelObjective;
 import codegen.tables.pojos.Sla;
 import codegen.tables.pojos.SlaUser;
 import io.reactivex.disposables.Disposable;
+import org.jooq.meta.derby.sys.Sys;
 import org.web3j.abi.EventEncoder;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
@@ -72,22 +73,23 @@ public class SLAContractManager {
 
     public void addSLOs(List<ServiceLevelObjective> slos, String contractAddress) throws Exception {
         SimpleSLA contract = SimpleSLA.load(contractAddress, web3j, transactionManager, contractGasProvider);
-        EthFilter filter = new EthFilter(DefaultBlockParameterName.EARLIEST, DefaultBlockParameterName.LATEST, contractAddress);
-        // Filter listens to contract complete event
-        filter.addSingleTopic(EventEncoder.encode(SimpleSLA.CONTRACTCOMPLETE_EVENT));
-        web3j.ethLogFlowable(filter).subscribe(log -> {
-            System.out.println("SOLIDITY EVENT: ");
-            System.out.println(log);
-        });
-
         for (ServiceLevelObjective slo: slos) {
-            if (slo.getSloType().equals("Average Response Time")) {
-                System.out.println("Adding AvrgResponseTime to SC");
-                BigInteger responseTime = slo.getAverageResponseTimeValue().toBigInteger();
-                contract.addAvrgResponseTime(BigInteger.valueOf(slo.getId()), responseTime).send();
-            }
+            addSLO(contract, slo);
         }
         contract.confirmComplete().send();
+    }
+
+    private void addSLO(SimpleSLA contract, ServiceLevelObjective slo) throws Exception {
+        if (slo.getSloType().equals("Average Response Time")) {
+            System.out.println("Adding AvrgResponseTime to SC");
+            System.out.println("Response Time: " + slo.getAverageResponseTimeValue());
+            BigInteger responseTime = slo.getAverageResponseTimeValue().toBigInteger();
+            contract.addAvrgResponseTime(BigInteger.valueOf(slo.getId()), responseTime).send();
+        } else if (slo.getSloType().equals("Uptime")) {
+            System.out.println("Adding Uptime to SC");
+            BigInteger uptime = slo.getPercentageOfAvailability().toBigInteger();
+            contract.addUptime(BigInteger.valueOf(slo.getId()), uptime).send();
+        }
     }
 
     public void depositFunds(String contractAddress, int depositValue) throws Exception {
@@ -102,10 +104,11 @@ public class SLAContractManager {
         return sla.terminateSLA().send();
     }
 
-    public void validateResponseTime(MeasuredResponseTime measured, SlaForMonitoring sla) {
+    public void validateResponseTime(MeasuredResponseTime measured, SlaForMonitoring sla) throws Exception {
         SimpleSLA contract = SimpleSLA.load(sla.getSla().getHash(), web3j, transactionManager, contractGasProvider);
-        int multipliedValue = (int) measured.getMeasured() * 100;
-        contract.verifyAverageResponseTime(BigInteger.valueOf(measured.getSloId()), BigInteger.valueOf(multipliedValue));
+        int multipliedValue = (int) measured.getMeasured();
+        System.out.println("Measured: " + multipliedValue);
+        contract.verifyAverageResponseTime(BigInteger.valueOf(measured.getSloId()), BigInteger.valueOf(multipliedValue)).send();
     }
 
     public String getSLAData(String contractAddress) throws Exception {
@@ -114,6 +117,30 @@ public class SLAContractManager {
         String customer = sla.getCustomer().send();
         BigInteger price = sla.getPrice().send();
         return "SP Address: " + serviceProvider + " , Customer Address: " + customer + " , Price: " + price.toString();
+    }
+
+    public Disposable listenForEvents(String contractAddress) {
+        EthFilter filter = getGlobalFilter(contractAddress);
+        return web3j.ethLogFlowable(filter).subscribe(log -> {
+            System.out.println("SOLIDITY EVENT: ");
+            System.out.println(log);
+        });
+    }
+
+    public void addSLOsOnContractCreation(List<ServiceLevelObjective> slos, String contractAddress) {
+        EthFilter filter = getGlobalFilter(contractAddress);
+        web3j.ethLogFlowable(filter).subscribe(log -> {
+            this.addSLOs(slos, contractAddress);
+        });
+    }
+
+    public EthFilter getGlobalFilter(String contractAddress) {
+        EthFilter filter = new EthFilter(DefaultBlockParameterName.EARLIEST, DefaultBlockParameterName.LATEST, contractAddress);
+        filter.addSingleTopic(EventEncoder.encode(SimpleSLA.CONTRACTCOMPLETE_EVENT));
+        filter.addSingleTopic(EventEncoder.encode(SimpleSLA.CONTRACTCREATED_EVENT));
+        filter.addSingleTopic(EventEncoder.encode(SimpleSLA.CUSTOMERDEPOSIT_EVENT));
+        filter.addSingleTopic(EventEncoder.encode(SimpleSLA.SLATERMINATED_EVENT));
+        return filter;
     }
 
     public String getWalletBalance(String walletAddress) {

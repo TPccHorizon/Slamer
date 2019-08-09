@@ -13,11 +13,13 @@ import ch.uzh.slamer.backend.smartcontract.SLAContractManager;
 import codegen.tables.pojos.ServiceLevelObjective;
 import codegen.tables.pojos.Sla;
 import codegen.tables.pojos.SlaUser;
+import io.reactivex.disposables.Disposable;
 import org.jooq.meta.derby.sys.Sys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.web3j.protocol.core.methods.request.EthFilter;
 import org.web3j.protocol.core.methods.response.Log;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 
@@ -41,6 +43,7 @@ public class SmartContractController {
     public ResponseEntity<Boolean> deploySLA(@RequestBody SmartContractDeployment deployment) {
         String contractAddress;
         Sla sla;
+        Disposable subscription = null;
         try {
             sla = slaRepository.findById(deployment.getSlaId());
             SlaUser customer = slaUserRepository.findById(sla.getServiceCustomerId());
@@ -49,21 +52,28 @@ public class SmartContractController {
             contractAddress = contractManager.deployContract(sla, customer);
             List<ServiceLevelObjective> slos = sloRepository.getAllBySlaId(sla.getId());
             System.out.println("Deployed Smart Contract");
-            contractManager.addSLOs(slos, contractAddress);
+            contractManager.addSLOsOnContractCreation(slos, contractAddress);
         }
         catch (RecordNotFoundException e) {
             e.printStackTrace();
+            if (subscription != null) {
+                subscription.dispose();
+            }
             System.out.println("SLA not found with ID " + deployment.getSlaId());
             return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
         }
         catch (Exception e) {
             e.printStackTrace();
+            if (subscription != null) {
+                subscription.dispose();
+            }
             System.out.println("Failed to deploy Smart Contract");
             return new ResponseEntity<>(false, HttpStatus.CONFLICT);
         }
 
         if (deployment.getServiceProviderId() != sla.getServiceProviderId()) {
             System.out.println("The SLA can only be deployed by the Service Provider");
+            subscription.dispose();
             return new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED);
         }
         sla.setStatus(SlaStatus.DEPLOYMENT.getStatus());
@@ -92,11 +102,15 @@ public class SmartContractController {
                 return new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED);
             }
             SLAContractManager contractManager = new SLAContractManager(customer.getPrivateKey());
+            contractManager.listenForEvents(contractAddress);
+            EthFilter eventFilter = contractManager.getGlobalFilter(contractAddress);
+            contractManager.getWeb3j().ethLogFlowable(eventFilter).subscribe(log -> {
+                // update SLA status
+                sla.setStatus(SlaStatus.ACTIVE.getStatus());
+                sla.setLifecyclePhase(LifecyclePhase.MONITORING.getPhase());
+                slaRepository.update(sla);
+            });
             contractManager.depositFunds(contractAddress, deposit.getSlaPrice());
-            // update SLA status
-            sla.setStatus(SlaStatus.ACTIVE.getStatus());
-            sla.setLifecyclePhase(LifecyclePhase.MONITORING.getPhase());
-            slaRepository.update(sla);
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (RecordNotFoundException e) {
             e.printStackTrace();

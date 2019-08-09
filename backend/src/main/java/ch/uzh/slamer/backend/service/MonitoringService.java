@@ -2,12 +2,15 @@ package ch.uzh.slamer.backend.service;
 
 import ch.uzh.slamer.backend.exception.RecordNotFoundException;
 import ch.uzh.slamer.backend.model.dto.MeasuredResponseTime;
+import ch.uzh.slamer.backend.model.enums.LifecyclePhase;
+import ch.uzh.slamer.backend.model.enums.SlaStatus;
 import ch.uzh.slamer.backend.model.pojo.SlaForMonitoring;
 import ch.uzh.slamer.backend.repository.SlaRepository;
 import ch.uzh.slamer.backend.repository.SlaUserRepository;
 import ch.uzh.slamer.backend.smartcontract.SLAContractManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.web3j.protocol.core.methods.request.EthFilter;
 
 @Service
 public class MonitoringService {
@@ -20,11 +23,25 @@ public class MonitoringService {
 
     public boolean checkResponseTime(MeasuredResponseTime measured) {
         SlaForMonitoring sla = getSLA(measured.getSlaId());
-        if (!isCorrectWallet(sla, measured)) {
+//        if (!isCorrectWallet(sla, measured)) {
+//            return false;
+//        }
+        System.out.println("Validate SLO");
+        SLAContractManager contractManager = getContractManager(sla);
+        EthFilter filter = contractManager.getGlobalFilter(sla.getSla().getHash());
+        contractManager.getWeb3j().ethLogFlowable(filter).subscribe(log -> {
+            System.out.println("SLA is terminated by violation");
+            System.out.println(log.toString());
+            sla.getSla().setStatus(SlaStatus.INACTIVE.getStatus());
+            sla.getSla().setLifecyclePhase(LifecyclePhase.TERMINATION.getPhase());
+            slaRepository.update(sla.getSla());
+        });
+        try {
+            contractManager.validateResponseTime(measured, sla);
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
-        SLAContractManager contractManager = getContractManager(sla);
-        contractManager.validateResponseTime(measured, sla);
         return true;
     }
 
