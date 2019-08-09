@@ -72,7 +72,9 @@ export class SlaCreateComponent implements OnInit {
         this.alertService.success('Created new SLA', true);
         console.log(sla);
         this.sloService.setCurrentSlaId(sla.id);
-        this.router.navigate(['/slas/' + sla.id + '/registration']);
+        let toUrl = '/slas/' + sla.id + '/monitoring';
+        console.log("Navigate to " + toUrl);
+        this.router.navigate([toUrl]);
       }, error => {
         this.alertService.error('Customer E-Mail not found');
         this.loading = false;

@@ -28,9 +28,6 @@ export class MonitoringRegistrationComponent implements OnInit {
               private route : ActivatedRoute
 
   ) {
-    if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/']);
-    }
     this.route.params.subscribe(param => {
       console.log(param['id']);
       this.currentSlaId = param['id'];
@@ -39,9 +36,10 @@ export class MonitoringRegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      serviceName: ['', Validators.required],
+      partyName: ['', Validators.required],
       wallet: ['', Validators.required],
       privateKey: ['', Validators.required],
+      password: ['', Validators.required],
     })
   }
 
@@ -57,9 +55,10 @@ export class MonitoringRegistrationComponent implements OnInit {
       return;
     }
     console.log("Valid");
+    console.log(this.registerForm.value);
 
     this.loading = true;
-    this.userService.register(this.registerForm.value)
+    this.userService.registerMonitoringService(this.registerForm.value, this.currentSlaId)
       .pipe(first())
       .subscribe(data => {
         console.log("Success:");

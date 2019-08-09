@@ -29,6 +29,7 @@ public class AuthenticationController {
 
     @RequestMapping(method = RequestMethod.POST, path = "/register")
     public ResponseEntity<SlaUser> register(@RequestBody SlaUser slaUser) {
+        slaUser.setPartyType("Signatory");
         SlaUser user = authenticationService.registerNewUser(slaUser);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

@@ -1,6 +1,5 @@
 package ch.uzh.slamer.backend.repository;
 
-import ch.uzh.slamer.backend.exception.RecordNotFoundException;
 import codegen.tables.pojos.SlaReview;
 import codegen.tables.records.SlaReviewRecord;
 import org.jooq.DSLContext;

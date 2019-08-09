@@ -25,6 +25,7 @@ public class AuthenticationService {
 
         System.out.println("Registering User");
         System.out.println(user.getUsername());
+        System.out.println(user.getPassword());
         try {
             existingUser = repository.findByUsername(user.getUsername());
             System.out.println("Existing user found with Username " + user.getUsername());
@@ -38,7 +39,7 @@ public class AuthenticationService {
 
     private SlaUser getSafeUser(SlaUser user) {
         return  new SlaUser(null, bCryptPasswordEncoder.encode(user.getPassword()), user.getPhoneNr(), user.getUsername(),
-                user.getPartyName(), "Signatory", user.getWallet(), user.getPrivateKey());
+                user.getPartyName(), user.getPartyType(), user.getWallet(), user.getPrivateKey());
     }
 
     public boolean checkUserCredentials(String password, SlaUser user) {

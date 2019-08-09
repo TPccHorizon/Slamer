@@ -29,7 +29,7 @@ public class MonitoringController {
     ModelMapper mapper;
 
     @RequestMapping(method = RequestMethod.POST, path = "/monitor/register/{slaId}")
-    public Boolean registerMonitoringService(@RequestBody SlaUserDTO monitoringService, @PathVariable int slaId) {
+    public Boolean registerMonitoringService(@RequestBody SlaUser monitoringService, @PathVariable int slaId) {
         Sla sla;
         try {
             sla = slaRepository.findById(slaId);
@@ -38,10 +38,12 @@ public class MonitoringController {
             System.out.println("No SLA found with ID " + slaId);
             return false;
         }
-        SlaUser monitoringUser = mapper.map(monitoringService, SlaUser.class);
-        monitoringUser.setPartyType("Monitoring");
-        monitoringUser.setUsername("Monitor_" + slaId);
-        authenticationService.registerNewUser(monitoringUser);
+        monitoringService.setPartyType("Monitoring");
+        monitoringService.setUsername("Monitor_" + slaId);
+        monitoringService.setWallet(monitoringService.getWallet().toLowerCase());
+        SlaUser registered = authenticationService.registerNewUser(monitoringService);
+        sla.setMonitoringSolutionId(registered.getId());
+        slaRepository.update(sla);
         return true;
     }
 

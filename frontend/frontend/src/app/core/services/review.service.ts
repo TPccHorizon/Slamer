@@ -14,7 +14,12 @@ export class ReviewService {
               private authService: AuthenticationService) { }
 
   createReview(review: Review) {
+    console.log(review);
     return this.http.post<Boolean>(`${this.config.apiUrl}/reviews`, review);
+  }
+
+  reviseReview(review: Review) {
+    return this.http.put<Boolean>(`${this.config.apiUrl}/reviews`, review);
   }
 
   getReview(slaId: number) {

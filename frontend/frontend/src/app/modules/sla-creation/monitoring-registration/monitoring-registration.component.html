@@ -1,12 +1,12 @@
 <div fxLayout="row" fxLayoutAlign="center stretch">
 
-  <h2>Register Monitoring Service</h2>
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <h2>Register Monitoring Service</h2>
     <div class="form-group">
-      <label>Company Name</label>
-      <input type="text" formControlName="serviceName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.serviceName.errors }">
-      <div *ngIf="submitted && f.serviceName.errors" class="invalid-feedback">
-        <div *ngIf="f.serviceName.errors.required">Service Name is required</div>
+      <label>Service Name</label>
+      <input type="text" formControlName="partyName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.partyName.errors }">
+      <div *ngIf="submitted && f.partyName.errors" class="invalid-feedback">
+        <div *ngIf="f.partyName.errors.required">Service Name is required</div>
       </div>
     </div>
 
@@ -19,10 +19,19 @@
     </div>
 
     <div class="form-group">
-      <label >privateKey</label>
+      <label >Private Key</label>
       <input type="text" formControlName="privateKey" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.privateKey.errors }" />
       <div *ngIf="submitted && f.privateKey.errors" class="invalid-feedback">
         <div *ngIf="f.privateKey.errors.required">Private Key is required</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label >Password</label>
+      <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+        <div *ngIf="f.password.errors.required">Password is required</div>
+        <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
       </div>
     </div>
 
