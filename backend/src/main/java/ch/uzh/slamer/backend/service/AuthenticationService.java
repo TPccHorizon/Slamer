@@ -18,9 +18,6 @@ public class AuthenticationService {
     private SlaUserRepository repository;
 
     @Autowired
-    private UserDetailsServiceImpl userDetailsService;
-
-    @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public SlaUser registerNewUser(SlaUser user) {

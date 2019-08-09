@@ -237,7 +237,7 @@ public class SmartContractController {
 //        SlaUser user;
 //        try {
 //            sla = slaRepository.findById(id);
-//            user = slaUserRepository.findById(sla.getServiceCustomerId());
+//            user = slaRepository.findById(sla.getServiceCustomerId());
 //        } catch (RecordNotFoundException e) {
 //            e.printStackTrace();
 //            System.out.println("SLA or User not found");
