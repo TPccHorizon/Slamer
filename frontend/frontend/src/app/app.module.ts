@@ -55,6 +55,7 @@ import { SlaPropEditComponent } from './modules/sla-review/revise-dialog/sla-pro
 import { SloEditComponent } from './modules/sla-review/revise-dialog/slo-edit/slo-edit.component';
 import { ActivateDialogComponent } from './modules/sla-review/activate-dialog/activate-dialog.component';
 import { SettingsComponent } from './modules/settings/settings/settings.component';
+import { MonitoringRegistrationComponent } from './modules/sla-creation/monitoring-registration/monitoring-registration.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { SettingsComponent } from './modules/settings/settings/settings.componen
     SloEditComponent,
     ActivateDialogComponent,
     SettingsComponent,
+    MonitoringRegistrationComponent,
   ],
   imports: [
     BrowserModule,
