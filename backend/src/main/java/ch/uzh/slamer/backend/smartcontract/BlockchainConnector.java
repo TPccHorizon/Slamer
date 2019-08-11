@@ -29,7 +29,7 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.List;
 
-public class SLAContractManager {
+public class BlockchainConnector {
 
     private final static BigInteger GAS_LIMIT = BigInteger.valueOf(6721975L);
     private final static BigInteger GAS_PRICE = BigInteger.valueOf(20000000000L);
@@ -40,7 +40,7 @@ public class SLAContractManager {
     private TransactionManager transactionManager;
     private ContractGasProvider contractGasProvider;
 
-    public SLAContractManager(String privateKey) {
+    public BlockchainConnector(String privateKey) {
         connect(privateKey);
     }
 
@@ -53,7 +53,7 @@ public class SLAContractManager {
         this.contractGasProvider = new StaticGasProvider(GAS_PRICE, GAS_LIMIT);
     }
 
-    public String deployContract(Sla sla, SlaUser customer) throws Exception {
+    public String deployContract(Sla sla, List<ServiceLevelObjective> slos, SlaUser customer) throws Exception {
         long diff = sla.getValidTo().getTime() - sla.getValidFrom().getTime();
         BigInteger daysOfValidity = BigInteger.valueOf(diff/ (1000 * 60 * 60 * 24));
         System.out.println("DAYS: " + daysOfValidity.toString());
@@ -61,7 +61,7 @@ public class SLAContractManager {
         System.out.println("Account/Wallet: " + customer.getWallet());
         System.out.println("price " + price.toString());
 
-        return SimpleSLA.deploy(web3j,
+        String contractAddress = SimpleSLA.deploy(web3j,
                                 transactionManager,
                                 contractGasProvider,
                                 customer.getWallet(),
@@ -69,6 +69,8 @@ public class SLAContractManager {
                                 daysOfValidity)
                 .send()
                 .getContractAddress();
+        addSLOsOnContractCreation(slos, contractAddress);
+        return contractAddress;
     }
 
     public void addSLOs(List<ServiceLevelObjective> slos, String contractAddress) throws Exception {
@@ -107,7 +109,9 @@ public class SLAContractManager {
     public void validateResponseTime(MeasuredResponseTime measured, SlaForMonitoring sla) throws Exception {
         SimpleSLA contract = SimpleSLA.load(sla.getSla().getHash(), web3j, transactionManager, contractGasProvider);
         int multipliedValue = (int) measured.getMeasured();
-        System.out.println("Measured: " + multipliedValue);
+        System.out.println("Measured: " + BigInteger.valueOf(multipliedValue).toString());
+        System.out.println("SLO id: " + BigInteger.valueOf(measured.getSloId()).toString());
+        System.out.println("SLA id: " + measured.getSlaId());
         contract.verifyAverageResponseTime(BigInteger.valueOf(measured.getSloId()), BigInteger.valueOf(multipliedValue)).send();
     }
 
@@ -127,11 +131,8 @@ public class SLAContractManager {
         });
     }
 
-    public void addSLOsOnContractCreation(List<ServiceLevelObjective> slos, String contractAddress) {
-        EthFilter filter = getGlobalFilter(contractAddress);
-        web3j.ethLogFlowable(filter).subscribe(log -> {
-            this.addSLOs(slos, contractAddress);
-        });
+    public void addSLOsOnContractCreation(List<ServiceLevelObjective> slos, String contractAddress) throws Exception {
+        this.addSLOs(slos, contractAddress);
     }
 
     public EthFilter getGlobalFilter(String contractAddress) {
