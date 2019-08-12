@@ -10,6 +10,8 @@ import codegen.tables.pojos.Sla;
 import codegen.tables.pojos.SlaUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(allowCredentials = "false", origins = "${security.allow-all}")
@@ -46,6 +48,21 @@ public class MonitoringController {
         slaRepository.update(sla);
         return true;
     }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/users/monitor/select/{slaId}")
+    public ResponseEntity<Boolean> selectExistingMonitoringService(@RequestBody Integer serviceId, @PathVariable int slaId) {
+        try {
+            Sla sla = slaRepository.findById(slaId);
+            sla.setMonitoringSolutionId(serviceId);
+            slaRepository.update(sla);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } catch (RecordNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("SLA not found with id " + slaId);
+        }
+        return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+    }
+
 
     @RequestMapping(method = RequestMethod.POST, path = "/monitor")
     public Boolean measureResponseTime(@RequestBody MeasuredResponseTime measured) {

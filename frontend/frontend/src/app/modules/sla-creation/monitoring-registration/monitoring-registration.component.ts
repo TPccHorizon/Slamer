@@ -5,6 +5,8 @@ import {AuthenticationService} from "../../../core/services/authentication.servi
 import {SlaUserService} from "../../../core/services/sla-user.service";
 import {AlertService} from "../../../core/services/alert.service";
 import {first} from "rxjs/operators";
+import {SlaUser} from "../../../shared/models/slaUser";
+import {pipe} from "rxjs";
 
 @Component({
   selector: 'app-monitoring-registration',
@@ -16,6 +18,10 @@ export class MonitoringRegistrationComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;
   submitted = false;
+  takeExistingService = false;
+
+  monitoringServices: SlaUser[] = [];
+  selectedServiceId: number;
 
   currentSlaId = -1;
 
@@ -40,7 +46,13 @@ export class MonitoringRegistrationComponent implements OnInit {
       wallet: ['', Validators.required],
       privateKey: ['', Validators.required],
       password: ['', Validators.required],
-    })
+    });
+    this.userService.getAllMonitoringServices().pipe(first()).subscribe(res => {
+      this.monitoringServices = res;
+      console.log("got services");
+    }, error => {
+      this.alertService.error("No Monitoring Services found");
+    });
   }
 
   // convenience getter for easy access to form fields
@@ -69,6 +81,17 @@ export class MonitoringRegistrationComponent implements OnInit {
         this.alertService.error(error);
         this.loading = false;
       })
+  }
+
+  registerExistingSolution() {
+    this.userService.selectExistingMonitoringService(this.selectedServiceId, this.currentSlaId)
+      .pipe(first()).subscribe(success => {
+        this.alertService.success('Monitoring Service registered');
+        this.router.navigate(['/slas/' + this.currentSlaId + '/slo']);
+    }, error => {
+        this.alertService.error('Could not register this service');
+        console.log(error);
+    });
   }
 
 }

@@ -29,4 +29,12 @@ export class SlaUserService {
   registerMonitoringService(user: SlaUser, slaId: number) {
     return this.http.post(`${this.config.apiUrl}/monitor/register/${slaId}`, user);
   }
+
+  selectExistingMonitoringService(serviceId: number, slaId: number) {
+    return this.http.post(`${this.config.apiUrl}/users/monitor/select/${slaId}`, serviceId);
+  }
+
+  getAllMonitoringServices() {
+    return this.http.get<SlaUser[]>(`${this.config.apiUrl}/users/monitor`);
+  }
 }
