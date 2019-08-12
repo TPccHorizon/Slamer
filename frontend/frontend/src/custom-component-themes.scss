@@ -1,7 +1,9 @@
 @import "app/core/services/alert.theme";
 @import "app/modules/sla-review/sla-review/sla-review.component";
+@import "app/modules/sla-overview/sla-overview/sla-overview.component";
 @mixin custom-components-theme($theme, $theme-info, $theme-success,
 $theme-warnig, $theme-error) {
   @include alert-theme($theme-info, $theme-success, $theme-warnig, $theme-error);
   @include states($theme-info, $theme-success, $theme-warnig, $theme-error);
+  @include phases($theme-info, $theme-success, $theme-warnig, $theme-error);
 }

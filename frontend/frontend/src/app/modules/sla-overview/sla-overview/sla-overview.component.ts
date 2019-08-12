@@ -9,7 +9,7 @@ import {SlaAndParties} from "../../../shared/models/slaAndParties";
 @Component({
   selector: 'app-sla-overview',
   templateUrl: './sla-overview.component.html',
-  styleUrls: ['./sla-overview.component.css']
+  styleUrls: ['./sla-overview.component.scss']
 })
 export class SlaOverviewComponent implements OnInit {
 

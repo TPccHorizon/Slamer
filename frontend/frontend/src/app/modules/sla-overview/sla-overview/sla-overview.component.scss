@@ -1,0 +1,22 @@
+@mixin phases($frontend-info, $frontend-success, $frontend-warning, $frontend-error) {
+  .Definition,
+  .Establishment,
+  .Monitoring,
+  .Termination,
+  .PenaltyEnforcement,
+  .Definition {
+    color: mat-color($frontend-info);
+  }
+  .Establishment {
+    color: mat-color($frontend-primary);
+  }
+  .Monitoring {
+    color: mat-color($frontend-success);
+  }
+  .Termination {
+    color: mat-color($frontend-accent);
+  }
+  .PenaltyEnforcement {
+    color: mat-color($frontend-error);
+  }
+}

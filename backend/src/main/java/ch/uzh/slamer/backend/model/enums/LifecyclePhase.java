@@ -5,7 +5,7 @@ public enum LifecyclePhase {
     ESTABLISHMENT("Establishment"),
     MONITORING("Monitoring"),
     TERMINATION("Termination"),
-    PENALTY_ENFORCEMENT("Penalty Enforcement");
+    PENALTY_ENFORCEMENT("PenaltyEnforcement");
 
     private String phase;
 
