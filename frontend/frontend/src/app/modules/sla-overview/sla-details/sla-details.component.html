@@ -35,6 +35,11 @@
         <p><b>Expiry Date</b>: {{sla.validTo}}</p>
         <p><b>Lifecycle Phase</b>: {{sla.lifecyclePhase}}</p>
       </div>
+      <div *ngIf="sla.hash != '' && sla.hash">
+        <p><b>Smart Contract Address</b></p>
+        <p>{{sla.hash}}</p>
+        <button (click)="copyToClipboard(sla.hash)" mat-icon-button aria-label="Copy to Clipboard" color="accent"><mat-icon>file_copy</mat-icon></button>
+      </div>
 
     </div>
     <div>
