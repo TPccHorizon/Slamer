@@ -2,7 +2,6 @@ package ch.uzh.slamer.backend.controller;
 
 import ch.uzh.slamer.backend.exception.RecordNotFoundException;
 import ch.uzh.slamer.backend.model.dto.MeasuredResponseTime;
-import ch.uzh.slamer.backend.model.dto.SlaUserDTO;
 import ch.uzh.slamer.backend.repository.SlaRepository;
 import ch.uzh.slamer.backend.service.AuthenticationService;
 import ch.uzh.slamer.backend.service.MonitoringService;

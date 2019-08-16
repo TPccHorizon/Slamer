@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.web3j.protocol.core.methods.request.EthFilter;
 import org.web3j.protocol.core.methods.response.Log;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 
@@ -95,14 +94,14 @@ public class SmartContractController {
                 return new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED);
             }
             BlockchainConnector connector = new BlockchainConnector(customer.getPrivateKey());
-            connector.listenForEvents(contractAddress);
+            /*connector.listenForEvents(contractAddress);
             EthFilter eventFilter = connector.getGlobalFilter(contractAddress);
             connector.getWeb3j().ethLogFlowable(eventFilter).subscribe(log -> {
                 // update SLA status
                 sla.setStatus(SlaStatus.ACTIVE.getStatus());
                 sla.setLifecyclePhase(LifecyclePhase.MONITORING.getPhase());
                 slaRepository.update(sla);
-            });
+            });*/
             connector.depositFunds(contractAddress, deposit.getSlaPrice());
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (RecordNotFoundException e) {

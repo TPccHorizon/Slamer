@@ -98,6 +98,10 @@ public class BlockchainConnector {
         SimpleSLA sla = SimpleSLA.load(contractAddress, web3j, transactionManager, contractGasProvider);
         BigInteger weiValue = etherToWei((float) depositValue);
         System.out.println("Wei Value: " + weiValue.toString());
+        web3j.ethLogFlowable(getGlobalFilter(contractAddress)).subscribe(log -> {
+           System.out.println("Deposited ether");
+           System.out.println(log.toString());
+        });
         sla.deposit(weiValue).send();
     }
 
