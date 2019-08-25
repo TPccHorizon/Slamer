@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @CrossOrigin(allowCredentials = "false", origins = "${security.allowed-origin}")
 @RestController
 public class UserController {
@@ -24,7 +27,7 @@ public class UserController {
     public ResponseEntity<Boolean> updateWallet(@RequestBody SlaUserDTO userDTO, @PathVariable int id) {
         try {
             SlaUser user = userRepository.findById(id);
-            user.setWallet(userDTO.getWallet());
+            user.setWallet(userDTO.getWallet().toLowerCase());
             user.setPrivateKey(userDTO.getPrivateKey());
             userRepository.update(user);
             return new ResponseEntity<>(true, HttpStatus.OK);
@@ -33,5 +36,13 @@ public class UserController {
             return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
         }
 
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "users/monitor")
+    public ResponseEntity<List<SlaUserDTO>> getMonitoringServices() {
+        List<SlaUser> monitoringServices = userRepository.getMonitoringServices();
+        List<SlaUserDTO> serviceDtos = monitoringServices.stream().map(service -> mapper.map(service, SlaUserDTO.class))
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(serviceDtos, HttpStatus.OK);
     }
 }

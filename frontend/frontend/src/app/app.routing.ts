@@ -9,6 +9,7 @@ import {SloCreationComponent} from "./modules/sla-creation/slo-creation/slo-crea
 import {HomeComponent} from "./modules/home/home/home.component";
 import {SlaReviewComponent} from "./modules/sla-review/sla-review/sla-review.component";
 import {SettingsComponent} from "./modules/settings/settings/settings.component";
+import {MonitoringRegistrationComponent} from "./modules/sla-creation/monitoring-registration/monitoring-registration.component";
 
 
 export const AppRoutes: Routes = [
@@ -44,6 +45,9 @@ export const AppRoutes: Routes = [
   },
   {
     path: 'slas/:id/slo', component: SloCreationComponent
+  },
+  {
+    path: 'slas/:id/monitoring', component: MonitoringRegistrationComponent
   },
 
 

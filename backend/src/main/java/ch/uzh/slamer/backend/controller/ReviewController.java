@@ -2,7 +2,6 @@ package ch.uzh.slamer.backend.controller;
 
 import ch.uzh.slamer.backend.model.dto.ReviewDTO;
 import ch.uzh.slamer.backend.service.ReviewService;
-import org.jooq.meta.derby.sys.Sys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +16,7 @@ public class ReviewController {
 
     @RequestMapping(method = RequestMethod.POST, path = "/reviews")
     public ResponseEntity<Boolean> addReview(@RequestBody ReviewDTO review) {
-        boolean created = reviewService.addNewReview(review);
+        boolean created = reviewService.addReview(review, false);
         if (created) {
             return new ResponseEntity<>(true, HttpStatus.CREATED);
         }
@@ -31,5 +30,14 @@ public class ReviewController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(reviewDTO, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/reviews")
+    public ResponseEntity<Boolean> reviseRewiev(@RequestBody ReviewDTO reviewDTO) {
+        boolean updated = reviewService.addReview(reviewDTO, true);
+        if (updated) {
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(false, HttpStatus.CONFLICT);
     }
 }

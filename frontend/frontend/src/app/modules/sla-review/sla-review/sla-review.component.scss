@@ -3,6 +3,7 @@
   .Requested,
   .Accepted,
   .Rejected,
+  .Deployment,
   .Active,
   .Inactive {
     color: mat-color($frontend-info);
@@ -18,6 +19,9 @@
   }
   .Rejected {
     color: mat-color($frontend-error);
+  }
+  .Deployment {
+    color: mat-color($frontend-theme);
   }
   .Active {
     color: mat-color($frontend-success);

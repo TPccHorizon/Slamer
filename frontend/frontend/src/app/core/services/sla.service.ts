@@ -75,16 +75,17 @@ export class SlaService {
   }
 
   countNewSLAs() {
-    this.authService.currentUser.subscribe(user => {
-      let userId = user.id as unknown as string;
-      let params = new HttpParams();
-      params = params.append('id', userId);
-      this.http.get<number>(`${this.config.apiUrl}/slas/new`, {params: params}).pipe(first())
-        .subscribe(count => {
-          this.slaCount.next(count);
-        });
-    });
-
+    if (this.authService.isLoggedIn()) {
+      this.authService.currentUser.subscribe(user => {
+        let userId = user.id as unknown as string;
+        let params = new HttpParams();
+        params = params.append('id', userId);
+        this.http.get<number>(`${this.config.apiUrl}/slas/new`, {params: params}).pipe(first())
+          .subscribe(count => {
+            this.slaCount.next(count);
+          });
+      });
+    }
   }
 
   getReport() {

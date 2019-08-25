@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static codegen.Tables.SLA_USER;
 
 @Repository
@@ -34,5 +36,10 @@ public class SlaUserRepository extends AbstractRepository<SlaUserRecord, Integer
             throw new RecordNotFoundException("No User found with username: " + username);
         }
         return convertResultIntoModel(record);
+    }
+
+    public List<SlaUser> getMonitoringServices() {
+        return context.selectFrom(SLA_USER).where(SLA_USER.PARTY_TYPE.eq("Monitoring"))
+                .fetch().into(SlaUser.class);
     }
 }

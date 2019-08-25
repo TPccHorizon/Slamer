@@ -12,6 +12,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,12 +56,10 @@ public class ReviewService {
         SlaDTO tempSla = new SlaDTO();
         mapSlos(tempSla, slos);
         reviewDTO.setSlos(tempSla.getSlos());
-        System.out.println(reviewDTO.getSlos().get(0).getComment());
-        System.out.println(reviewDTO.getSlos().get(1).getComment());
         return reviewDTO;
     }
 
-    public boolean addNewReview(ReviewDTO review) {
+    public boolean addReview(ReviewDTO review, boolean isRevision) {
         SlaReview validFrom = review.getValidFrom();
         validFrom.setSlaId(review.getSlaId());
 
@@ -73,30 +73,37 @@ public class ReviewService {
                 .stream()
                 .map(sloDTO -> mapper.map(sloDTO, ServiceLevelObjective.class))
                 .collect(Collectors.toList());
+        System.out.println("isRevision: " + isRevision);
+        System.out.println("service Price: " + servicePrice.getValue());
+        Sla sla;
         try {
-            reviewRepository.add(validFrom);
-            reviewRepository.add(validTo);
-            reviewRepository.add(servicePrice);
-        } catch (Exception e) {
+            sla = slaRepository.findById(review.getSlaId());
+        } catch (RecordNotFoundException e) {
             System.out.println(e.getMessage());
-            System.out.println(e.getCause().getMessage());
             return false;
         }
-
-        // update slos
         try {
-            for (ServiceLevelObjective slo: slos) {
-                sloRepository.update(slo);
+            if (isRevision) {
+                reviewRepository.update(validFrom);
+                reviewRepository.update(validTo);
+                reviewRepository.update(servicePrice);
+                updateSlos(slos);
+                sla.setValidFrom(Date.valueOf(validFrom.getValue()));
+                sla.setValidTo(Date.valueOf(validTo.getValue()));
+                sla.setServicePrice(BigDecimal.valueOf(Integer.valueOf(servicePrice.getValue())));
+                return setStateAfterRevision(sla);
+            } else {
+                reviewRepository.add(validFrom);
+                reviewRepository.add(validTo);
+                reviewRepository.add(servicePrice);
+                updateSlos(slos);
+                return setStateAfterReview(review, sla);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println(e.getCause().getMessage());
             return false;
         }
-        Sla updatedSla = setStateAfterReview(review);
-        slaRepository.update(updatedSla);
-        return true;
-
     }
 
     private boolean hasSlaBeenAccepted(ReviewDTO review) {
@@ -114,27 +121,37 @@ public class ReviewService {
         return true;
     }
 
-    private Sla setStateAfterReview(ReviewDTO review) {
-        Sla sla = null;
-        try {
-            sla = slaRepository.findById(review.getSlaId());
-        } catch (RecordNotFoundException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
+    private boolean setStateAfterReview(ReviewDTO review, Sla sla) {
         if (!sla.getStatus().equals(REQUESTED.getStatus())) {
-            return null;
+            return false;
         }
         if (hasSlaBeenAccepted(review)) {
             sla.setStatus(ACCEPTED.getStatus());
         } else {
             sla.setStatus(REJECTED.getStatus());
         }
-        return sla;
+        slaRepository.update(sla);
+        return true;
     }
 
-    public Sla setStateAfterRevision(ReviewDTO review) {
-        return null;
+    public boolean setStateAfterRevision(Sla sla) {
+        if (!sla.getStatus().equals(REJECTED.getStatus())) {
+            return false;
+        }
+        sla.setStatus(REQUESTED.getStatus());
+        slaRepository.update(sla);
+        return true;
+    }
+
+    private void updateSlos(List<ServiceLevelObjective> slos) {
+        try {
+            for (ServiceLevelObjective slo: slos) {
+                sloRepository.update(slo);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getCause().getMessage());
+        }
     }
 
     private void mapSlos(SlaDTO slaDTO, List<ServiceLevelObjective> slos) {

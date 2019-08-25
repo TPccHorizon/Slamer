@@ -8,4 +8,5 @@ export class Sla {
   validTo: Date;
   serviceProviderId: number;
   serviceCustomerId: number;
+  hash;
 }

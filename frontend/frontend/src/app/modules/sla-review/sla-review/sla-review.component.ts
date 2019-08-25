@@ -144,8 +144,20 @@ export class SlaReviewComponent  {
       });
 
       dialogRef.afterClosed().subscribe(updatedReview => {
-        console.log("Update review");
-        console.log(updatedReview);
+        if (updatedReview != null) {
+          console.log("REVISED");
+          this.reviewService.reviseReview(updatedReview).pipe(first())
+            .subscribe(created => {
+              console.log(created);
+              this.alertService.success("Sent Revision to " + sla.serviceCustomer.partyName);
+              this.refreshList();
+              this.slaService.countNewSLAs();
+            }, error => {
+              console.log(error);
+              this.alertService.error("An error occurred");
+            });
+
+        }
       });
 
     }, error => {

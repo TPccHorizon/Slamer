@@ -1,12 +1,15 @@
 package ch.uzh.slamer.backend.repository;
 
+import ch.uzh.slamer.backend.exception.RecordNotFoundException;
 import ch.uzh.slamer.backend.model.pojo.Report;
+import ch.uzh.slamer.backend.model.pojo.SlaForMonitoring;
 import ch.uzh.slamer.backend.model.pojo.SlaState;
 import codegen.tables.pojos.Sla;
 import codegen.tables.pojos.SlaUser;
 import codegen.tables.records.SlaRecord;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
+import org.jooq.Result;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,6 +69,16 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
         Map<Sla, List<SlaUser>> result = new LinkedHashMap<>();
         result.put(sla, parties);
         return result;
+    }
+
+    public SlaForMonitoring getSlaForMonitoring(int slaId) throws RecordNotFoundException {
+        Sla sla = findById(slaId);
+
+        SlaUser monitoringSolution = context.select().from(SLA_USER)
+                .where(SLA_USER.ID.eq(sla.getMonitoringSolutionId()))
+                .fetchOne().into(SlaUser.class);
+
+        return new SlaForMonitoring(sla, monitoringSolution);
     }
 
     @Transactional(readOnly = true)
