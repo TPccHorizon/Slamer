@@ -36,6 +36,8 @@ import org.web3j.tx.gas.ContractGasProvider;
 public class Slo extends Contract {
     private static final String BINARY = "";
 
+    public static final String FUNC_GETID = "getId";
+
     public static final String FUNC_GETVIOLATIONS = "getViolations";
 
     public static final String FUNC_VERIFY = "verify";
@@ -64,6 +66,13 @@ public class Slo extends Contract {
 
     protected Slo(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
         super(BINARY, contractAddress, web3j, transactionManager, contractGasProvider);
+    }
+
+    public RemoteCall<BigInteger> getId() {
+        final Function function = new Function(FUNC_GETID, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
+        return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteCall<BigInteger> getViolations() {

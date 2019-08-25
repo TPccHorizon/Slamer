@@ -102,7 +102,7 @@ public class SmartContractController {
                 sla.setLifecyclePhase(LifecyclePhase.MONITORING.getPhase());
                 slaRepository.update(sla);
             });*/
-            connector.depositFunds(contractAddress, deposit.getSlaPrice());
+            connector.depositFunds(contractAddress, deposit.getSlaPrice(), slaRepository, sla);
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (RecordNotFoundException e) {
             e.printStackTrace();

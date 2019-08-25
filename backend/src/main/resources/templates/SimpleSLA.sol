@@ -16,17 +16,22 @@ contract SimpleSLA {
 
 
     modifier onlySP() {
-        require(deployedSLA.serviceProvider == msg.sender);
+        require(deployedSLA.serviceProvider == msg.sender, "Only the Service Provider can call this function");
         _;
     }
 
     modifier onlyInvolvedParties() {
-        require(msg.sender == deployedSLA.customer || msg.sender == deployedSLA.serviceProvider);
+        require(msg.sender == deployedSLA.customer || msg.sender == deployedSLA.serviceProvider, "Only the involved parties can call this function");
         _;
     }
 
     modifier onlyCustomer() {
-        require(msg.sender == deployedSLA.customer);
+        require(msg.sender == deployedSLA.customer, "Only the customer can call this function");
+        _;
+    }
+
+    modifier onlyMonitoringService() {
+        require(msg.sender == deployedSLA.monitoringService, "Only the Monitoring Service can call this function");
         _;
     }
 
@@ -48,10 +53,12 @@ contract SimpleSLA {
         validityPeriod validity;
     }
 
-    constructor(address payable _customer, uint _price, uint _daysOfValidity) public{
+    constructor(address payable _customer, address _monitoringService,uint _price, uint _daysOfValidity) public{
         require(msg.sender != _customer, "The SP must not be the customer");
+        require(msg.sender != _monitoringService, "The SP must not be the monitoring service");
         deployedSLA.serviceProvider = msg.sender;
         deployedSLA.customer = _customer;
+        deployedSLA.monitoringService = _monitoringService;
         deployedSLA.price = _price;
         deployedSLA.paid = false;
         deployedSLA.terminated = false;
@@ -69,9 +76,10 @@ contract SimpleSLA {
     }
 
         /* SLA gets activated on deposit */
-    function deposit() public payable returns (bool) {
-        require(isCustomer(msg.sender) && !deployedSLA.paid);
-        require(deployedSLA.price == msg.value);
+    function deposit() public payable onlyCustomer returns (bool) {
+        require(!isActive(), "The contract must not be active yet");
+        require(deployedSLA.price == msg.value, "The value must equal the SLA price");
+        require(deployedSLA.status == 3, "The SLA must have status 3 (Accepted)");
         deployedSLA.paid = true;
         deployedSLA.validity.startTime = now;
         deployedSLA.validity.endTime = now + (deployedSLA.validity.daysOfValidity * secondsPerDay);
@@ -103,7 +111,8 @@ contract SimpleSLA {
         deployedSLA.customer.transfer(compensationValue);
     }
 
-    function verifyAverageResponseTime(uint _sloId, uint _measured) public {
+    function verifyAverageResponseTime(uint _sloId, uint _measured) public onlyMonitoringService {
+        checkValidity();
         Slo avrgResTime = deployedSLA.slos[_sloId];
         if (!avrgResTime.verify(_measured)) {
             terminateSLA();
@@ -113,6 +122,13 @@ contract SimpleSLA {
     function confirmComplete() public onlySP {
         deployedSLA.status = 3; // Accepted
         emit ContractComplete();
+    }
+
+    function checkValidity() private {
+        if (isActive()) {
+            return;
+        }
+        terminateSLA();
     }
 
     function isStillInValidity() public view returns (bool) {
@@ -144,12 +160,20 @@ contract SimpleSLA {
         return deployedSLA.serviceProvider;
     }
 
+    function getMonitoringService() public view returns (address) {
+        return deployedSLA.monitoringService;
+    }
+
     function getPrice() public view returns (uint) {
         return deployedSLA.price;
     }
 
     function isSLAinitialized() private view returns(bool){
         return deployedSLA.serviceProvider == address(0);
+    }
+
+    function isSLOpresent(uint _id) public view returns (bool) {
+        return deployedSLA.slos[_id].getId() != 0;
     }
 
     // is only used for simulating an expiration of the SLA

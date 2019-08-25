@@ -2,21 +2,20 @@ package ch.uzh.slamer.backend.smartcontract;
 
 import ch.uzh.slamer.backend.contracts.SimpleSLA;
 import ch.uzh.slamer.backend.model.dto.MeasuredResponseTime;
+import ch.uzh.slamer.backend.model.enums.LifecyclePhase;
+import ch.uzh.slamer.backend.model.enums.SlaStatus;
 import ch.uzh.slamer.backend.model.pojo.SlaForMonitoring;
+import ch.uzh.slamer.backend.repository.SlaRepository;
 import codegen.tables.pojos.ServiceLevelObjective;
 import codegen.tables.pojos.Sla;
 import codegen.tables.pojos.SlaUser;
 import io.reactivex.disposables.Disposable;
-import org.jooq.meta.derby.sys.Sys;
-import org.web3j.abi.EventEncoder;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.EthFilter;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
-import org.web3j.protocol.core.methods.response.Transaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
-import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.RawTransactionManager;
 import org.web3j.tx.TransactionManager;
@@ -61,20 +60,27 @@ public class BlockchainConnector {
         System.out.println("Account/Wallet: " + customer.getWallet());
         System.out.println("price " + price.toString());
 
-        String contractAddress = SimpleSLA.deploy(web3j,
+        TransactionReceipt receipt = SimpleSLA.deploy(web3j,
                                 transactionManager,
                                 contractGasProvider,
                                 customer.getWallet(),
                                 price,
                                 daysOfValidity)
-                .send()
-                .getContractAddress();
-        addSLOsOnContractCreation(slos, contractAddress);
-        return contractAddress;
+                .send().getTransactionReceipt().get();
+        System.out.println("Contract deployed with tx hash: "  + receipt.getTransactionHash());
+        System.out.println("Gas used for deploy: " + receipt.getGasUsedRaw());
+        addSLOsOnContractCreation(slos, receipt.getContractAddress());
+        return receipt.getContractAddress();
     }
 
     public void addSLOs(List<ServiceLevelObjective> slos, String contractAddress) throws Exception {
         SimpleSLA contract = SimpleSLA.load(contractAddress, web3j, transactionManager, contractGasProvider);
+        EthFilter filter = getGlobalFilter(contractAddress);
+        web3j.ethLogFlowable(filter).subscribe(log -> {
+            System.out.println("SLO added to SC at tx");
+            System.out.println(log.getTransactionHash());
+            System.out.println(log.getData());
+        });
         for (ServiceLevelObjective slo: slos) {
             addSLO(contract, slo);
         }
@@ -94,15 +100,19 @@ public class BlockchainConnector {
         }
     }
 
-    public void depositFunds(String contractAddress, int depositValue) throws Exception {
-        SimpleSLA sla = SimpleSLA.load(contractAddress, web3j, transactionManager, contractGasProvider);
+    public void depositFunds(String contractAddress, int depositValue, SlaRepository slaRepository, Sla sla) throws Exception {
+        SimpleSLA contract = SimpleSLA.load(contractAddress, web3j, transactionManager, contractGasProvider);
         BigInteger weiValue = etherToWei((float) depositValue);
         System.out.println("Wei Value: " + weiValue.toString());
         web3j.ethLogFlowable(getGlobalFilter(contractAddress)).subscribe(log -> {
            System.out.println("Deposited ether");
            System.out.println(log.toString());
+           System.out.println(log.getTransactionHash());
+            sla.setStatus(SlaStatus.ACTIVE.getStatus());
+            sla.setLifecyclePhase(LifecyclePhase.MONITORING.getPhase());
+            slaRepository.update(sla);
         });
-        sla.deposit(weiValue).send();
+        contract.deposit(weiValue).send();
     }
 
     public TransactionReceipt terminateSLA(String contractAddress) throws Exception {
@@ -116,6 +126,11 @@ public class BlockchainConnector {
         System.out.println("Measured: " + BigInteger.valueOf(multipliedValue).toString());
         System.out.println("SLO id: " + BigInteger.valueOf(measured.getSloId()).toString());
         System.out.println("SLA id: " + measured.getSlaId());
+        web3j.ethLogFlowable(getGlobalFilter(contract.getContractAddress())).subscribe(log -> {
+            System.out.println("Got Violation Event from Contract");
+            System.out.println(log.toString());
+            System.out.println(log.getTransactionHash());
+        });
         contract.verifyAverageResponseTime(BigInteger.valueOf(measured.getSloId()), BigInteger.valueOf(multipliedValue)).send();
     }
 
@@ -141,11 +156,11 @@ public class BlockchainConnector {
 
     public EthFilter getGlobalFilter(String contractAddress) {
         EthFilter filter = new EthFilter(DefaultBlockParameterName.EARLIEST, DefaultBlockParameterName.LATEST, contractAddress);
-        filter.addSingleTopic(EventEncoder.encode(SimpleSLA.CONTRACTCOMPLETE_EVENT));
+        /*filter.addSingleTopic(EventEncoder.encode(SimpleSLA.CONTRACTCOMPLETE_EVENT));
         filter.addSingleTopic(EventEncoder.encode(SimpleSLA.CONTRACTCREATED_EVENT));
         filter.addSingleTopic(EventEncoder.encode(SimpleSLA.CUSTOMERDEPOSIT_EVENT));
         filter.addSingleTopic(EventEncoder.encode(SimpleSLA.SLATERMINATED_EVENT));
-        return filter;
+        */return filter;
     }
 
     public String getWalletBalance(String walletAddress) {

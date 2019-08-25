@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.web3j.abi.EventEncoder;
+import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Event;
 import org.web3j.abi.datatypes.Function;
@@ -33,7 +34,9 @@ import org.web3j.tx.gas.ContractGasProvider;
  * <p>Generated with web3j version 4.3.0.
  */
 public class Throughput extends Contract {
-    private static final String BINARY = "";
+    private static final String BINARY = "6080604052600560025534801561001557600080fd5b5060405161013c38038061013c8339818101604052606081101561003857600080fd5b5080516020820151604090920151600091825560019190915560039190915560045560d4806100686000396000f3fe6080604052348015600f57600080fd5b5060043610603c5760003560e01c80635d1ca6311460415780637e810e281460595780638753367f14605f575b600080fd5b6047608d565b60408051918252519081900360200190f35b60476093565b607960048036036020811015607357600080fd5b50356099565b604080519115158252519081900360200190f35b60005490565b60015490565b5060009056fea265627a7a7230582026a8532a75df47a954a636545a43b9bc03a3ffaa8ddd2cde198793a858a51c5264736f6c63430005090032";
+
+    public static final String FUNC_GETID = "getId";
 
     public static final String FUNC_GETVIOLATIONS = "getViolations";
 
@@ -63,6 +66,13 @@ public class Throughput extends Contract {
 
     protected Throughput(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
         super(BINARY, contractAddress, web3j, transactionManager, contractGasProvider);
+    }
+
+    public RemoteCall<BigInteger> getId() {
+        final Function function = new Function(FUNC_GETID, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
+        return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteCall<BigInteger> getViolations() {
@@ -156,22 +166,34 @@ public class Throughput extends Contract {
         return new Throughput(contractAddress, web3j, transactionManager, contractGasProvider);
     }
 
-    public static RemoteCall<Throughput> deploy(Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
-        return deployRemoteCall(Throughput.class, web3j, credentials, contractGasProvider, BINARY, "");
+    public static RemoteCall<Throughput> deploy(Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider, BigInteger _id, BigInteger _dataSize, BigInteger _thresholdValue) {
+        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(_id), 
+                new org.web3j.abi.datatypes.generated.Uint256(_dataSize), 
+                new org.web3j.abi.datatypes.generated.Uint256(_thresholdValue)));
+        return deployRemoteCall(Throughput.class, web3j, credentials, contractGasProvider, BINARY, encodedConstructor);
+    }
+
+    public static RemoteCall<Throughput> deploy(Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider, BigInteger _id, BigInteger _dataSize, BigInteger _thresholdValue) {
+        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(_id), 
+                new org.web3j.abi.datatypes.generated.Uint256(_dataSize), 
+                new org.web3j.abi.datatypes.generated.Uint256(_thresholdValue)));
+        return deployRemoteCall(Throughput.class, web3j, transactionManager, contractGasProvider, BINARY, encodedConstructor);
     }
 
     @Deprecated
-    public static RemoteCall<Throughput> deploy(Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
-        return deployRemoteCall(Throughput.class, web3j, credentials, gasPrice, gasLimit, BINARY, "");
-    }
-
-    public static RemoteCall<Throughput> deploy(Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
-        return deployRemoteCall(Throughput.class, web3j, transactionManager, contractGasProvider, BINARY, "");
+    public static RemoteCall<Throughput> deploy(Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit, BigInteger _id, BigInteger _dataSize, BigInteger _thresholdValue) {
+        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(_id), 
+                new org.web3j.abi.datatypes.generated.Uint256(_dataSize), 
+                new org.web3j.abi.datatypes.generated.Uint256(_thresholdValue)));
+        return deployRemoteCall(Throughput.class, web3j, credentials, gasPrice, gasLimit, BINARY, encodedConstructor);
     }
 
     @Deprecated
-    public static RemoteCall<Throughput> deploy(Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
-        return deployRemoteCall(Throughput.class, web3j, transactionManager, gasPrice, gasLimit, BINARY, "");
+    public static RemoteCall<Throughput> deploy(Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit, BigInteger _id, BigInteger _dataSize, BigInteger _thresholdValue) {
+        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(_id), 
+                new org.web3j.abi.datatypes.generated.Uint256(_dataSize), 
+                new org.web3j.abi.datatypes.generated.Uint256(_thresholdValue)));
+        return deployRemoteCall(Throughput.class, web3j, transactionManager, gasPrice, gasLimit, BINARY, encodedConstructor);
     }
 
     public static class SloAddedEventResponse {
