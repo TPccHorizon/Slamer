@@ -42,8 +42,9 @@ public class SmartContractController {
             sla = slaRepository.findById(deployment.getSlaId());
             SlaUser customer = slaUserRepository.findById(sla.getServiceCustomerId());
             SlaUser provider = slaUserRepository.findById(sla.getServiceProviderId());
+            SlaUser monitoringService = slaUserRepository.findById(sla.getMonitoringSolutionId());
             BlockchainConnector contractManager = new BlockchainConnector(provider.getPrivateKey());
-            contractAddress = contractManager.deployContract(sla, sloRepository.getAllBySlaId(sla.getId()), customer);
+            contractAddress = contractManager.deployContract(sla, sloRepository.getAllBySlaId(sla.getId()), customer, monitoringService);
             System.out.println("Deployed Smart Contract");
         }
         catch (RecordNotFoundException e) {

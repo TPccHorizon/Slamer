@@ -52,7 +52,7 @@ public class BlockchainConnector {
         this.contractGasProvider = new StaticGasProvider(GAS_PRICE, GAS_LIMIT);
     }
 
-    public String deployContract(Sla sla, List<ServiceLevelObjective> slos, SlaUser customer) throws Exception {
+    public String deployContract(Sla sla, List<ServiceLevelObjective> slos, SlaUser customer, SlaUser monitoringService) throws Exception {
         long diff = sla.getValidTo().getTime() - sla.getValidFrom().getTime();
         BigInteger daysOfValidity = BigInteger.valueOf(diff/ (1000 * 60 * 60 * 24));
         System.out.println("DAYS: " + daysOfValidity.toString());
@@ -64,6 +64,7 @@ public class BlockchainConnector {
                                 transactionManager,
                                 contractGasProvider,
                                 customer.getWallet(),
+                                monitoringService.getWallet(),
                                 price,
                                 daysOfValidity)
                 .send().getTransactionReceipt().get();
@@ -130,6 +131,7 @@ public class BlockchainConnector {
             System.out.println("Got Violation Event from Contract");
             System.out.println(log.toString());
             System.out.println(log.getTransactionHash());
+            System.out.println("SLA Active? "  + contract.isActive().send().toString());
         });
         contract.verifyAverageResponseTime(BigInteger.valueOf(measured.getSloId()), BigInteger.valueOf(multipliedValue)).send();
     }
