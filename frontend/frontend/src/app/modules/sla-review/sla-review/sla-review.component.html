@@ -26,7 +26,7 @@
         <td>{{sla.serviceCustomer.partyName}}</td>
         <td>{{sla.servicePrice}} ETH</td>
         <td class="{{sla.status}}">{{sla.status}}</td>
-        <td><a mat-stroked-button color="accent" (click)="openDialog(sla)">{{getButtonLabel(sla)}}</a></td>
+        <td><a mat-stroked-button color="accent" [disabled]="isPending(sla)" (click)="openDialog(sla)">{{getButtonLabel(sla)}}</a></td>
       </tr>
       </tbody>
     </table>

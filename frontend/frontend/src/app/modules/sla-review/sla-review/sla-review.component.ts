@@ -79,7 +79,9 @@ export class SlaReviewComponent  {
         }, error => {
           this.alertService.error("Unexpected error");
         });
-        this.refreshList();
+        this.delay(1000).then(any => {
+          this.refreshList();
+        });
       }
     })
 
@@ -130,7 +132,9 @@ export class SlaReviewComponent  {
         }, error => {
           this.alertService.error("SLA could not be deployed");
         });
-        this.refreshList();
+        this.delay(1000).then(any => {
+          this.refreshList();
+        });
       }
     });
   }
@@ -192,8 +196,18 @@ export class SlaReviewComponent  {
       label = 'Revise';
     } else if (status === SLA_STATES.DEPLOYMENT) {
       label = 'Activate';
+    } else if (this.isPending(sla)) {
+      label = 'Pending';
     }
     return label;
+  }
+
+  isPending(sla: SlaAndParties) {
+    return sla.status === SLA_STATES.PENDING_DEPLOYMENT || sla.status === SLA_STATES.PENDING_DEPOSIT
+  }
+
+  async delay(ms: number) {
+    await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("slept"));
   }
 
 }
