@@ -1,4 +1,4 @@
-<app-home></app-home>
+<app-home *ngIf="slas && slas.length > 0"></app-home>
 <div fxLayout="column" (matSortChange)="sortSlas($event)" fxLayoutAlign="start stretch">
 
   <div *ngIf="!loading">
