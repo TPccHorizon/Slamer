@@ -30,6 +30,22 @@
       </div>
 
       <div class="form-group">
+        <label >Wallet Address</label>
+        <input type="text" formControlName="wallet" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.wallet.errors }" />
+        <div *ngIf="submitted && f.wallet.errors" class="invalid-feedback">
+          <div *ngIf="f.wallet.errors.required">Wallet Address is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label >Private Key</label>
+        <input type="text" formControlName="privateKey" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.privateKey.errors }" />
+        <div *ngIf="submitted && f.wallet.errors" class="invalid-feedback">
+          <div *ngIf="f.privateKey.errors.required">Private Key is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
         <button [disabled]="loading" class="btn btn-primary">Register</button>
         <!--    TODO: loading spinner -->
         <a routerLink="/login" class="btn btn-link">Cancel</a>
