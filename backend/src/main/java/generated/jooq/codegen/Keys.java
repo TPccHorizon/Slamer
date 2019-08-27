@@ -63,7 +63,7 @@ public class Keys {
     public static final ForeignKey<ServiceLevelObjectiveRecord, SlaRecord> SERVICE_LEVEL_OBJECTIVE__SERVICE_LEVEL_OBJECTIVE_SLA_ID_FKEY = ForeignKeys0.SERVICE_LEVEL_OBJECTIVE__SERVICE_LEVEL_OBJECTIVE_SLA_ID_FKEY;
     public static final ForeignKey<SlaRecord, SlaUserRecord> SLA__SLA_SERVICE_PROVIDER_ID_FKEY = ForeignKeys0.SLA__SLA_SERVICE_PROVIDER_ID_FKEY;
     public static final ForeignKey<SlaRecord, SlaUserRecord> SLA__SLA_SERVICE_CUSTOMER_ID_FKEY = ForeignKeys0.SLA__SLA_SERVICE_CUSTOMER_ID_FKEY;
-    public static final ForeignKey<SlaRecord, SlaUserRecord> SLA__FK_MONITORING = ForeignKeys0.SLA__FK_MONITORING;
+    public static final ForeignKey<SlaRecord, SlaUserRecord> SLA__SLA_MONITORING_SOLUTION_ID_FKEY = ForeignKeys0.SLA__SLA_MONITORING_SOLUTION_ID_FKEY;
     public static final ForeignKey<SlaReviewRecord, SlaRecord> SLA_REVIEW__SLA_REVIEW_SLA_ID_FKEY = ForeignKeys0.SLA_REVIEW__SLA_REVIEW_SLA_ID_FKEY;
 
     // -------------------------------------------------------------------------
@@ -89,7 +89,7 @@ public class Keys {
         public static final ForeignKey<ServiceLevelObjectiveRecord, SlaRecord> SERVICE_LEVEL_OBJECTIVE__SERVICE_LEVEL_OBJECTIVE_SLA_ID_FKEY = Internal.createForeignKey(codegen.Keys.SLA_PKEY, ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE, "service_level_objective__service_level_objective_sla_id_fkey", ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE.SLA_ID);
         public static final ForeignKey<SlaRecord, SlaUserRecord> SLA__SLA_SERVICE_PROVIDER_ID_FKEY = Internal.createForeignKey(codegen.Keys.SLA_USER_PKEY, Sla.SLA, "sla__sla_service_provider_id_fkey", Sla.SLA.SERVICE_PROVIDER_ID);
         public static final ForeignKey<SlaRecord, SlaUserRecord> SLA__SLA_SERVICE_CUSTOMER_ID_FKEY = Internal.createForeignKey(codegen.Keys.SLA_USER_PKEY, Sla.SLA, "sla__sla_service_customer_id_fkey", Sla.SLA.SERVICE_CUSTOMER_ID);
-        public static final ForeignKey<SlaRecord, SlaUserRecord> SLA__FK_MONITORING = Internal.createForeignKey(codegen.Keys.SLA_USER_PKEY, Sla.SLA, "sla__fk_monitoring", Sla.SLA.MONITORING_SOLUTION_ID);
+        public static final ForeignKey<SlaRecord, SlaUserRecord> SLA__SLA_MONITORING_SOLUTION_ID_FKEY = Internal.createForeignKey(codegen.Keys.SLA_USER_PKEY, Sla.SLA, "sla__sla_monitoring_solution_id_fkey", Sla.SLA.MONITORING_SOLUTION_ID);
         public static final ForeignKey<SlaReviewRecord, SlaRecord> SLA_REVIEW__SLA_REVIEW_SLA_ID_FKEY = Internal.createForeignKey(codegen.Keys.SLA_PKEY, SlaReview.SLA_REVIEW, "sla_review__sla_review_sla_id_fkey", SlaReview.SLA_REVIEW.SLA_ID);
     }
 }
