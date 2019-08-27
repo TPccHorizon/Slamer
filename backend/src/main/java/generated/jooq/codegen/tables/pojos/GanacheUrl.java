@@ -22,20 +22,33 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class GanacheUrl implements Serializable {
 
-    private static final long serialVersionUID = -1834223230;
+    private static final long serialVersionUID = 563908422;
 
-    private String url;
+    private Integer id;
+    private String  url;
 
     public GanacheUrl() {}
 
     public GanacheUrl(GanacheUrl value) {
+        this.id = value.id;
         this.url = value.url;
     }
 
     public GanacheUrl(
-        String url
+        Integer id,
+        String  url
     ) {
+        this.id = id;
         this.url = url;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public GanacheUrl setId(Integer id) {
+        this.id = id;
+        return this;
     }
 
     public String getUrl() {
@@ -56,6 +69,12 @@ public class GanacheUrl implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         final GanacheUrl other = (GanacheUrl) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        }
+        else if (!id.equals(other.id))
+            return false;
         if (url == null) {
             if (other.url != null)
                 return false;
@@ -69,6 +88,7 @@ public class GanacheUrl implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
         result = prime * result + ((this.url == null) ? 0 : this.url.hashCode());
         return result;
     }
@@ -77,7 +97,8 @@ public class GanacheUrl implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder("GanacheUrl (");
 
-        sb.append(url);
+        sb.append(id);
+        sb.append(", ").append(url);
 
         sb.append(")");
         return sb.toString();

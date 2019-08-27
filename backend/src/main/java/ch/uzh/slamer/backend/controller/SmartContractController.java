@@ -5,6 +5,7 @@ import ch.uzh.slamer.backend.model.enums.LifecyclePhase;
 import ch.uzh.slamer.backend.model.enums.SlaStatus;
 import ch.uzh.slamer.backend.model.pojo.SmartContractDeployment;
 import ch.uzh.slamer.backend.model.pojo.SmartContractDeposit;
+import ch.uzh.slamer.backend.repository.GanacheRepositoriy;
 import ch.uzh.slamer.backend.repository.ServiceLevelObjectiveRepository;
 import ch.uzh.slamer.backend.repository.SlaRepository;
 import ch.uzh.slamer.backend.repository.SlaUserRepository;
@@ -33,6 +34,9 @@ public class SmartContractController {
     @Autowired
     ServiceLevelObjectiveRepository sloRepository;
 
+    @Autowired
+    GanacheRepositoriy ganacheRepositoriy;
+
     @RequestMapping(method = RequestMethod.POST, path = "/deploy")
     public ResponseEntity<Boolean> deploySLA(@RequestBody SmartContractDeployment deployment) {
         String contractAddress;
@@ -55,7 +59,8 @@ public class SmartContractController {
             SlaUser customer = slaUserRepository.findById(sla.getServiceCustomerId());
             SlaUser provider = slaUserRepository.findById(sla.getServiceProviderId());
             SlaUser monitoringService = slaUserRepository.findById(sla.getMonitoringSolutionId());
-            BlockchainConnector contractManager = new BlockchainConnector(provider.getPrivateKey());
+            String ganacheUrl = ganacheRepositoriy.getFirst().getUrl();
+            BlockchainConnector contractManager = new BlockchainConnector(provider.getPrivateKey(), ganacheUrl);
             contractAddress = contractManager.deployContract(sla, sloRepository.getAllBySlaId(sla.getId()), customer, monitoringService);
             System.out.println("Deployed Smart Contract");
         }
@@ -100,7 +105,8 @@ public class SmartContractController {
                 System.out.println("SLA is not active or has no Smart Contract Address");
                 return new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED);
             }
-            BlockchainConnector connector = new BlockchainConnector(customer.getPrivateKey());
+            String ganacheUrl = ganacheRepositoriy.getFirst().getUrl();
+            BlockchainConnector connector = new BlockchainConnector(customer.getPrivateKey(), ganacheUrl);
             /* Save intermediate state as pending */
             sla.setStatus(SlaStatus.PENDING_DEPOSIT.getStatus());
             slaRepository.update(sla);
@@ -142,7 +148,8 @@ public class SmartContractController {
             System.out.println("Accessing User is not part of the SLA");
             return new ResponseEntity<>(Float.intBitsToFloat(0), HttpStatus.UNAUTHORIZED);
         }
-        BlockchainConnector connector = new BlockchainConnector(slaUser.getPrivateKey());
+        String ganacheUrl = ganacheRepositoriy.getFirst().getUrl();
+        BlockchainConnector connector = new BlockchainConnector(slaUser.getPrivateKey(), ganacheUrl);
         try {
             float balance = connector.getEtherContractBalance(sla.getHash());
             return new ResponseEntity<>(balance, HttpStatus.OK);
@@ -168,7 +175,8 @@ public class SmartContractController {
             System.out.println("Accessing Party is not part of the SLA");
             return new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED);
         }
-        BlockchainConnector connector = new BlockchainConnector(slaUser.getPrivateKey());
+        String ganacheUrl = ganacheRepositoriy.getFirst().getUrl();
+        BlockchainConnector connector = new BlockchainConnector(slaUser.getPrivateKey(), ganacheUrl);
         try {
             boolean isValid = connector.isSLAValid(sla.getHash());
             return new ResponseEntity<>(isValid, HttpStatus.OK);
@@ -189,7 +197,8 @@ public class SmartContractController {
             e.printStackTrace();
             return new ResponseEntity<>("SLA Not found", HttpStatus.NOT_FOUND);
         }
-        BlockchainConnector connector = new BlockchainConnector(user.getPrivateKey());
+        String ganacheUrl = ganacheRepositoriy.getFirst().getUrl();
+        BlockchainConnector connector = new BlockchainConnector(user.getPrivateKey(), ganacheUrl);
         try {
             String data = connector.getSLAData(sla.getHash());
             return new ResponseEntity<>(data, HttpStatus.OK);
@@ -211,7 +220,8 @@ public class SmartContractController {
             System.out.println("SLA or User not found");
             return new ResponseEntity<>("SLA or User not found", HttpStatus.NOT_FOUND);
         }
-        BlockchainConnector connector = new BlockchainConnector(user.getPrivateKey());
+        String ganacheUrl = ganacheRepositoriy.getFirst().getUrl();
+        BlockchainConnector connector = new BlockchainConnector(user.getPrivateKey(), ganacheUrl);
         try {
             TransactionReceipt receipt = connector.terminateSLA(sla.getHash());
             sla.setLifecyclePhase(LifecyclePhase.TERMINATION.getPhase());
@@ -248,7 +258,8 @@ public class SmartContractController {
         SlaUser user;
         try {
             user = slaUserRepository.findById(userId);
-            BlockchainConnector connector = new BlockchainConnector(user.getPrivateKey());
+            String ganacheUrl = ganacheRepositoriy.getFirst().getUrl();
+            BlockchainConnector connector = new BlockchainConnector(user.getPrivateKey(), ganacheUrl);
             String balance = connector.getWalletBalance(user.getWallet());
             return new ResponseEntity<>(balance, HttpStatus.OK);
         } catch (RecordNotFoundException e) {

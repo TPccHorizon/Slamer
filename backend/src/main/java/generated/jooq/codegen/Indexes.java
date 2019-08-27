@@ -48,7 +48,7 @@ public class Indexes {
 
     private static class Indexes0 {
         public static Index DATABASECHANGELOGLOCK_PKEY = Internal.createIndex("databasechangeloglock_pkey", Databasechangeloglock.DATABASECHANGELOGLOCK, new OrderField[] { Databasechangeloglock.DATABASECHANGELOGLOCK.ID }, true);
-        public static Index GANACHE_URL_PKEY = Internal.createIndex("ganache_url_pkey", GanacheUrl.GANACHE_URL, new OrderField[] { GanacheUrl.GANACHE_URL.URL }, true);
+        public static Index GANACHE_URL_PKEY = Internal.createIndex("ganache_url_pkey", GanacheUrl.GANACHE_URL, new OrderField[] { GanacheUrl.GANACHE_URL.ID }, true);
         public static Index SERVICE_LEVEL_OBJECTIVE_PKEY = Internal.createIndex("service_level_objective_pkey", ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE, new OrderField[] { ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE.ID }, true);
         public static Index SLA_PKEY = Internal.createIndex("sla_pkey", Sla.SLA, new OrderField[] { Sla.SLA.ID }, true);
         public static Index SLA_REVIEW_PKEY = Internal.createIndex("sla_review_pkey", SlaReview.SLA_REVIEW, new OrderField[] { SlaReview.SLA_REVIEW.ID }, true);

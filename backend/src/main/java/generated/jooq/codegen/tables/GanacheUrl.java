@@ -16,6 +16,7 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -40,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class GanacheUrl extends TableImpl<GanacheUrlRecord> {
 
-    private static final long serialVersionUID = -1458698023;
+    private static final long serialVersionUID = -840018897;
 
     /**
      * The reference instance of <code>public.ganache_url</code>
@@ -56,9 +57,14 @@ public class GanacheUrl extends TableImpl<GanacheUrlRecord> {
     }
 
     /**
+     * The column <code>public.ganache_url.id</code>.
+     */
+    public final TableField<GanacheUrlRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('ganache_url_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+
+    /**
      * The column <code>public.ganache_url.url</code>.
      */
-    public final TableField<GanacheUrlRecord, String> URL = createField("url", org.jooq.impl.SQLDataType.VARCHAR.nullable(false), this, "");
+    public final TableField<GanacheUrlRecord, String> URL = createField("url", org.jooq.impl.SQLDataType.VARCHAR, this, "");
 
     /**
      * Create a <code>public.ganache_url</code> table reference
@@ -107,6 +113,14 @@ public class GanacheUrl extends TableImpl<GanacheUrlRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.GANACHE_URL_PKEY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Identity<GanacheUrlRecord, Integer> getIdentity() {
+        return Keys.IDENTITY_GANACHE_URL;
     }
 
     /**

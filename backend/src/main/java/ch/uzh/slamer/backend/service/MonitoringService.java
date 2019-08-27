@@ -5,6 +5,7 @@ import ch.uzh.slamer.backend.model.dto.MeasuredResponseTime;
 import ch.uzh.slamer.backend.model.enums.LifecyclePhase;
 import ch.uzh.slamer.backend.model.enums.SlaStatus;
 import ch.uzh.slamer.backend.model.pojo.SlaForMonitoring;
+import ch.uzh.slamer.backend.repository.GanacheRepositoriy;
 import ch.uzh.slamer.backend.repository.SlaRepository;
 import ch.uzh.slamer.backend.repository.SlaUserRepository;
 import ch.uzh.slamer.backend.smartcontract.BlockchainConnector;
@@ -20,6 +21,9 @@ public class MonitoringService {
 
     @Autowired
     SlaUserRepository slaUserRepository;
+
+    @Autowired
+    GanacheRepositoriy ganacheRepositoriy;
 
     public boolean checkResponseTime(MeasuredResponseTime measured) {
         SlaForMonitoring sla = getSLA(measured.getSlaId());
@@ -58,7 +62,8 @@ public class MonitoringService {
 
     private BlockchainConnector getBlockchainConnector(SlaForMonitoring sla){
         /* Initialize contract manager with monitoring solution account */
-        return new BlockchainConnector(sla.getMonitoringSolution().getPrivateKey());
+        String ganacheUrl = ganacheRepositoriy.getFirst().getUrl();
+        return new BlockchainConnector(sla.getMonitoringSolution().getPrivateKey(), ganacheUrl);
     }
 
     private boolean isCorrectWallet(SlaForMonitoring sla, MeasuredResponseTime measured) {

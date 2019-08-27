@@ -43,6 +43,7 @@ public class Keys {
     // IDENTITY definitions
     // -------------------------------------------------------------------------
 
+    public static final Identity<GanacheUrlRecord, Integer> IDENTITY_GANACHE_URL = Identities0.IDENTITY_GANACHE_URL;
     public static final Identity<ServiceLevelObjectiveRecord, Integer> IDENTITY_SERVICE_LEVEL_OBJECTIVE = Identities0.IDENTITY_SERVICE_LEVEL_OBJECTIVE;
     public static final Identity<SlaRecord, Integer> IDENTITY_SLA = Identities0.IDENTITY_SLA;
     public static final Identity<SlaReviewRecord, Integer> IDENTITY_SLA_REVIEW = Identities0.IDENTITY_SLA_REVIEW;
@@ -74,6 +75,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     private static class Identities0 {
+        public static Identity<GanacheUrlRecord, Integer> IDENTITY_GANACHE_URL = Internal.createIdentity(GanacheUrl.GANACHE_URL, GanacheUrl.GANACHE_URL.ID);
         public static Identity<ServiceLevelObjectiveRecord, Integer> IDENTITY_SERVICE_LEVEL_OBJECTIVE = Internal.createIdentity(ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE, ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE.ID);
         public static Identity<SlaRecord, Integer> IDENTITY_SLA = Internal.createIdentity(Sla.SLA, Sla.SLA.ID);
         public static Identity<SlaReviewRecord, Integer> IDENTITY_SLA_REVIEW = Internal.createIdentity(SlaReview.SLA_REVIEW, SlaReview.SLA_REVIEW.ID);
@@ -82,7 +84,7 @@ public class Keys {
 
     private static class UniqueKeys0 {
         public static final UniqueKey<DatabasechangeloglockRecord> DATABASECHANGELOGLOCK_PKEY = Internal.createUniqueKey(Databasechangeloglock.DATABASECHANGELOGLOCK, "databasechangeloglock_pkey", Databasechangeloglock.DATABASECHANGELOGLOCK.ID);
-        public static final UniqueKey<GanacheUrlRecord> GANACHE_URL_PKEY = Internal.createUniqueKey(GanacheUrl.GANACHE_URL, "ganache_url_pkey", GanacheUrl.GANACHE_URL.URL);
+        public static final UniqueKey<GanacheUrlRecord> GANACHE_URL_PKEY = Internal.createUniqueKey(GanacheUrl.GANACHE_URL, "ganache_url_pkey", GanacheUrl.GANACHE_URL.ID);
         public static final UniqueKey<ServiceLevelObjectiveRecord> SERVICE_LEVEL_OBJECTIVE_PKEY = Internal.createUniqueKey(ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE, "service_level_objective_pkey", ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE.ID);
         public static final UniqueKey<SlaRecord> SLA_PKEY = Internal.createUniqueKey(Sla.SLA, "sla_pkey", Sla.SLA.ID);
         public static final UniqueKey<SlaReviewRecord> SLA_REVIEW_PKEY = Internal.createUniqueKey(SlaReview.SLA_REVIEW, "sla_review_pkey", SlaReview.SLA_REVIEW.ID);
