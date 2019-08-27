@@ -2,7 +2,9 @@ package ch.uzh.slamer.backend.controller;
 
 import ch.uzh.slamer.backend.exception.RecordNotFoundException;
 import ch.uzh.slamer.backend.model.dto.SlaUserDTO;
+import ch.uzh.slamer.backend.repository.GanacheRepositoriy;
 import ch.uzh.slamer.backend.repository.SlaUserRepository;
+import codegen.tables.pojos.GanacheUrl;
 import codegen.tables.pojos.SlaUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class UserController {
 
     @Autowired
     ModelMapper mapper;
+
+    @Autowired
+    GanacheRepositoriy ganacheRepositoriy;
 
     @RequestMapping(method = RequestMethod.PUT, path = "users/{id}")
     public ResponseEntity<Boolean> updateWallet(@RequestBody SlaUserDTO userDTO, @PathVariable int id) {
@@ -44,5 +49,29 @@ public class UserController {
         List<SlaUserDTO> serviceDtos = monitoringServices.stream().map(service -> mapper.map(service, SlaUserDTO.class))
                 .collect(Collectors.toList());
         return new ResponseEntity<>(serviceDtos, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "users/ganache")
+    public ResponseEntity<GanacheUrl> getGanacheUrl() {
+        try {
+            GanacheUrl url = ganacheRepositoriy.getFirst();
+            return new ResponseEntity<>(url, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, path = "user/ganache")
+    public ResponseEntity<Boolean> updateGanacheUrl(@RequestBody GanacheUrl ganacheUrl) {
+        try {
+            ganacheRepositoriy.update(ganacheUrl);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } catch (RecordNotFoundException e) {
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(false, HttpStatus.CONFLICT);
+        }
     }
 }

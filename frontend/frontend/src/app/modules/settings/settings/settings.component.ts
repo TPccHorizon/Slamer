@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {SlaUserService} from "../../../core/services/sla-user.service";
 import {AlertService} from "../../../core/services/alert.service";
 import {BalanceService} from "../../../core/services/balance.service";
+import {GanacheService} from "../../../core/services/ganache.service";
 
 @Component({
   selector: 'app-settings',
@@ -22,7 +23,8 @@ export class SettingsComponent implements OnInit {
               private formBuilder: FormBuilder,
               private slaUserService: SlaUserService,
               private alertService: AlertService,
-              private balanceService: BalanceService) { }
+              private balanceService: BalanceService,
+              private ganacheService: GanacheService) { }
 
   ngOnInit() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -34,6 +36,7 @@ export class SettingsComponent implements OnInit {
       });
 
     });
+
     this.ipFormGroup = this.formBuilder.group({
       ipAddress: []
     })
