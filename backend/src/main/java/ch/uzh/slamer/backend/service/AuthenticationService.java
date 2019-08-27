@@ -39,7 +39,7 @@ public class AuthenticationService {
 
     private SlaUser getSafeUser(SlaUser user) {
         return  new SlaUser(null, bCryptPasswordEncoder.encode(user.getPassword()), user.getUsername(),
-                user.getPartyName(), user.getPartyType(), user.getWallet(), user.getPrivateKey());
+                user.getPartyType(), user.getPartyName(), user.getWallet(), user.getPrivateKey());
     }
 
     public boolean checkUserCredentials(String password, SlaUser user) {
