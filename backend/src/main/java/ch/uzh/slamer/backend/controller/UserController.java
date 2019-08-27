@@ -62,10 +62,15 @@ public class UserController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.PUT, path = "user/ganache")
+    @RequestMapping(method = RequestMethod.PUT, path = "users/ganache")
     public ResponseEntity<Boolean> updateGanacheUrl(@RequestBody GanacheUrl ganacheUrl) {
         try {
-            ganacheRepositoriy.update(ganacheUrl);
+            GanacheUrl url = ganacheRepositoriy.getFirst();
+            if (url != null) {
+                ganacheRepositoriy.update(ganacheUrl);
+            } else {
+                ganacheRepositoriy.add(ganacheUrl);
+            }
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (RecordNotFoundException e) {
             return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);

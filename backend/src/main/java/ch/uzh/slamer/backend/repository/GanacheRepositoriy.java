@@ -25,8 +25,12 @@ public class GanacheRepositoriy extends AbstractRepository<GanacheUrlRecord, Int
 
     @Transactional
     public GanacheUrl getFirst() {
-        return context.selectFrom(GANACHE_URL)
+        GanacheUrlRecord record = context.selectFrom(GANACHE_URL)
                 .where(GANACHE_URL.ID.greaterOrEqual(0))
-                .fetchOne().into(GanacheUrl.class);
+                .fetchOne();
+        if (record != null) {
+            return record.into(GanacheUrl.class);
+        }
+        return null;
     }
 }

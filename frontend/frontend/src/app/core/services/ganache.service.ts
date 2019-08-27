@@ -12,7 +12,7 @@ export class GanacheService {
               private config: Config) { }
 
   getUrl() {
-    return this.http.get(`${this.config.apiUrl}/users/ganache`);
+    return this.http.get<Ganache>(`${this.config.apiUrl}/users/ganache`);
   }
 
   updateUrl(ganache: Ganache) {

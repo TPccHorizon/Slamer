@@ -1,4 +1,4 @@
 export class Ganache {
-  id;
-  url;
+  id: number;
+  url: string;
 }
