@@ -44,7 +44,7 @@ public class BlockchainConnector {
     }
 
     private void connect(String privateKey) {
-        this.web3j = Web3j.build(new HttpService());
+        this.web3j = Web3j.build(new HttpService("http:0.0.0.0:8545"));
         this.transactionManager = new RawTransactionManager(
                 web3j,
                 getCredentialsFromKey(privateKey)

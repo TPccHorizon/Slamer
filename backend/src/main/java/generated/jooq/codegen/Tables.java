@@ -6,6 +6,7 @@ package codegen;
 
 import codegen.tables.Databasechangelog;
 import codegen.tables.Databasechangeloglock;
+import codegen.tables.GanacheUrl;
 import codegen.tables.ServiceLevelObjective;
 import codegen.tables.Sla;
 import codegen.tables.SlaReview;
@@ -36,6 +37,11 @@ public class Tables {
      * The table <code>public.databasechangeloglock</code>.
      */
     public static final Databasechangeloglock DATABASECHANGELOGLOCK = codegen.tables.Databasechangeloglock.DATABASECHANGELOGLOCK;
+
+    /**
+     * The table <code>public.ganache_url</code>.
+     */
+    public static final GanacheUrl GANACHE_URL = codegen.tables.GanacheUrl.GANACHE_URL;
 
     /**
      * The table <code>public.service_level_objective</code>.

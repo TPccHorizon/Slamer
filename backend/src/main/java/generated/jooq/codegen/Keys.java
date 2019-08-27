@@ -5,11 +5,13 @@ package codegen;
 
 
 import codegen.tables.Databasechangeloglock;
+import codegen.tables.GanacheUrl;
 import codegen.tables.ServiceLevelObjective;
 import codegen.tables.Sla;
 import codegen.tables.SlaReview;
 import codegen.tables.SlaUser;
 import codegen.tables.records.DatabasechangeloglockRecord;
+import codegen.tables.records.GanacheUrlRecord;
 import codegen.tables.records.ServiceLevelObjectiveRecord;
 import codegen.tables.records.SlaRecord;
 import codegen.tables.records.SlaReviewRecord;
@@ -51,6 +53,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final UniqueKey<DatabasechangeloglockRecord> DATABASECHANGELOGLOCK_PKEY = UniqueKeys0.DATABASECHANGELOGLOCK_PKEY;
+    public static final UniqueKey<GanacheUrlRecord> GANACHE_URL_PKEY = UniqueKeys0.GANACHE_URL_PKEY;
     public static final UniqueKey<ServiceLevelObjectiveRecord> SERVICE_LEVEL_OBJECTIVE_PKEY = UniqueKeys0.SERVICE_LEVEL_OBJECTIVE_PKEY;
     public static final UniqueKey<SlaRecord> SLA_PKEY = UniqueKeys0.SLA_PKEY;
     public static final UniqueKey<SlaReviewRecord> SLA_REVIEW_PKEY = UniqueKeys0.SLA_REVIEW_PKEY;
@@ -79,6 +82,7 @@ public class Keys {
 
     private static class UniqueKeys0 {
         public static final UniqueKey<DatabasechangeloglockRecord> DATABASECHANGELOGLOCK_PKEY = Internal.createUniqueKey(Databasechangeloglock.DATABASECHANGELOGLOCK, "databasechangeloglock_pkey", Databasechangeloglock.DATABASECHANGELOGLOCK.ID);
+        public static final UniqueKey<GanacheUrlRecord> GANACHE_URL_PKEY = Internal.createUniqueKey(GanacheUrl.GANACHE_URL, "ganache_url_pkey", GanacheUrl.GANACHE_URL.URL);
         public static final UniqueKey<ServiceLevelObjectiveRecord> SERVICE_LEVEL_OBJECTIVE_PKEY = Internal.createUniqueKey(ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE, "service_level_objective_pkey", ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE.ID);
         public static final UniqueKey<SlaRecord> SLA_PKEY = Internal.createUniqueKey(Sla.SLA, "sla_pkey", Sla.SLA.ID);
         public static final UniqueKey<SlaReviewRecord> SLA_REVIEW_PKEY = Internal.createUniqueKey(SlaReview.SLA_REVIEW, "sla_review_pkey", SlaReview.SLA_REVIEW.ID);

@@ -54,4 +54,8 @@ CREATE TABLE sla_review (
   value_type VARCHAR
 );
 
+CREATE TABLE ganache_url (
+  url VARCHAR PRIMARY KEY
+);
+
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO postgres

@@ -16,6 +16,7 @@ export class SettingsComponent implements OnInit {
   user: SlaUser;
   isReadOnly = true;
   formGroup: FormGroup;
+  ipFormGroup: FormGroup;
 
   constructor(private authService: AuthenticationService,
               private formBuilder: FormBuilder,
@@ -31,7 +32,11 @@ export class SettingsComponent implements OnInit {
         wallet: [user.wallet],
         privateKey: [user.privateKey]
       });
+
     });
+    this.ipFormGroup = this.formBuilder.group({
+      ipAddress: []
+    })
   }
 
   edit() {
