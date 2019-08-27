@@ -4,6 +4,7 @@
   .Monitoring,
   .Termination,
   .PenaltyEnforcement,
+  .Failed,
   .Definition {
     color: mat-color($frontend-info);
   }
@@ -17,6 +18,9 @@
     color: mat-color($frontend-accent);
   }
   .PenaltyEnforcement {
+    color: mat-color($frontend-error);
+  }
+  .Failed {
     color: mat-color($frontend-error);
   }
 }

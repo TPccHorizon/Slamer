@@ -78,7 +78,8 @@ export class SlaReviewComponent  {
           }
         }, error => {
           this.alertService.error("Unexpected error");
-        })
+        });
+        this.refreshList();
       }
     })
 
@@ -120,15 +121,16 @@ export class SlaReviewComponent  {
 
     dialogRef.afterClosed().subscribe(doDeploy => {
       if (doDeploy) {
-        //TODO: service to deploy smart contract
         console.log("Deploy SLA!");
         this.slaService.deploy(sla).pipe(first()).subscribe(res => {
           console.log(res);
           this.refreshList();
           this.balanceService.getBalance();
           this.alertService.success("SLA has been deployed");
+        }, error => {
+          this.alertService.error("SLA could not be deployed");
         });
-
+        this.refreshList();
       }
     });
   }

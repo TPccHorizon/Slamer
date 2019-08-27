@@ -38,7 +38,7 @@ public class AuthenticationService {
     }
 
     private SlaUser getSafeUser(SlaUser user) {
-        return  new SlaUser(null, bCryptPasswordEncoder.encode(user.getPassword()), user.getPhoneNr(), user.getUsername(),
+        return  new SlaUser(null, bCryptPasswordEncoder.encode(user.getPassword()), user.getUsername(),
                 user.getPartyName(), user.getPartyType(), user.getWallet(), user.getPrivateKey());
     }
 

@@ -22,12 +22,10 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SlaUser implements Serializable {
 
-    private static final long serialVersionUID = 1302139622;
+    private static final long serialVersionUID = -843397092;
 
     private Integer id;
     private String  password;
-    private String  salt;
-    private String  phoneNr;
     private String  username;
     private String  partyType;
     private String  partyName;
@@ -39,8 +37,6 @@ public class SlaUser implements Serializable {
     public SlaUser(SlaUser value) {
         this.id = value.id;
         this.password = value.password;
-        this.salt = value.salt;
-        this.phoneNr = value.phoneNr;
         this.username = value.username;
         this.partyType = value.partyType;
         this.partyName = value.partyName;
@@ -51,8 +47,6 @@ public class SlaUser implements Serializable {
     public SlaUser(
         Integer id,
         String  password,
-        String  salt,
-        String  phoneNr,
         String  username,
         String  partyType,
         String  partyName,
@@ -61,8 +55,6 @@ public class SlaUser implements Serializable {
     ) {
         this.id = id;
         this.password = password;
-        this.salt = salt;
-        this.phoneNr = phoneNr;
         this.username = username;
         this.partyType = partyType;
         this.partyName = partyName;
@@ -85,24 +77,6 @@ public class SlaUser implements Serializable {
 
     public SlaUser setPassword(String password) {
         this.password = password;
-        return this;
-    }
-
-    public String getSalt() {
-        return this.salt;
-    }
-
-    public SlaUser setSalt(String salt) {
-        this.salt = salt;
-        return this;
-    }
-
-    public String getPhoneNr() {
-        return this.phoneNr;
-    }
-
-    public SlaUser setPhoneNr(String phoneNr) {
-        this.phoneNr = phoneNr;
         return this;
     }
 
@@ -172,18 +146,6 @@ public class SlaUser implements Serializable {
         }
         else if (!password.equals(other.password))
             return false;
-        if (salt == null) {
-            if (other.salt != null)
-                return false;
-        }
-        else if (!salt.equals(other.salt))
-            return false;
-        if (phoneNr == null) {
-            if (other.phoneNr != null)
-                return false;
-        }
-        else if (!phoneNr.equals(other.phoneNr))
-            return false;
         if (username == null) {
             if (other.username != null)
                 return false;
@@ -223,8 +185,6 @@ public class SlaUser implements Serializable {
         int result = 1;
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
         result = prime * result + ((this.password == null) ? 0 : this.password.hashCode());
-        result = prime * result + ((this.salt == null) ? 0 : this.salt.hashCode());
-        result = prime * result + ((this.phoneNr == null) ? 0 : this.phoneNr.hashCode());
         result = prime * result + ((this.username == null) ? 0 : this.username.hashCode());
         result = prime * result + ((this.partyType == null) ? 0 : this.partyType.hashCode());
         result = prime * result + ((this.partyName == null) ? 0 : this.partyName.hashCode());
@@ -239,8 +199,6 @@ public class SlaUser implements Serializable {
 
         sb.append(id);
         sb.append(", ").append(password);
-        sb.append(", ").append(salt);
-        sb.append(", ").append(phoneNr);
         sb.append(", ").append(username);
         sb.append(", ").append(partyType);
         sb.append(", ").append(partyName);
