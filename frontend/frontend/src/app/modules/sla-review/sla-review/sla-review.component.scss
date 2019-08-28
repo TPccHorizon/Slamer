@@ -1,0 +1,29 @@
+@mixin states($frontend-info, $frontend-success, $frontend-warning, $frontend-error) {
+  .Identified,
+  .Requested,
+  .Accepted,
+  .Rejected,
+  .Deployment,
+  .Active,
+  .Inactive {
+    color: mat-color($frontend-info);
+  }
+  .Identified {
+    color: mat-color($frontend-primary);
+  }
+  .Requested {
+    color: mat-color($frontend-accent);
+  }
+  .Accepted {
+    color: mat-color($frontend-success);
+  }
+  .Rejected {
+    color: mat-color($frontend-error);
+  }
+  .Deployment {
+    color: mat-color($frontend-theme);
+  }
+  .Active {
+    color: mat-color($frontend-success);
+  }
+}

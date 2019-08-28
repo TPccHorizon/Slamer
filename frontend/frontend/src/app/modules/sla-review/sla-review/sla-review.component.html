@@ -1,0 +1,44 @@
+<div fxLayout="column" (matSortChange)="sortSlas($event)" fxLayoutAlign="start stretch">
+
+  <div *ngIf="!loading">
+
+
+    <table matSort (matSortChange)="sortSlas($event)" class="table">
+      <thead>
+      <tr>
+        <th mat-sort-header="title">SLA Title</th>
+        <th mat-sort-header="start">Start</th>
+        <th mat-sort-header="end">End</th>
+        <th mat-sort-header="sp">Service Provider</th>
+        <th mat-sort-header="customer">Customer</th>
+        <th mat-sort-header="price">Price</th>
+        <th mat-sort-header="status">Status</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+
+      <tr *ngFor="let sla of slas">
+        <td>{{sla.title}}</td>
+        <td>{{sla.validFrom}}</td>
+        <td>{{sla.validTo}}</td>
+        <td>{{sla.serviceProvider.partyName}}</td>
+        <td>{{sla.serviceCustomer.partyName}}</td>
+        <td>{{sla.servicePrice}} ETH</td>
+        <td class="{{sla.status}}">{{sla.status}}</td>
+        <td><a mat-stroked-button color="accent" [disabled]="isPending(sla)" (click)="openDialog(sla)">{{getButtonLabel(sla)}}</a></td>
+      </tr>
+      </tbody>
+    </table>
+    <div *ngIf="slas.length===0">
+      There are no new SLAs at the moment.
+    </div>
+
+  </div>
+
+  <div *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+
+
+</div>

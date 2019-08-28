@@ -1,0 +1,23 @@
+
+<div style="border-right: 1px solid rgba(0, 0, 0, 0.87)">
+  <h3>SLOs in your SLA</h3>
+  <div *ngIf="createdSlos" >
+
+    <mat-list>
+      <mat-list-item *ngFor="let slo of createdSlos">
+        <h2 matLine> {{slo.name}} </h2>
+        <p matLine>
+          <span>{{slo.sloType}}</span>
+        </p>
+        <mat-divider></mat-divider>
+        <mat-divider [vertical]="true"></mat-divider>
+      </mat-list-item>
+    </mat-list>
+
+
+  </div>
+  <div *ngIf="!createdSlos || createdSlos.length == 0">
+    No SLOs yet
+  </div>
+</div>
+

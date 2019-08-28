@@ -1,0 +1,11 @@
+@import "~src/app/modules/sla-creation/sla-create/sla-create.component";
+
+@import "custom-theme.scss";
+
+@import "custom-component-themes.scss";
+
+.frontend-theme {
+  @include angular-material-theme($frontend-theme);
+  @include custom-components-theme($frontend-theme, $frontend-accent, $frontend-success, $frontend-warning, $frontend-error);
+
+}

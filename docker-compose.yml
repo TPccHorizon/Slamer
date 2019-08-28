@@ -1,0 +1,33 @@
+version: '3'
+services:
+
+  database:
+    build: ./database/
+    restart: always
+    container_name: "sla_management"
+    environment:
+      POSTGRES_DB: sla_management
+#      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+    ports:
+      - 5432:5432
+    volumes:
+#      - ./database/init/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - data:/var/lib/postgresql/data
+
+  backend:
+    build: backend
+    image: spring
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+
+  frontend:
+    build: frontend/frontend
+    image: angular
+    restart: always
+    ports:
+      - 3000:80
+volumes:
+  data:

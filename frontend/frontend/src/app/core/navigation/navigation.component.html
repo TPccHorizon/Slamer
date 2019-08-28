@@ -1,31 +1,67 @@
-<mat-sidenav-container fullscreen class="example-sidenav-container" color="warn">
-  <mat-sidenav #drawer mode="side" opened role="navigation">
+<mat-toolbar role="heading" color="accent" >
+  <span class="toggle-button" [routerLink]="['/']">SLAMer</span>
+  <span class="fill-toolbar"></span>
+  <span *ngIf="authService.isLoggedIn()" style="margin-right: 20px;">
+    Balance: {{balanceService.currentBalance}} ETH
+
+  </span>
+  <span *ngIf="authService.isLoggedIn()">
+    {{authService.currentUserValue.partyName}}
+  </span>
+
+  <div *ngIf="authService.isLoggedIn()">
+    <mat-menu #matMenu="matMenu" >
+      <button mat-menu-item (click)="toSettings()">
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </button>
+      <button mat-menu-item (click)="authService.logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+    <button mat-icon-button [matMenuTriggerFor]="matMenu">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+
+
+</mat-toolbar>
+<mat-sidenav-container fullscreen class="example-sidenav-container">
+  <mat-sidenav #drawer mode="side" opened [attr.color]="themeColor"
+  class="navigation-sidebar" fixedInViewport="true" [fixedTopGap]="64">
 
     <div *ngIf="!authService.isLoggedIn()">
       <mat-nav-list *ngIf="!authService.isLoggedIn()">
-        <a mat-list-item routerLink='/login'>Login</a>
+        <a mat-list-item [routerLink]="['/login']">Login</a>
       </mat-nav-list>
 
       <mat-nav-list *ngIf="!authService.isLoggedIn()">
-        <a mat-list-item routerLink='/register'>Register</a>
+        <a mat-list-item [routerLink]="['/register']">Register</a>
       </mat-nav-list>
     </div>
     <div *ngIf="authService.isLoggedIn()">
       <mat-nav-list>
-        <a mat-list-item routerLink="/sla/create">New SLA</a>
+        <a mat-list-item [routerLink]="['/']"><mat-icon>home</mat-icon> Home</a>
       </mat-nav-list>
+
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="['/new']"><mat-icon>add</mat-icon> Create SLA</a>
+      </mat-nav-list>
+
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="['/slas/review']"><mat-icon>notification_important</mat-icon>
+          <span matBadge="{{newSlas}}" matBadgeColor="warn" [matBadgeHidden]="newSlas===0"
+                                                         matBadgeOverlap="false">Notifications</span>
+        </a>
+      </mat-nav-list>
+
     </div>
 
-
-
   </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <mat-toolbar-row>
 
-      </mat-toolbar-row>
-    </mat-toolbar>
-    <app-alert></app-alert>
+  <mat-sidenav-content role="main">
+
     <app-base-layout></app-base-layout>
   </mat-sidenav-content>
 

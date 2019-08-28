@@ -43,7 +43,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Sla extends TableImpl<SlaRecord> {
 
-    private static final long serialVersionUID = -1842558307;
+    private static final long serialVersionUID = 236650709;
 
     /**
      * The reference instance of <code>public.sla</code>
@@ -62,6 +62,11 @@ public class Sla extends TableImpl<SlaRecord> {
      * The column <code>public.sla.id</code>.
      */
     public final TableField<SlaRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('sla_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+
+    /**
+     * The column <code>public.sla.title</code>.
+     */
+    public final TableField<SlaRecord, String> TITLE = createField("title", org.jooq.impl.SQLDataType.VARCHAR.nullable(false), this, "");
 
     /**
      * The column <code>public.sla.status</code>.
@@ -97,6 +102,16 @@ public class Sla extends TableImpl<SlaRecord> {
      * The column <code>public.sla.service_customer_id</code>.
      */
     public final TableField<SlaRecord, Integer> SERVICE_CUSTOMER_ID = createField("service_customer_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+
+    /**
+     * The column <code>public.sla.monitoring_solution_id</code>.
+     */
+    public final TableField<SlaRecord, Integer> MONITORING_SOLUTION_ID = createField("monitoring_solution_id", org.jooq.impl.SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>public.sla.hash</code>.
+     */
+    public final TableField<SlaRecord, String> HASH = createField("hash", org.jooq.impl.SQLDataType.VARCHAR, this, "");
 
     /**
      * Create a <code>public.sla</code> table reference
@@ -176,7 +191,7 @@ public class Sla extends TableImpl<SlaRecord> {
      */
     @Override
     public List<ForeignKey<SlaRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<SlaRecord, ?>>asList(Keys.SLA__SLA_SERVICE_PROVIDER_ID_FKEY, Keys.SLA__SLA_SERVICE_CUSTOMER_ID_FKEY);
+        return Arrays.<ForeignKey<SlaRecord, ?>>asList(Keys.SLA__SLA_SERVICE_PROVIDER_ID_FKEY, Keys.SLA__SLA_SERVICE_CUSTOMER_ID_FKEY, Keys.SLA__SLA_MONITORING_SOLUTION_ID_FKEY);
     }
 
     public SlaUser sla_SlaServiceProviderIdFkey() {
@@ -185,6 +200,10 @@ public class Sla extends TableImpl<SlaRecord> {
 
     public SlaUser sla_SlaServiceCustomerIdFkey() {
         return new SlaUser(this, Keys.SLA__SLA_SERVICE_CUSTOMER_ID_FKEY);
+    }
+
+    public SlaUser sla_SlaMonitoringSolutionIdFkey() {
+        return new SlaUser(this, Keys.SLA__SLA_MONITORING_SOLUTION_ID_FKEY);
     }
 
     /**

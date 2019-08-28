@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SlaUser extends TableImpl<SlaUserRecord> {
 
-    private static final long serialVersionUID = -1098842908;
+    private static final long serialVersionUID = 1103909729;
 
     /**
      * The reference instance of <code>public.sla_user</code>
@@ -67,16 +67,6 @@ public class SlaUser extends TableImpl<SlaUserRecord> {
     public final TableField<SlaUserRecord, String> PASSWORD = createField("password", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
-     * The column <code>public.sla_user.salt</code>.
-     */
-    public final TableField<SlaUserRecord, String> SALT = createField("salt", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
-
-    /**
-     * The column <code>public.sla_user.phone_nr</code>.
-     */
-    public final TableField<SlaUserRecord, String> PHONE_NR = createField("phone_nr", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
-
-    /**
      * The column <code>public.sla_user.username</code>.
      */
     public final TableField<SlaUserRecord, String> USERNAME = createField("username", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
@@ -84,12 +74,22 @@ public class SlaUser extends TableImpl<SlaUserRecord> {
     /**
      * The column <code>public.sla_user.party_type</code>.
      */
-    public final TableField<SlaUserRecord, String> PARTY_TYPE = createField("party_type", org.jooq.impl.SQLDataType.VARCHAR(20).nullable(false), this, "");
+    public final TableField<SlaUserRecord, String> PARTY_TYPE = createField("party_type", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
      * The column <code>public.sla_user.party_name</code>.
      */
     public final TableField<SlaUserRecord, String> PARTY_NAME = createField("party_name", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+
+    /**
+     * The column <code>public.sla_user.wallet</code>.
+     */
+    public final TableField<SlaUserRecord, String> WALLET = createField("wallet", org.jooq.impl.SQLDataType.VARCHAR, this, "");
+
+    /**
+     * The column <code>public.sla_user.private_key</code>.
+     */
+    public final TableField<SlaUserRecord, String> PRIVATE_KEY = createField("private_key", org.jooq.impl.SQLDataType.VARCHAR, this, "");
 
     /**
      * Create a <code>public.sla_user</code> table reference

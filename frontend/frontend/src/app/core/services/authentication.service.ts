@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
 import {SlaUser} from "../../shared/models/slaUser";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {map} from "rxjs/operators";
 import {Config} from "../../config";
 import {LoginData} from "../../shared/models/loginData";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<SlaUser>;
   public currentUser: Observable<SlaUser>;
 
-  constructor(private http: HttpClient, private config: Config) {
+  constructor(private http: HttpClient, private config: Config, private router: Router) {
     this.currentUserSubject = new BehaviorSubject<SlaUser>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -30,18 +31,23 @@ export class AuthenticationService {
     return this.http.post<any>(`${this.config.apiUrl}/users/login`, loginData, this.httpOptions);
   }
 
-  storeJwtToken(loginData: LoginData, token) {
-    let currentUser = new SlaUser();
-    currentUser.token = token;
-    currentUser.username = loginData.username;
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-    this.currentUserSubject.next(currentUser);
+  getMe(username: string) {
+    let params = new HttpParams();
+    params = params.append('me', username);
+    return this.http.get<SlaUser>(`${this.config.apiUrl}/users/me`, {params: params})
+  }
+
+  storeJwtToken(user: SlaUser, token) {
+    user.token = token;
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    this.currentUserSubject.next(user);
   }
 
   logout(){
     // remove user from local storage
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+    this.router.navigate(['/login']);
   }
 
   isLoggedIn() {

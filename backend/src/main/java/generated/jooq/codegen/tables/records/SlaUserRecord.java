@@ -28,7 +28,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements Record7<Integer, String, String, String, String, String, String> {
 
-    private static final long serialVersionUID = 222802620;
+    private static final long serialVersionUID = 1750186412;
 
     /**
      * Setter for <code>public.sla_user.id</code>.
@@ -61,40 +61,10 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
     }
 
     /**
-     * Setter for <code>public.sla_user.salt</code>.
-     */
-    public SlaUserRecord setSalt(String value) {
-        set(2, value);
-        return this;
-    }
-
-    /**
-     * Getter for <code>public.sla_user.salt</code>.
-     */
-    public String getSalt() {
-        return (String) get(2);
-    }
-
-    /**
-     * Setter for <code>public.sla_user.phone_nr</code>.
-     */
-    public SlaUserRecord setPhoneNr(String value) {
-        set(3, value);
-        return this;
-    }
-
-    /**
-     * Getter for <code>public.sla_user.phone_nr</code>.
-     */
-    public String getPhoneNr() {
-        return (String) get(3);
-    }
-
-    /**
      * Setter for <code>public.sla_user.username</code>.
      */
     public SlaUserRecord setUsername(String value) {
-        set(4, value);
+        set(2, value);
         return this;
     }
 
@@ -102,14 +72,14 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      * Getter for <code>public.sla_user.username</code>.
      */
     public String getUsername() {
-        return (String) get(4);
+        return (String) get(2);
     }
 
     /**
      * Setter for <code>public.sla_user.party_type</code>.
      */
     public SlaUserRecord setPartyType(String value) {
-        set(5, value);
+        set(3, value);
         return this;
     }
 
@@ -117,14 +87,14 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      * Getter for <code>public.sla_user.party_type</code>.
      */
     public String getPartyType() {
-        return (String) get(5);
+        return (String) get(3);
     }
 
     /**
      * Setter for <code>public.sla_user.party_name</code>.
      */
     public SlaUserRecord setPartyName(String value) {
-        set(6, value);
+        set(4, value);
         return this;
     }
 
@@ -132,6 +102,36 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      * Getter for <code>public.sla_user.party_name</code>.
      */
     public String getPartyName() {
+        return (String) get(4);
+    }
+
+    /**
+     * Setter for <code>public.sla_user.wallet</code>.
+     */
+    public SlaUserRecord setWallet(String value) {
+        set(5, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.sla_user.wallet</code>.
+     */
+    public String getWallet() {
+        return (String) get(5);
+    }
+
+    /**
+     * Setter for <code>public.sla_user.private_key</code>.
+     */
+    public SlaUserRecord setPrivateKey(String value) {
+        set(6, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.sla_user.private_key</code>.
+     */
+    public String getPrivateKey() {
         return (String) get(6);
     }
 
@@ -188,22 +188,6 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      */
     @Override
     public Field<String> field3() {
-        return SlaUser.SLA_USER.SALT;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Field<String> field4() {
-        return SlaUser.SLA_USER.PHONE_NR;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Field<String> field5() {
         return SlaUser.SLA_USER.USERNAME;
     }
 
@@ -211,7 +195,7 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      * {@inheritDoc}
      */
     @Override
-    public Field<String> field6() {
+    public Field<String> field4() {
         return SlaUser.SLA_USER.PARTY_TYPE;
     }
 
@@ -219,8 +203,24 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      * {@inheritDoc}
      */
     @Override
-    public Field<String> field7() {
+    public Field<String> field5() {
         return SlaUser.SLA_USER.PARTY_NAME;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Field<String> field6() {
+        return SlaUser.SLA_USER.WALLET;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Field<String> field7() {
+        return SlaUser.SLA_USER.PRIVATE_KEY;
     }
 
     /**
@@ -244,22 +244,6 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      */
     @Override
     public String component3() {
-        return getSalt();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String component4() {
-        return getPhoneNr();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String component5() {
         return getUsername();
     }
 
@@ -267,7 +251,7 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      * {@inheritDoc}
      */
     @Override
-    public String component6() {
+    public String component4() {
         return getPartyType();
     }
 
@@ -275,8 +259,24 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      * {@inheritDoc}
      */
     @Override
-    public String component7() {
+    public String component5() {
         return getPartyName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String component6() {
+        return getWallet();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String component7() {
+        return getPrivateKey();
     }
 
     /**
@@ -300,22 +300,6 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      */
     @Override
     public String value3() {
-        return getSalt();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String value4() {
-        return getPhoneNr();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String value5() {
         return getUsername();
     }
 
@@ -323,7 +307,7 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      * {@inheritDoc}
      */
     @Override
-    public String value6() {
+    public String value4() {
         return getPartyType();
     }
 
@@ -331,8 +315,24 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      * {@inheritDoc}
      */
     @Override
-    public String value7() {
+    public String value5() {
         return getPartyName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String value6() {
+        return getWallet();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String value7() {
+        return getPrivateKey();
     }
 
     /**
@@ -358,24 +358,6 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      */
     @Override
     public SlaUserRecord value3(String value) {
-        setSalt(value);
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SlaUserRecord value4(String value) {
-        setPhoneNr(value);
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SlaUserRecord value5(String value) {
         setUsername(value);
         return this;
     }
@@ -384,7 +366,7 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      * {@inheritDoc}
      */
     @Override
-    public SlaUserRecord value6(String value) {
+    public SlaUserRecord value4(String value) {
         setPartyType(value);
         return this;
     }
@@ -393,8 +375,26 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
      * {@inheritDoc}
      */
     @Override
-    public SlaUserRecord value7(String value) {
+    public SlaUserRecord value5(String value) {
         setPartyName(value);
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SlaUserRecord value6(String value) {
+        setWallet(value);
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SlaUserRecord value7(String value) {
+        setPrivateKey(value);
         return this;
     }
 
@@ -427,15 +427,15 @@ public class SlaUserRecord extends UpdatableRecordImpl<SlaUserRecord> implements
     /**
      * Create a detached, initialised SlaUserRecord
      */
-    public SlaUserRecord(Integer id, String password, String salt, String phoneNr, String username, String partyType, String partyName) {
+    public SlaUserRecord(Integer id, String password, String username, String partyType, String partyName, String wallet, String privateKey) {
         super(SlaUser.SLA_USER);
 
         set(0, id);
         set(1, password);
-        set(2, salt);
-        set(3, phoneNr);
-        set(4, username);
-        set(5, partyType);
-        set(6, partyName);
+        set(2, username);
+        set(3, partyType);
+        set(4, partyName);
+        set(5, wallet);
+        set(6, privateKey);
     }
 }

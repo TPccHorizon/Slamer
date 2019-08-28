@@ -10,7 +10,6 @@ import codegen.Public;
 import codegen.tables.records.ServiceLevelObjectiveRecord;
 
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,7 +42,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ServiceLevelObjective extends TableImpl<ServiceLevelObjectiveRecord> {
 
-    private static final long serialVersionUID = -562108571;
+    private static final long serialVersionUID = 1937815558;
 
     /**
      * The reference instance of <code>public.service_level_objective</code>
@@ -69,16 +68,6 @@ public class ServiceLevelObjective extends TableImpl<ServiceLevelObjectiveRecord
     public final TableField<ServiceLevelObjectiveRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
-     * The column <code>public.service_level_objective.valid_from</code>.
-     */
-    public final TableField<ServiceLevelObjectiveRecord, Date> VALID_FROM = createField("valid_from", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
-
-    /**
-     * The column <code>public.service_level_objective.valid_to</code>.
-     */
-    public final TableField<ServiceLevelObjectiveRecord, Date> VALID_TO = createField("valid_to", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
-
-    /**
      * The column <code>public.service_level_objective.sla_id</code>.
      */
     public final TableField<ServiceLevelObjectiveRecord, Integer> SLA_ID = createField("sla_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
@@ -91,12 +80,12 @@ public class ServiceLevelObjective extends TableImpl<ServiceLevelObjectiveRecord
     /**
      * The column <code>public.service_level_objective.relational_operator</code>.
      */
-    public final TableField<ServiceLevelObjectiveRecord, String> RELATIONAL_OPERATOR = createField("relational_operator", org.jooq.impl.SQLDataType.CHAR(1), this, "");
+    public final TableField<ServiceLevelObjectiveRecord, String> RELATIONAL_OPERATOR = createField("relational_operator", org.jooq.impl.SQLDataType.CHAR(2), this, "");
 
     /**
-     * The column <code>public.service_level_objective.slo_type_id</code>.
+     * The column <code>public.service_level_objective.slo_type</code>.
      */
-    public final TableField<ServiceLevelObjectiveRecord, Integer> SLO_TYPE_ID = createField("slo_type_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ServiceLevelObjectiveRecord, String> SLO_TYPE = createField("slo_type", org.jooq.impl.SQLDataType.VARCHAR, this, "");
 
     /**
      * The column <code>public.service_level_objective.percentage_of_availability</code>.
@@ -122,6 +111,16 @@ public class ServiceLevelObjective extends TableImpl<ServiceLevelObjectiveRecord
      * The column <code>public.service_level_objective.average_response_time_value</code>.
      */
     public final TableField<ServiceLevelObjectiveRecord, BigDecimal> AVERAGE_RESPONSE_TIME_VALUE = createField("average_response_time_value", org.jooq.impl.SQLDataType.NUMERIC, this, "");
+
+    /**
+     * The column <code>public.service_level_objective.accepted</code>.
+     */
+    public final TableField<ServiceLevelObjectiveRecord, Boolean> ACCEPTED = createField("accepted", org.jooq.impl.SQLDataType.BOOLEAN, this, "");
+
+    /**
+     * The column <code>public.service_level_objective.comment</code>.
+     */
+    public final TableField<ServiceLevelObjectiveRecord, String> COMMENT = createField("comment", org.jooq.impl.SQLDataType.VARCHAR, this, "");
 
     /**
      * Create a <code>public.service_level_objective</code> table reference
@@ -201,15 +200,11 @@ public class ServiceLevelObjective extends TableImpl<ServiceLevelObjectiveRecord
      */
     @Override
     public List<ForeignKey<ServiceLevelObjectiveRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<ServiceLevelObjectiveRecord, ?>>asList(Keys.SERVICE_LEVEL_OBJECTIVE__SERVICE_LEVEL_OBJECTIVE_SLA_ID_FKEY, Keys.SERVICE_LEVEL_OBJECTIVE__SERVICE_LEVEL_OBJECTIVE_SLO_TYPE_ID_FKEY);
+        return Arrays.<ForeignKey<ServiceLevelObjectiveRecord, ?>>asList(Keys.SERVICE_LEVEL_OBJECTIVE__SERVICE_LEVEL_OBJECTIVE_SLA_ID_FKEY);
     }
 
     public Sla sla() {
         return new Sla(this, Keys.SERVICE_LEVEL_OBJECTIVE__SERVICE_LEVEL_OBJECTIVE_SLA_ID_FKEY);
-    }
-
-    public SloType sloType() {
-        return new SloType(this, Keys.SERVICE_LEVEL_OBJECTIVE__SERVICE_LEVEL_OBJECTIVE_SLO_TYPE_ID_FKEY);
     }
 
     /**

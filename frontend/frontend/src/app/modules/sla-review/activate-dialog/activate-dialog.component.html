@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Activate SLA</h1>
+<mat-dialog-content>
+  <p>Do you want to activate this SLA?</p>
+  <p>
+    <strong>Note:</strong> Funds in the height of {{sla.servicePrice}} Ether will be
+    sent to the Blockchain and will be locked until the SLA expires or
+    it is terminated.
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No</button>
+  <button mat-button (click)="onActivate()">Yes, activate</button>
+</mat-dialog-actions>

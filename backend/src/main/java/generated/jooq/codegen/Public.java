@@ -4,14 +4,13 @@
 package codegen;
 
 
-import codegen.tables.Address;
 import codegen.tables.Databasechangelog;
 import codegen.tables.Databasechangeloglock;
-import codegen.tables.Penalty;
+import codegen.tables.GanacheUrl;
 import codegen.tables.ServiceLevelObjective;
 import codegen.tables.Sla;
+import codegen.tables.SlaReview;
 import codegen.tables.SlaUser;
-import codegen.tables.SloType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,17 +37,12 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -450768380;
+    private static final long serialVersionUID = 263280814;
 
     /**
      * The reference instance of <code>public</code>
      */
     public static final Public PUBLIC = new Public();
-
-    /**
-     * The table <code>public.address</code>.
-     */
-    public final Address ADDRESS = codegen.tables.Address.ADDRESS;
 
     /**
      * The table <code>public.databasechangelog</code>.
@@ -61,9 +55,9 @@ public class Public extends SchemaImpl {
     public final Databasechangeloglock DATABASECHANGELOGLOCK = codegen.tables.Databasechangeloglock.DATABASECHANGELOGLOCK;
 
     /**
-     * The table <code>public.penalty</code>.
+     * The table <code>public.ganache_url</code>.
      */
-    public final Penalty PENALTY = codegen.tables.Penalty.PENALTY;
+    public final GanacheUrl GANACHE_URL = codegen.tables.GanacheUrl.GANACHE_URL;
 
     /**
      * The table <code>public.service_level_objective</code>.
@@ -76,14 +70,14 @@ public class Public extends SchemaImpl {
     public final Sla SLA = codegen.tables.Sla.SLA;
 
     /**
+     * The table <code>public.sla_review</code>.
+     */
+    public final SlaReview SLA_REVIEW = codegen.tables.SlaReview.SLA_REVIEW;
+
+    /**
      * The table <code>public.sla_user</code>.
      */
     public final SlaUser SLA_USER = codegen.tables.SlaUser.SLA_USER;
-
-    /**
-     * The table <code>public.slo_type</code>.
-     */
-    public final SloType SLO_TYPE = codegen.tables.SloType.SLO_TYPE;
 
     /**
      * No further instances allowed
@@ -110,12 +104,11 @@ public class Public extends SchemaImpl {
 
     private final List<Sequence<?>> getSequences0() {
         return Arrays.<Sequence<?>>asList(
-            Sequences.ADDRESS_ID_SEQ,
-            Sequences.PENALTY_ID_SEQ,
+            Sequences.GANACHE_URL_ID_SEQ,
             Sequences.SERVICE_LEVEL_OBJECTIVE_ID_SEQ,
             Sequences.SLA_ID_SEQ,
-            Sequences.SLA_USER_ID_SEQ,
-            Sequences.SLO_TYPE_ID_SEQ);
+            Sequences.SLA_REVIEW_ID_SEQ,
+            Sequences.SLA_USER_ID_SEQ);
     }
 
     @Override
@@ -127,13 +120,12 @@ public class Public extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
-            Address.ADDRESS,
             Databasechangelog.DATABASECHANGELOG,
             Databasechangeloglock.DATABASECHANGELOGLOCK,
-            Penalty.PENALTY,
+            GanacheUrl.GANACHE_URL,
             ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE,
             Sla.SLA,
-            SlaUser.SLA_USER,
-            SloType.SLO_TYPE);
+            SlaReview.SLA_REVIEW,
+            SlaUser.SLA_USER);
     }
 }

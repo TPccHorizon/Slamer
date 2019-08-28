@@ -6,7 +6,6 @@ package codegen.tables.pojos;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
 
 import javax.annotation.Generated;
 
@@ -24,118 +23,295 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ServiceLevelObjective implements Serializable {
 
-    private static final long serialVersionUID = 1169159903;
+    private static final long serialVersionUID = 619631160;
 
-    private final Integer    id;
-    private final String     name;
-    private final Date       validFrom;
-    private final Date       validTo;
-    private final Integer    slaId;
-    private final String     timeUnit;
-    private final String     relationalOperator;
-    private final Integer    sloTypeId;
-    private final BigDecimal percentageOfAvailability;
-    private final String     throughputDataUnit;
-    private final BigDecimal throughputDataSize;
-    private final BigDecimal throughputThresholdValue;
-    private final BigDecimal averageResponseTimeValue;
+    private Integer    id;
+    private String     name;
+    private Integer    slaId;
+    private String     timeUnit;
+    private String     relationalOperator;
+    private String     sloType;
+    private BigDecimal percentageOfAvailability;
+    private String     throughputDataUnit;
+    private BigDecimal throughputDataSize;
+    private BigDecimal throughputThresholdValue;
+    private BigDecimal averageResponseTimeValue;
+    private Boolean    accepted;
+    private String     comment;
+
+    public ServiceLevelObjective() {}
 
     public ServiceLevelObjective(ServiceLevelObjective value) {
         this.id = value.id;
         this.name = value.name;
-        this.validFrom = value.validFrom;
-        this.validTo = value.validTo;
         this.slaId = value.slaId;
         this.timeUnit = value.timeUnit;
         this.relationalOperator = value.relationalOperator;
-        this.sloTypeId = value.sloTypeId;
+        this.sloType = value.sloType;
         this.percentageOfAvailability = value.percentageOfAvailability;
         this.throughputDataUnit = value.throughputDataUnit;
         this.throughputDataSize = value.throughputDataSize;
         this.throughputThresholdValue = value.throughputThresholdValue;
         this.averageResponseTimeValue = value.averageResponseTimeValue;
+        this.accepted = value.accepted;
+        this.comment = value.comment;
     }
 
     public ServiceLevelObjective(
         Integer    id,
         String     name,
-        Date       validFrom,
-        Date       validTo,
         Integer    slaId,
         String     timeUnit,
         String     relationalOperator,
-        Integer    sloTypeId,
+        String     sloType,
         BigDecimal percentageOfAvailability,
         String     throughputDataUnit,
         BigDecimal throughputDataSize,
         BigDecimal throughputThresholdValue,
-        BigDecimal averageResponseTimeValue
+        BigDecimal averageResponseTimeValue,
+        Boolean    accepted,
+        String     comment
     ) {
         this.id = id;
         this.name = name;
-        this.validFrom = validFrom;
-        this.validTo = validTo;
         this.slaId = slaId;
         this.timeUnit = timeUnit;
         this.relationalOperator = relationalOperator;
-        this.sloTypeId = sloTypeId;
+        this.sloType = sloType;
         this.percentageOfAvailability = percentageOfAvailability;
         this.throughputDataUnit = throughputDataUnit;
         this.throughputDataSize = throughputDataSize;
         this.throughputThresholdValue = throughputThresholdValue;
         this.averageResponseTimeValue = averageResponseTimeValue;
+        this.accepted = accepted;
+        this.comment = comment;
     }
 
     public Integer getId() {
         return this.id;
     }
 
+    public ServiceLevelObjective setId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
     public String getName() {
         return this.name;
     }
 
-    public Date getValidFrom() {
-        return this.validFrom;
-    }
-
-    public Date getValidTo() {
-        return this.validTo;
+    public ServiceLevelObjective setName(String name) {
+        this.name = name;
+        return this;
     }
 
     public Integer getSlaId() {
         return this.slaId;
     }
 
+    public ServiceLevelObjective setSlaId(Integer slaId) {
+        this.slaId = slaId;
+        return this;
+    }
+
     public String getTimeUnit() {
         return this.timeUnit;
+    }
+
+    public ServiceLevelObjective setTimeUnit(String timeUnit) {
+        this.timeUnit = timeUnit;
+        return this;
     }
 
     public String getRelationalOperator() {
         return this.relationalOperator;
     }
 
-    public Integer getSloTypeId() {
-        return this.sloTypeId;
+    public ServiceLevelObjective setRelationalOperator(String relationalOperator) {
+        this.relationalOperator = relationalOperator;
+        return this;
+    }
+
+    public String getSloType() {
+        return this.sloType;
+    }
+
+    public ServiceLevelObjective setSloType(String sloType) {
+        this.sloType = sloType;
+        return this;
     }
 
     public BigDecimal getPercentageOfAvailability() {
         return this.percentageOfAvailability;
     }
 
+    public ServiceLevelObjective setPercentageOfAvailability(BigDecimal percentageOfAvailability) {
+        this.percentageOfAvailability = percentageOfAvailability;
+        return this;
+    }
+
     public String getThroughputDataUnit() {
         return this.throughputDataUnit;
+    }
+
+    public ServiceLevelObjective setThroughputDataUnit(String throughputDataUnit) {
+        this.throughputDataUnit = throughputDataUnit;
+        return this;
     }
 
     public BigDecimal getThroughputDataSize() {
         return this.throughputDataSize;
     }
 
+    public ServiceLevelObjective setThroughputDataSize(BigDecimal throughputDataSize) {
+        this.throughputDataSize = throughputDataSize;
+        return this;
+    }
+
     public BigDecimal getThroughputThresholdValue() {
         return this.throughputThresholdValue;
     }
 
+    public ServiceLevelObjective setThroughputThresholdValue(BigDecimal throughputThresholdValue) {
+        this.throughputThresholdValue = throughputThresholdValue;
+        return this;
+    }
+
     public BigDecimal getAverageResponseTimeValue() {
         return this.averageResponseTimeValue;
+    }
+
+    public ServiceLevelObjective setAverageResponseTimeValue(BigDecimal averageResponseTimeValue) {
+        this.averageResponseTimeValue = averageResponseTimeValue;
+        return this;
+    }
+
+    public Boolean getAccepted() {
+        return this.accepted;
+    }
+
+    public ServiceLevelObjective setAccepted(Boolean accepted) {
+        this.accepted = accepted;
+        return this;
+    }
+
+    public String getComment() {
+        return this.comment;
+    }
+
+    public ServiceLevelObjective setComment(String comment) {
+        this.comment = comment;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final ServiceLevelObjective other = (ServiceLevelObjective) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        }
+        else if (!id.equals(other.id))
+            return false;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        }
+        else if (!name.equals(other.name))
+            return false;
+        if (slaId == null) {
+            if (other.slaId != null)
+                return false;
+        }
+        else if (!slaId.equals(other.slaId))
+            return false;
+        if (timeUnit == null) {
+            if (other.timeUnit != null)
+                return false;
+        }
+        else if (!timeUnit.equals(other.timeUnit))
+            return false;
+        if (relationalOperator == null) {
+            if (other.relationalOperator != null)
+                return false;
+        }
+        else if (!relationalOperator.equals(other.relationalOperator))
+            return false;
+        if (sloType == null) {
+            if (other.sloType != null)
+                return false;
+        }
+        else if (!sloType.equals(other.sloType))
+            return false;
+        if (percentageOfAvailability == null) {
+            if (other.percentageOfAvailability != null)
+                return false;
+        }
+        else if (!percentageOfAvailability.equals(other.percentageOfAvailability))
+            return false;
+        if (throughputDataUnit == null) {
+            if (other.throughputDataUnit != null)
+                return false;
+        }
+        else if (!throughputDataUnit.equals(other.throughputDataUnit))
+            return false;
+        if (throughputDataSize == null) {
+            if (other.throughputDataSize != null)
+                return false;
+        }
+        else if (!throughputDataSize.equals(other.throughputDataSize))
+            return false;
+        if (throughputThresholdValue == null) {
+            if (other.throughputThresholdValue != null)
+                return false;
+        }
+        else if (!throughputThresholdValue.equals(other.throughputThresholdValue))
+            return false;
+        if (averageResponseTimeValue == null) {
+            if (other.averageResponseTimeValue != null)
+                return false;
+        }
+        else if (!averageResponseTimeValue.equals(other.averageResponseTimeValue))
+            return false;
+        if (accepted == null) {
+            if (other.accepted != null)
+                return false;
+        }
+        else if (!accepted.equals(other.accepted))
+            return false;
+        if (comment == null) {
+            if (other.comment != null)
+                return false;
+        }
+        else if (!comment.equals(other.comment))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
+        result = prime * result + ((this.slaId == null) ? 0 : this.slaId.hashCode());
+        result = prime * result + ((this.timeUnit == null) ? 0 : this.timeUnit.hashCode());
+        result = prime * result + ((this.relationalOperator == null) ? 0 : this.relationalOperator.hashCode());
+        result = prime * result + ((this.sloType == null) ? 0 : this.sloType.hashCode());
+        result = prime * result + ((this.percentageOfAvailability == null) ? 0 : this.percentageOfAvailability.hashCode());
+        result = prime * result + ((this.throughputDataUnit == null) ? 0 : this.throughputDataUnit.hashCode());
+        result = prime * result + ((this.throughputDataSize == null) ? 0 : this.throughputDataSize.hashCode());
+        result = prime * result + ((this.throughputThresholdValue == null) ? 0 : this.throughputThresholdValue.hashCode());
+        result = prime * result + ((this.averageResponseTimeValue == null) ? 0 : this.averageResponseTimeValue.hashCode());
+        result = prime * result + ((this.accepted == null) ? 0 : this.accepted.hashCode());
+        result = prime * result + ((this.comment == null) ? 0 : this.comment.hashCode());
+        return result;
     }
 
     @Override
@@ -144,17 +320,17 @@ public class ServiceLevelObjective implements Serializable {
 
         sb.append(id);
         sb.append(", ").append(name);
-        sb.append(", ").append(validFrom);
-        sb.append(", ").append(validTo);
         sb.append(", ").append(slaId);
         sb.append(", ").append(timeUnit);
         sb.append(", ").append(relationalOperator);
-        sb.append(", ").append(sloTypeId);
+        sb.append(", ").append(sloType);
         sb.append(", ").append(percentageOfAvailability);
         sb.append(", ").append(throughputDataUnit);
         sb.append(", ").append(throughputDataSize);
         sb.append(", ").append(throughputThresholdValue);
         sb.append(", ").append(averageResponseTimeValue);
+        sb.append(", ").append(accepted);
+        sb.append(", ").append(comment);
 
         sb.append(")");
         return sb.toString();

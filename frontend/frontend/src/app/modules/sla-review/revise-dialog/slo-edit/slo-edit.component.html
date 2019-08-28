@@ -1,0 +1,24 @@
+<div fxLayout="row" fxLayoutAlign="space-between stretch">
+  <div fxFlex="100"><b>{{slo.name}}</b></div>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-between stretch">
+  <div fxFlex="50" *ngIf="slo.accepted">
+      {{slo.accepted}} {{slo.name}}
+
+    </div>
+    <div fxFlex="50" *ngIf="!slo.accepted">
+      <div>
+        {{slo.name}}
+      </div>
+    </div>
+
+  <div fxFlex="50">
+    <div *ngIf="slo.accepted">
+      <mat-icon color="success">check</mat-icon>
+    </div>
+    <div *ngIf="!slo.accepted">
+      {{slo.comment}}
+    </div>
+
+  </div>
+</div>

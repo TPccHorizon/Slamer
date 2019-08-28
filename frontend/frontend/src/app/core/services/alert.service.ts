@@ -1,40 +1,36 @@
-import { Injectable } from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import {Observable, Subject} from "rxjs";
 import {NavigationStart, Router} from "@angular/router";
+import {MatSnackBar, MatSnackBarConfig} from "@angular/material";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
-  private subject = new Subject<any>();
-  private keepAfterNavigationChange = false;
 
-  constructor(private router: Router) {
-    // clear alert message on router change
-    router.events.subscribe(event => {
-      if (event instanceof NavigationStart) {
-        if (this.keepAfterNavigationChange) {
-          // only keep for a single location change
-          this.keepAfterNavigationChange = false;
-        } else {
-          // clear alert
-          this.subject.next();
-        }
-      }
-    })
+  constructor(private snackbar: MatSnackBar,
+              private zone: NgZone) {
   }
 
-  success(message: string, keepAfterNavigationChange = false) {
-    this.keepAfterNavigationChange = keepAfterNavigationChange;
-    this.subject.next({type: 'success', text: message})
+  success(message: string, isHandset = false) {
+    this.show(message, {
+      duration: 2000,
+      panelClass: 'success-notification-overlay'
+    }, isHandset);
   }
 
-  error(message: string, keepAfterNavigationChange = false) {
-    this.keepAfterNavigationChange = keepAfterNavigationChange;
-    this.subject.next({type: 'error', text: message})
+  error(message: string, isHandset = false) {
+    this.show(message, {
+      duration: 2000,
+      panelClass: 'error-notification-overlay'
+    }, isHandset);
   }
 
-  getMessage(){
-    return this.subject.asObservable();
+  private show(message: string, configuration: MatSnackBarConfig, isHandset?:boolean) {
+    if (!isHandset) {
+      configuration.horizontalPosition = 'right';
+      configuration.verticalPosition = 'top';
+    }
+    this.zone.run(() => this.snackbar.open(message, null, configuration));
   }
 }

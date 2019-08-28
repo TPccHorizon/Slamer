@@ -14,6 +14,18 @@ buildscript {
     }
 }
 
+//create single Jar with all dependencies
+
+//bootJar {
+//    manifest {
+//        attributes "Main-Class": "ch.uzh.slamer.backend.BackendApplication"
+//    }
+//
+//    from {
+//        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+//    }
+//}
+
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
@@ -35,10 +47,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jooq'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.modelmapper:modelmapper:2.3.0'
     implementation 'com.auth0:java-jwt:3.4.0'
     implementation 'org.jooq:jooq:3.11.11'
     implementation 'org.jooq:jooq-meta:3.11.11'
     implementation 'org.jooq:jooq-codegen:3.11.11'
+    implementation 'org.web3j:core:4.3.0'
     runtime 'org.postgresql:postgresql:42.2.5'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     jooqRuntime 'org.postgresql:postgresql:42.2.5'
@@ -79,8 +93,10 @@ jooq {
                 relations = true
                 deprecated = false
                 records = true
-                immutablePojos = true
+                pojos = true
+//                immutablePojos = false
                 fluentSetters = true
+                pojosEqualsAndHashCode = true
                 // ...
             }
             target {
@@ -92,5 +108,17 @@ jooq {
         }
     }
 }
+
+generateSampleJooqSchemaSource {
+    outputs.upToDateWhen {
+        if (project.hasProperty('rerun')) {
+            println "rerun!"
+            return false
+        } else {
+            return true
+        }
+    }
+}
 // removes the task dependency from compileJava to generateSampleJooqSchemaSource
 project.tasks.getByName('compileJava').dependsOn -= 'generateSampleJooqSchemaSource'
+//org.jooq.util.GenerationTool.generate(writer.toString())
