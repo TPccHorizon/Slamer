@@ -42,6 +42,14 @@
       </div>
 
     </div>
+    <div *ngIf="sla.monitoringService && sla.monitoringService.wallet">
+      <div class="container">
+        <p>
+          <b>Monitoring Service Wallet</b>: {{sla.monitoringService.wallet}}
+        </p>
+        <button (click)="copyToClipboard(sla.hash)" mat-icon-button aria-label="Copy to Clipboard" color="accent"><mat-icon>file_copy</mat-icon></button>
+      </div>
+    </div>
     <div>
       <div class="container">
         <p>
@@ -87,7 +95,7 @@
     <div>
       <h3>Service Level Objectives</h3>
       <div *ngFor="let slo of sla.slos" [ngSwitch]="slo.sloType">
-        <h4>{{slo.name}}</h4>
+        <h4>{{slo.name}} - ID: {{slo.id}}</h4>
         <div *ngSwitchCase="'Uptime'" class="container">
           <app-uptime [uptime]="slo"></app-uptime>
         </div>

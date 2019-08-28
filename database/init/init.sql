@@ -3,7 +3,7 @@
 
 -- CREATE TABLE STATEMENTS
 
-CREATE TABLE sla_user (
+CREATE TABLE IF NOT EXISTS sla_user (
   id SERIAL PRIMARY KEY,
   password VARCHAR(255) NOT NULL ,
   salt VARCHAR(255),
@@ -14,7 +14,7 @@ CREATE TABLE sla_user (
   private_key VARCHAR
 );
 
-CREATE TABLE sla (
+CREATE TABLE IF NOT EXISTS sla (
   id SERIAL PRIMARY KEY,
   title VARCHAR NOT NULL,
   status VARCHAR(20) NOT NULL ,
@@ -28,7 +28,7 @@ CREATE TABLE sla (
   hash VARCHAR
 );
 
-CREATE TABLE service_level_objective (
+CREATE TABLE IF NOT EXISTS service_level_objective (
   id SERIAL PRIMARY KEY ,
   name VARCHAR(255) NOT NULL ,
   sla_id INTEGER NOT NULL REFERENCES sla(id),
@@ -44,7 +44,7 @@ CREATE TABLE service_level_objective (
   comment VARCHAR
 );
 
-CREATE TABLE sla_review (
+CREATE TABLE IF NOT EXISTS sla_review (
   id SERIAL PRIMARY KEY,
   property VARCHAR,
   sla_id INTEGER NOT NULL REFERENCES sla(id),
@@ -54,7 +54,7 @@ CREATE TABLE sla_review (
   value_type VARCHAR
 );
 
-CREATE TABLE ganache_url (
+CREATE TABLE IF NOT EXISTS ganache_url (
   id SERIAL PRIMARY KEY ,
   url VARCHAR
 );

@@ -15,6 +15,9 @@ public class SlaDTO extends Sla {
     private SlaUserDTO serviceProvider;
 
     @JsonProperty
+    private SlaUserDTO monitoringService;
+
+    @JsonProperty
     private List<ServiceLevelObjectiveDTO> slos = new ArrayList<>();
 
     public SlaDTO(){}
@@ -27,6 +30,8 @@ public class SlaDTO extends Sla {
         return serviceProvider;
     }
 
+    public SlaUserDTO getMonitoringService() { return monitoringService; }
+
     public void addSlo(ServiceLevelObjectiveDTO slo) {this.slos.add(slo);}
 
     public void setServiceCustomer(SlaUserDTO serviceCustomer) {
@@ -35,6 +40,10 @@ public class SlaDTO extends Sla {
 
     public void setServiceProvider(SlaUserDTO serviceProvider) {
         this.serviceProvider = serviceProvider;
+    }
+
+    public void setMonitoringService(SlaUserDTO monitoringService) {
+        this.monitoringService = monitoringService;
     }
 
     public List<ServiceLevelObjectiveDTO> getSlos() {
