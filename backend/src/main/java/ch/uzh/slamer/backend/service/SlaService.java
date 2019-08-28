@@ -86,8 +86,10 @@ public class SlaService {
         for (SlaUser party: parties) {
             if (party.getId().equals(slaDTO.getServiceCustomerId())) {
                 slaDTO.setServiceCustomer(mapper.map(party, SlaUserDTO.class));
-            } else {
+            } else if (party.getId().equals(slaDTO.getServiceProviderId())){
                 slaDTO.setServiceProvider(mapper.map(party, SlaUserDTO.class));
+            } else {
+                slaDTO.setMonitoringService(mapper.map(party, SlaUserDTO.class));
             }
         }
         return slaDTO;

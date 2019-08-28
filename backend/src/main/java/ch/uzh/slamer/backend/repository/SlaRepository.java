@@ -64,6 +64,7 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
                 .from(SLA_USER)
                 .where(SLA_USER.ID.equal(sla.getServiceProviderId()))
                 .or(SLA_USER.ID.equal(sla.getServiceCustomerId()))
+                .or(SLA_USER.ID.equal(sla.getMonitoringSolutionId()))
                 .fetchInto(SlaUser.class);
 
         Map<Sla, List<SlaUser>> result = new LinkedHashMap<>();
