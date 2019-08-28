@@ -90,6 +90,8 @@ public class SlaService {
                 slaDTO.setServiceProvider(mapper.map(party, SlaUserDTO.class));
             } else {
                 slaDTO.setMonitoringService(mapper.map(party, SlaUserDTO.class));
+                System.out.println("Monitoring Service Wallet (SLA): " + slaDTO.getMonitoringService().getWallet());
+                System.out.println("Monitoring Service Wallet (User): " + party.getWallet());
             }
         }
         return slaDTO;
