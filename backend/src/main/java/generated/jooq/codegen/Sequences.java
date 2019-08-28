@@ -24,6 +24,11 @@ import org.jooq.impl.SequenceImpl;
 public class Sequences {
 
     /**
+     * The sequence <code>public.ganache_url_id_seq</code>
+     */
+    public static final Sequence<Integer> GANACHE_URL_ID_SEQ = new SequenceImpl<Integer>("ganache_url_id_seq", Public.PUBLIC, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
+
+    /**
      * The sequence <code>public.service_level_objective_id_seq</code>
      */
     public static final Sequence<Integer> SERVICE_LEVEL_OBJECTIVE_ID_SEQ = new SequenceImpl<Integer>("service_level_objective_id_seq", Public.PUBLIC, org.jooq.impl.SQLDataType.INTEGER.nullable(false));

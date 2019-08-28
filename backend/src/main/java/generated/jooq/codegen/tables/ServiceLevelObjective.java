@@ -42,7 +42,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ServiceLevelObjective extends TableImpl<ServiceLevelObjectiveRecord> {
 
-    private static final long serialVersionUID = 291103717;
+    private static final long serialVersionUID = 1937815558;
 
     /**
      * The reference instance of <code>public.service_level_objective</code>
@@ -85,7 +85,7 @@ public class ServiceLevelObjective extends TableImpl<ServiceLevelObjectiveRecord
     /**
      * The column <code>public.service_level_objective.slo_type</code>.
      */
-    public final TableField<ServiceLevelObjectiveRecord, String> SLO_TYPE = createField("slo_type", org.jooq.impl.SQLDataType.VARCHAR.nullable(false), this, "");
+    public final TableField<ServiceLevelObjectiveRecord, String> SLO_TYPE = createField("slo_type", org.jooq.impl.SQLDataType.VARCHAR, this, "");
 
     /**
      * The column <code>public.service_level_objective.percentage_of_availability</code>.

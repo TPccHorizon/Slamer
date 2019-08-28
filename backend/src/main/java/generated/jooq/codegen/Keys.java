@@ -5,11 +5,13 @@ package codegen;
 
 
 import codegen.tables.Databasechangeloglock;
+import codegen.tables.GanacheUrl;
 import codegen.tables.ServiceLevelObjective;
 import codegen.tables.Sla;
 import codegen.tables.SlaReview;
 import codegen.tables.SlaUser;
 import codegen.tables.records.DatabasechangeloglockRecord;
+import codegen.tables.records.GanacheUrlRecord;
 import codegen.tables.records.ServiceLevelObjectiveRecord;
 import codegen.tables.records.SlaRecord;
 import codegen.tables.records.SlaReviewRecord;
@@ -41,6 +43,7 @@ public class Keys {
     // IDENTITY definitions
     // -------------------------------------------------------------------------
 
+    public static final Identity<GanacheUrlRecord, Integer> IDENTITY_GANACHE_URL = Identities0.IDENTITY_GANACHE_URL;
     public static final Identity<ServiceLevelObjectiveRecord, Integer> IDENTITY_SERVICE_LEVEL_OBJECTIVE = Identities0.IDENTITY_SERVICE_LEVEL_OBJECTIVE;
     public static final Identity<SlaRecord, Integer> IDENTITY_SLA = Identities0.IDENTITY_SLA;
     public static final Identity<SlaReviewRecord, Integer> IDENTITY_SLA_REVIEW = Identities0.IDENTITY_SLA_REVIEW;
@@ -51,6 +54,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final UniqueKey<DatabasechangeloglockRecord> DATABASECHANGELOGLOCK_PKEY = UniqueKeys0.DATABASECHANGELOGLOCK_PKEY;
+    public static final UniqueKey<GanacheUrlRecord> GANACHE_URL_PKEY = UniqueKeys0.GANACHE_URL_PKEY;
     public static final UniqueKey<ServiceLevelObjectiveRecord> SERVICE_LEVEL_OBJECTIVE_PKEY = UniqueKeys0.SERVICE_LEVEL_OBJECTIVE_PKEY;
     public static final UniqueKey<SlaRecord> SLA_PKEY = UniqueKeys0.SLA_PKEY;
     public static final UniqueKey<SlaReviewRecord> SLA_REVIEW_PKEY = UniqueKeys0.SLA_REVIEW_PKEY;
@@ -63,7 +67,7 @@ public class Keys {
     public static final ForeignKey<ServiceLevelObjectiveRecord, SlaRecord> SERVICE_LEVEL_OBJECTIVE__SERVICE_LEVEL_OBJECTIVE_SLA_ID_FKEY = ForeignKeys0.SERVICE_LEVEL_OBJECTIVE__SERVICE_LEVEL_OBJECTIVE_SLA_ID_FKEY;
     public static final ForeignKey<SlaRecord, SlaUserRecord> SLA__SLA_SERVICE_PROVIDER_ID_FKEY = ForeignKeys0.SLA__SLA_SERVICE_PROVIDER_ID_FKEY;
     public static final ForeignKey<SlaRecord, SlaUserRecord> SLA__SLA_SERVICE_CUSTOMER_ID_FKEY = ForeignKeys0.SLA__SLA_SERVICE_CUSTOMER_ID_FKEY;
-    public static final ForeignKey<SlaRecord, SlaUserRecord> SLA__FK_MONITORING = ForeignKeys0.SLA__FK_MONITORING;
+    public static final ForeignKey<SlaRecord, SlaUserRecord> SLA__SLA_MONITORING_SOLUTION_ID_FKEY = ForeignKeys0.SLA__SLA_MONITORING_SOLUTION_ID_FKEY;
     public static final ForeignKey<SlaReviewRecord, SlaRecord> SLA_REVIEW__SLA_REVIEW_SLA_ID_FKEY = ForeignKeys0.SLA_REVIEW__SLA_REVIEW_SLA_ID_FKEY;
 
     // -------------------------------------------------------------------------
@@ -71,6 +75,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     private static class Identities0 {
+        public static Identity<GanacheUrlRecord, Integer> IDENTITY_GANACHE_URL = Internal.createIdentity(GanacheUrl.GANACHE_URL, GanacheUrl.GANACHE_URL.ID);
         public static Identity<ServiceLevelObjectiveRecord, Integer> IDENTITY_SERVICE_LEVEL_OBJECTIVE = Internal.createIdentity(ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE, ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE.ID);
         public static Identity<SlaRecord, Integer> IDENTITY_SLA = Internal.createIdentity(Sla.SLA, Sla.SLA.ID);
         public static Identity<SlaReviewRecord, Integer> IDENTITY_SLA_REVIEW = Internal.createIdentity(SlaReview.SLA_REVIEW, SlaReview.SLA_REVIEW.ID);
@@ -79,6 +84,7 @@ public class Keys {
 
     private static class UniqueKeys0 {
         public static final UniqueKey<DatabasechangeloglockRecord> DATABASECHANGELOGLOCK_PKEY = Internal.createUniqueKey(Databasechangeloglock.DATABASECHANGELOGLOCK, "databasechangeloglock_pkey", Databasechangeloglock.DATABASECHANGELOGLOCK.ID);
+        public static final UniqueKey<GanacheUrlRecord> GANACHE_URL_PKEY = Internal.createUniqueKey(GanacheUrl.GANACHE_URL, "ganache_url_pkey", GanacheUrl.GANACHE_URL.ID);
         public static final UniqueKey<ServiceLevelObjectiveRecord> SERVICE_LEVEL_OBJECTIVE_PKEY = Internal.createUniqueKey(ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE, "service_level_objective_pkey", ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE.ID);
         public static final UniqueKey<SlaRecord> SLA_PKEY = Internal.createUniqueKey(Sla.SLA, "sla_pkey", Sla.SLA.ID);
         public static final UniqueKey<SlaReviewRecord> SLA_REVIEW_PKEY = Internal.createUniqueKey(SlaReview.SLA_REVIEW, "sla_review_pkey", SlaReview.SLA_REVIEW.ID);
@@ -89,7 +95,7 @@ public class Keys {
         public static final ForeignKey<ServiceLevelObjectiveRecord, SlaRecord> SERVICE_LEVEL_OBJECTIVE__SERVICE_LEVEL_OBJECTIVE_SLA_ID_FKEY = Internal.createForeignKey(codegen.Keys.SLA_PKEY, ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE, "service_level_objective__service_level_objective_sla_id_fkey", ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE.SLA_ID);
         public static final ForeignKey<SlaRecord, SlaUserRecord> SLA__SLA_SERVICE_PROVIDER_ID_FKEY = Internal.createForeignKey(codegen.Keys.SLA_USER_PKEY, Sla.SLA, "sla__sla_service_provider_id_fkey", Sla.SLA.SERVICE_PROVIDER_ID);
         public static final ForeignKey<SlaRecord, SlaUserRecord> SLA__SLA_SERVICE_CUSTOMER_ID_FKEY = Internal.createForeignKey(codegen.Keys.SLA_USER_PKEY, Sla.SLA, "sla__sla_service_customer_id_fkey", Sla.SLA.SERVICE_CUSTOMER_ID);
-        public static final ForeignKey<SlaRecord, SlaUserRecord> SLA__FK_MONITORING = Internal.createForeignKey(codegen.Keys.SLA_USER_PKEY, Sla.SLA, "sla__fk_monitoring", Sla.SLA.MONITORING_SOLUTION_ID);
+        public static final ForeignKey<SlaRecord, SlaUserRecord> SLA__SLA_MONITORING_SOLUTION_ID_FKEY = Internal.createForeignKey(codegen.Keys.SLA_USER_PKEY, Sla.SLA, "sla__sla_monitoring_solution_id_fkey", Sla.SLA.MONITORING_SOLUTION_ID);
         public static final ForeignKey<SlaReviewRecord, SlaRecord> SLA_REVIEW__SLA_REVIEW_SLA_ID_FKEY = Internal.createForeignKey(codegen.Keys.SLA_PKEY, SlaReview.SLA_REVIEW, "sla_review__sla_review_sla_id_fkey", SlaReview.SLA_REVIEW.SLA_ID);
     }
 }

@@ -32,6 +32,8 @@ export class RegisterComponent implements OnInit {
       partyName: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', Validators.required],
+      wallet: ['', Validators.required],
+      privateKey: ['', Validators.required]
     })
   }
 

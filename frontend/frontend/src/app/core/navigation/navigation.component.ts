@@ -14,7 +14,7 @@ export class NavigationComponent implements OnInit {
   @Input() themeColor = '';
   newSlas: number;
 
-  constructor(private authService: AuthenticationService,
+  constructor(public authService: AuthenticationService,
               private slaService: SlaService,
               private balanceService: BalanceService,
               private route: Router) { }

@@ -30,6 +30,8 @@ public class AuthenticationController {
     @RequestMapping(method = RequestMethod.POST, path = "/register")
     public ResponseEntity<SlaUser> register(@RequestBody SlaUser slaUser) {
         slaUser.setPartyType("Signatory");
+        slaUser.setWallet(slaUser.getWallet().toLowerCase());
+        System.out.println("Registering User with Party Type: " + slaUser.getPartyType());
         SlaUser user = authenticationService.registerNewUser(slaUser);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

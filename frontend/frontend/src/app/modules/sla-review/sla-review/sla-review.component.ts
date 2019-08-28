@@ -78,7 +78,10 @@ export class SlaReviewComponent  {
           }
         }, error => {
           this.alertService.error("Unexpected error");
-        })
+        });
+        this.delay(1000).then(any => {
+          this.refreshList();
+        });
       }
     })
 
@@ -120,15 +123,18 @@ export class SlaReviewComponent  {
 
     dialogRef.afterClosed().subscribe(doDeploy => {
       if (doDeploy) {
-        //TODO: service to deploy smart contract
         console.log("Deploy SLA!");
         this.slaService.deploy(sla).pipe(first()).subscribe(res => {
           console.log(res);
           this.refreshList();
           this.balanceService.getBalance();
           this.alertService.success("SLA has been deployed");
+        }, error => {
+          this.alertService.error("SLA could not be deployed");
         });
-
+        this.delay(1000).then(any => {
+          this.refreshList();
+        });
       }
     });
   }
@@ -190,8 +196,18 @@ export class SlaReviewComponent  {
       label = 'Revise';
     } else if (status === SLA_STATES.DEPLOYMENT) {
       label = 'Activate';
+    } else if (this.isPending(sla)) {
+      label = 'Pending';
     }
     return label;
+  }
+
+  isPending(sla: SlaAndParties) {
+    return sla.status === SLA_STATES.PENDING_DEPLOYMENT || sla.status === SLA_STATES.PENDING_DEPOSIT
+  }
+
+  async delay(ms: number) {
+    await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("slept"));
   }
 
 }

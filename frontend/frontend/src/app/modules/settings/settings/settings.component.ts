@@ -5,6 +5,8 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {SlaUserService} from "../../../core/services/sla-user.service";
 import {AlertService} from "../../../core/services/alert.service";
 import {BalanceService} from "../../../core/services/balance.service";
+import {GanacheService} from "../../../core/services/ganache.service";
+import {Ganache} from "../../../shared/models/ganache";
 
 @Component({
   selector: 'app-settings',
@@ -14,14 +16,19 @@ import {BalanceService} from "../../../core/services/balance.service";
 export class SettingsComponent implements OnInit {
 
   user: SlaUser;
-  isReadOnly = true;
+  isReadOnlyWallet = true;
   formGroup: FormGroup;
+
+  ipFormGroup: FormGroup;
+  ganacheUrl: Ganache;
+  isReadOnlyGanache = true;
 
   constructor(private authService: AuthenticationService,
               private formBuilder: FormBuilder,
               private slaUserService: SlaUserService,
               private alertService: AlertService,
-              private balanceService: BalanceService) { }
+              private balanceService: BalanceService,
+              private ganacheService: GanacheService) { }
 
   ngOnInit() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -31,11 +38,22 @@ export class SettingsComponent implements OnInit {
         wallet: [user.wallet],
         privateKey: [user.privateKey]
       });
+
+    });
+    this.ganacheService.getUrl().subscribe(ganache => {
+      this.ganacheUrl = ganache;
+      let url = '';
+      if (ganache && ganache.url) {
+        url = ganache.url;
+      }
+      this.ipFormGroup = this.formBuilder.group({
+        ipAddress: [url]
+      })
     });
   }
 
   edit() {
-    this.isReadOnly = !this.isReadOnly;
+    this.isReadOnlyWallet = !this.isReadOnlyWallet;
   }
 
   save() {
@@ -51,8 +69,30 @@ export class SettingsComponent implements OnInit {
       this.user.privateKey = oldKey;
       this.alertService.error(error);
     });
-    this.isReadOnly = true;
+    this.isReadOnlyWallet = true;
 
+  }
+
+  editUrl() {
+    this.isReadOnlyGanache = !this.isReadOnlyGanache;
+  }
+
+  saveUrl() {
+    let oldUrl;
+    if (this.ganacheUrl) {
+      oldUrl = this.ganacheUrl.url;
+    } else {
+      oldUrl = '';
+      this.ganacheUrl = new Ganache();
+    }
+    this.ganacheUrl.url = this.ipFormGroup.controls.ipAddress.value;
+    this.ganacheService.updateUrl(this.ganacheUrl).subscribe(success => {
+      this.alertService.success("Changed Ganache Url");
+    }, error => {
+      this.ganacheUrl.url = oldUrl;
+      this.alertService.error(error);
+    });
+    this.isReadOnlyGanache = true;
   }
 
 }

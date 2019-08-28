@@ -16,7 +16,7 @@ import {BalanceService} from "../../../core/services/balance.service";
 export class SlaDetailsComponent implements OnInit {
 
   sla: SlaAndParties;
-  approvalColumns: string[] = ['name', 'role', 'signature', 'date'];
+  approvalColumns: string[] = ['name', 'role'];
   dataSource: any[];
 
   constructor(private route: ActivatedRoute,
@@ -82,8 +82,8 @@ export class SlaDetailsComponent implements OnInit {
   private assignResponse(response) {
     this.sla = response;
     this.dataSource= [
-      {name: this.sla.serviceProvider.partyName, role: 'Service Provider', signature: '', date: ''},
-      {name: this.sla.serviceCustomer.partyName, role: 'Customer', signature: '', date: ''}
+      {name: this.sla.serviceProvider.partyName, role: 'Service Provider'},
+      {name: this.sla.serviceCustomer.partyName, role: 'Customer'}
     ];
   }
 

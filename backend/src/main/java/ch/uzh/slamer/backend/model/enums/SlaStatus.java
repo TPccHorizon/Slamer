@@ -7,7 +7,10 @@ public enum SlaStatus {
     REJECTED("Rejected", 4),
     ACTIVE("Active", 5),
     INACTIVE("Inactive", 6),
-    DEPLOYMENT("Deployment", 7);
+    DEPLOYMENT("Deployment", 7),
+    PENDING_DEPLOYMENT("Pending Deployment", 8),
+    PENDING_DEPOSIT("Pending Deposit", 9),
+    FAILED("Failed", 10);
 
     private String status;
     private int step;

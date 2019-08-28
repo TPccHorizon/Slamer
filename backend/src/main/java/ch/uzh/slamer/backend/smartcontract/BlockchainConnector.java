@@ -39,12 +39,12 @@ public class BlockchainConnector {
     private TransactionManager transactionManager;
     private ContractGasProvider contractGasProvider;
 
-    public BlockchainConnector(String privateKey) {
-        connect(privateKey);
+    public BlockchainConnector(String privateKey, String ganacheUrl) {
+        connect(privateKey, ganacheUrl);
     }
 
-    private void connect(String privateKey) {
-        this.web3j = Web3j.build(new HttpService());
+    private void connect(String privateKey, String ganacheUrl) {
+        this.web3j = Web3j.build(new HttpService(ganacheUrl));
         this.transactionManager = new RawTransactionManager(
                 web3j,
                 getCredentialsFromKey(privateKey)

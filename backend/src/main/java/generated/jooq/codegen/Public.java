@@ -6,6 +6,7 @@ package codegen;
 
 import codegen.tables.Databasechangelog;
 import codegen.tables.Databasechangeloglock;
+import codegen.tables.GanacheUrl;
 import codegen.tables.ServiceLevelObjective;
 import codegen.tables.Sla;
 import codegen.tables.SlaReview;
@@ -36,7 +37,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -216296575;
+    private static final long serialVersionUID = 263280814;
 
     /**
      * The reference instance of <code>public</code>
@@ -52,6 +53,11 @@ public class Public extends SchemaImpl {
      * The table <code>public.databasechangeloglock</code>.
      */
     public final Databasechangeloglock DATABASECHANGELOGLOCK = codegen.tables.Databasechangeloglock.DATABASECHANGELOGLOCK;
+
+    /**
+     * The table <code>public.ganache_url</code>.
+     */
+    public final GanacheUrl GANACHE_URL = codegen.tables.GanacheUrl.GANACHE_URL;
 
     /**
      * The table <code>public.service_level_objective</code>.
@@ -98,6 +104,7 @@ public class Public extends SchemaImpl {
 
     private final List<Sequence<?>> getSequences0() {
         return Arrays.<Sequence<?>>asList(
+            Sequences.GANACHE_URL_ID_SEQ,
             Sequences.SERVICE_LEVEL_OBJECTIVE_ID_SEQ,
             Sequences.SLA_ID_SEQ,
             Sequences.SLA_REVIEW_ID_SEQ,
@@ -115,6 +122,7 @@ public class Public extends SchemaImpl {
         return Arrays.<Table<?>>asList(
             Databasechangelog.DATABASECHANGELOG,
             Databasechangeloglock.DATABASECHANGELOGLOCK,
+            GanacheUrl.GANACHE_URL,
             ServiceLevelObjective.SERVICE_LEVEL_OBJECTIVE,
             Sla.SLA,
             SlaReview.SLA_REVIEW,

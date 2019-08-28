@@ -24,9 +24,10 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Sla implements Serializable {
 
-    private static final long serialVersionUID = 1691675744;
+    private static final long serialVersionUID = -246184222;
 
     private Integer    id;
+    private String     title;
     private String     status;
     private BigDecimal servicePrice;
     private String     lifecyclePhase;
@@ -34,14 +35,14 @@ public class Sla implements Serializable {
     private Date       validTo;
     private Integer    serviceProviderId;
     private Integer    serviceCustomerId;
-    private String     title;
-    private String     hash;
     private Integer    monitoringSolutionId;
+    private String     hash;
 
     public Sla() {}
 
     public Sla(Sla value) {
         this.id = value.id;
+        this.title = value.title;
         this.status = value.status;
         this.servicePrice = value.servicePrice;
         this.lifecyclePhase = value.lifecyclePhase;
@@ -49,13 +50,13 @@ public class Sla implements Serializable {
         this.validTo = value.validTo;
         this.serviceProviderId = value.serviceProviderId;
         this.serviceCustomerId = value.serviceCustomerId;
-        this.title = value.title;
-        this.hash = value.hash;
         this.monitoringSolutionId = value.monitoringSolutionId;
+        this.hash = value.hash;
     }
 
     public Sla(
         Integer    id,
+        String     title,
         String     status,
         BigDecimal servicePrice,
         String     lifecyclePhase,
@@ -63,11 +64,11 @@ public class Sla implements Serializable {
         Date       validTo,
         Integer    serviceProviderId,
         Integer    serviceCustomerId,
-        String     title,
-        String     hash,
-        Integer    monitoringSolutionId
+        Integer    monitoringSolutionId,
+        String     hash
     ) {
         this.id = id;
+        this.title = title;
         this.status = status;
         this.servicePrice = servicePrice;
         this.lifecyclePhase = lifecyclePhase;
@@ -75,9 +76,8 @@ public class Sla implements Serializable {
         this.validTo = validTo;
         this.serviceProviderId = serviceProviderId;
         this.serviceCustomerId = serviceCustomerId;
-        this.title = title;
-        this.hash = hash;
         this.monitoringSolutionId = monitoringSolutionId;
+        this.hash = hash;
     }
 
     public Integer getId() {
@@ -86,6 +86,15 @@ public class Sla implements Serializable {
 
     public Sla setId(Integer id) {
         this.id = id;
+        return this;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public Sla setTitle(String title) {
+        this.title = title;
         return this;
     }
 
@@ -152,12 +161,12 @@ public class Sla implements Serializable {
         return this;
     }
 
-    public String getTitle() {
-        return this.title;
+    public Integer getMonitoringSolutionId() {
+        return this.monitoringSolutionId;
     }
 
-    public Sla setTitle(String title) {
-        this.title = title;
+    public Sla setMonitoringSolutionId(Integer monitoringSolutionId) {
+        this.monitoringSolutionId = monitoringSolutionId;
         return this;
     }
 
@@ -167,15 +176,6 @@ public class Sla implements Serializable {
 
     public Sla setHash(String hash) {
         this.hash = hash;
-        return this;
-    }
-
-    public Integer getMonitoringSolutionId() {
-        return this.monitoringSolutionId;
-    }
-
-    public Sla setMonitoringSolutionId(Integer monitoringSolutionId) {
-        this.monitoringSolutionId = monitoringSolutionId;
         return this;
     }
 
@@ -193,6 +193,12 @@ public class Sla implements Serializable {
                 return false;
         }
         else if (!id.equals(other.id))
+            return false;
+        if (title == null) {
+            if (other.title != null)
+                return false;
+        }
+        else if (!title.equals(other.title))
             return false;
         if (status == null) {
             if (other.status != null)
@@ -236,23 +242,17 @@ public class Sla implements Serializable {
         }
         else if (!serviceCustomerId.equals(other.serviceCustomerId))
             return false;
-        if (title == null) {
-            if (other.title != null)
+        if (monitoringSolutionId == null) {
+            if (other.monitoringSolutionId != null)
                 return false;
         }
-        else if (!title.equals(other.title))
+        else if (!monitoringSolutionId.equals(other.monitoringSolutionId))
             return false;
         if (hash == null) {
             if (other.hash != null)
                 return false;
         }
         else if (!hash.equals(other.hash))
-            return false;
-        if (monitoringSolutionId == null) {
-            if (other.monitoringSolutionId != null)
-                return false;
-        }
-        else if (!monitoringSolutionId.equals(other.monitoringSolutionId))
             return false;
         return true;
     }
@@ -262,6 +262,7 @@ public class Sla implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        result = prime * result + ((this.title == null) ? 0 : this.title.hashCode());
         result = prime * result + ((this.status == null) ? 0 : this.status.hashCode());
         result = prime * result + ((this.servicePrice == null) ? 0 : this.servicePrice.hashCode());
         result = prime * result + ((this.lifecyclePhase == null) ? 0 : this.lifecyclePhase.hashCode());
@@ -269,9 +270,8 @@ public class Sla implements Serializable {
         result = prime * result + ((this.validTo == null) ? 0 : this.validTo.hashCode());
         result = prime * result + ((this.serviceProviderId == null) ? 0 : this.serviceProviderId.hashCode());
         result = prime * result + ((this.serviceCustomerId == null) ? 0 : this.serviceCustomerId.hashCode());
-        result = prime * result + ((this.title == null) ? 0 : this.title.hashCode());
-        result = prime * result + ((this.hash == null) ? 0 : this.hash.hashCode());
         result = prime * result + ((this.monitoringSolutionId == null) ? 0 : this.monitoringSolutionId.hashCode());
+        result = prime * result + ((this.hash == null) ? 0 : this.hash.hashCode());
         return result;
     }
 
@@ -280,6 +280,7 @@ public class Sla implements Serializable {
         StringBuilder sb = new StringBuilder("Sla (");
 
         sb.append(id);
+        sb.append(", ").append(title);
         sb.append(", ").append(status);
         sb.append(", ").append(servicePrice);
         sb.append(", ").append(lifecyclePhase);
@@ -287,9 +288,8 @@ public class Sla implements Serializable {
         sb.append(", ").append(validTo);
         sb.append(", ").append(serviceProviderId);
         sb.append(", ").append(serviceCustomerId);
-        sb.append(", ").append(title);
-        sb.append(", ").append(hash);
         sb.append(", ").append(monitoringSolutionId);
+        sb.append(", ").append(hash);
 
         sb.append(")");
         return sb.toString();
