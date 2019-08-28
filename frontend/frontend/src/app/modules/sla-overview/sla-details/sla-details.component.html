@@ -37,17 +37,17 @@
       </div>
       <div *ngIf="sla.hash != '' && sla.hash">
         <p><b>Smart Contract Address</b></p>
-        <p>{{sla.hash}}</p>
-        <button (click)="copyToClipboard(sla.hash)" mat-icon-button aria-label="Copy to Clipboard" color="accent"><mat-icon>file_copy</mat-icon></button>
+        <p>{{sla.hash}} <button (click)="copyToClipboard(sla.hash)" mat-icon-button aria-label="Copy to Clipboard" color="accent"><mat-icon>file_copy</mat-icon></button></p>
+
       </div>
 
     </div>
     <div *ngIf="sla.monitoringService && sla.monitoringService.wallet">
       <div class="container">
         <p>
-          <b>Monitoring Service Wallet</b>: {{sla.monitoringService.wallet}}
+          <b>Monitoring Service Wallet</b>: {{sla.monitoringService.wallet}} <button (click)="copyToClipboard(sla.hash)" mat-icon-button aria-label="Copy to Clipboard" color="accent"><mat-icon>file_copy</mat-icon></button>
         </p>
-        <button (click)="copyToClipboard(sla.hash)" mat-icon-button aria-label="Copy to Clipboard" color="accent"><mat-icon>file_copy</mat-icon></button>
+
       </div>
     </div>
     <div>

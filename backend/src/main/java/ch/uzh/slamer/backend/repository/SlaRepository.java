@@ -60,7 +60,7 @@ public class SlaRepository extends AbstractRepository<SlaRecord, Integer, Sla> {
                 .where(SLA.ID.equal(slaId))
                 .fetchOne().into(Sla.class);
 
-        List<SlaUser> parties = context.select(SLA_USER.ID, SLA_USER.USERNAME, SLA_USER.PARTY_NAME)
+        List<SlaUser> parties = context.select(SLA_USER.ID, SLA_USER.USERNAME, SLA_USER.PARTY_NAME, SLA_USER.WALLET)
                 .from(SLA_USER)
                 .where(SLA_USER.ID.equal(sla.getServiceProviderId()))
                 .or(SLA_USER.ID.equal(sla.getServiceCustomerId()))
